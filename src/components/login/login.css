@@ -40,10 +40,25 @@ label {
 
 input {
   width: calc(100% - 20px);
-  padding: 12px;
+  padding: 14px;
   border: 1px solid #ccc;
   border-radius: 15px;
-  font-size: 28px;
+  font-size: 26px;
+}
+
+.password-group {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+#password {
+  width: calc(100% - 90px);
+}
+
+.password-toggle img {
+  width: 50px;
+  height: auto;
 }
 
 button {
