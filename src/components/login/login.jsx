@@ -1,5 +1,15 @@
 import './login.css';
-export const Login = () => {
+import { useState } from 'react';
+import hidePasswordIcon from '../../images/hide-password-icon.png';
+import showPasswordIcon from '../../images/show-password-icon.png';
+
+const Login = () => {
+  const [showPassword, setShowPassword] = useState(false);
+
+  const togglePasswordVisibility = () => {
+    setShowPassword(!showPassword);
+  }
+
   return (
     <div className='login-form'>
       <div className='login-text'>Login</div>
@@ -8,11 +18,19 @@ export const Login = () => {
         <input type="email" id="email" required />
       </div>
       <div className="form-group">
+
         <label htmlFor="password">Password</label>
-        <input type="password" id="password" required />
+        <div className='password-group'>
+          <input type={showPassword ? "text" : "password"} id="password" required />
+          <i className={`password-toggle ${showPassword ? 'visible' : 'hidden'}`} onClick={togglePasswordVisibility}>
+            <img src={showPassword ? hidePasswordIcon : showPasswordIcon} alt="Toggle Password" />
+          </i>
+        </div>
       </div>
       <button type="submit">Login</button>
-      <a className='sign-up-link'>Don&apos;t have an account? Sign up</a>
+      <div className='sign-up-link'>
+        Don&apos;t have an account? <a>Sign up</a>
+      </div>
       <a className='forgotten-password'>Forgot your password?</a>
     </div>
   )
