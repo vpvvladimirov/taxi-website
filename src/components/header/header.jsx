@@ -1,5 +1,5 @@
 import './header.css';
-import vvtLogo from '../../images/vvt-logo.jpg'
+import vvtLogo from '../../images/vvt-logo.jpg';
 
 const Header = () => {
   const logoOnClick = () => {

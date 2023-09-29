@@ -1,10 +1,10 @@
 import './App.css';
-import Signup from './components/signup/signup';
+import SignupPage from './views/signup-page/signup-page';
 
 const App = () => {
   return (
     <>
-      <Signup />
+      <SignupPage />
     </>
   );
 }

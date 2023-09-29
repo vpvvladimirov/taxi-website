@@ -3,7 +3,7 @@ import { useState } from 'react';
 import hidePasswordIcon from '../../images/hide-password-icon.png';
 import showPasswordIcon from '../../images/show-password-icon.png';
 
-const Login = () => {
+const LoginForm = () => {
   const [showPassword, setShowPassword] = useState(false);
 
   const togglePasswordVisibility = () => {
@@ -36,4 +36,4 @@ const Login = () => {
   )
 }
 
-export default Login;
+export default LoginForm;
