@@ -67,7 +67,7 @@ input {
 }
 
 .password-field {
-  width: calc(100% - 90px);
+  width: calc(100% - 95px);
 }
 
 .password-toggle img {
@@ -82,7 +82,7 @@ input {
   border-radius: 15px;
   font-size: 26px;
   background-color: #fff;
-  transition: background-color 0.3s;
+  transition: 0.3s;
 }
 
 button {

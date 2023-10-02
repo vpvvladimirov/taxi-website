@@ -1,33 +1,28 @@
-import './login.css';
+import './forgotten-password.css';
 import { useState } from 'react';
 import hidePasswordIcon from '../../images/hide-password-icon.png';
 import showPasswordIcon from '../../images/show-password-icon.png';
 
-const LoginForm = () => {
+const ForgottenPasswordForm = () => {
   const [showPassword, setShowPassword] = useState(false);
 
   const togglePasswordVisibility = () => {
     setShowPassword(!showPassword);
   }
 
-  const handleSignUpClick = () => {
+  const handleLinkClick = () => {
     window.location.href = '/signup';
-  }
-
-  const handlePasswordClick = () => {
-    window.location.href = '/forgotten-password';
   }
 
   return (
     <div className='login-form'>
       <div className='login-text'>Login</div>
       <div className="form-group">
-        <label htmlFor="email">Email</label>
-        <input type="email" id="email" required />
+        <label htmlFor="password">New Password</label>
+        <input type="password" id="password" required />
       </div>
       <div className="form-group">
-
-        <label htmlFor="password">Password</label>
+        <label htmlFor="password">Confirm New Password</label>
         <div className='password-group'>
           <input type={showPassword ? "text" : "password"} id="password" required />
           <i className={`password-toggle ${showPassword ? 'visible' : 'hidden'}`} onClick={togglePasswordVisibility}>
@@ -35,11 +30,9 @@ const LoginForm = () => {
           </i>
         </div>
       </div>
-      <button id='login-btn' type="submit">Login</button>
-      <a className='sign-up-link' onClick={handleSignUpClick}>Don&apos;t have an account? Sign up</a>
-      <a className='forgotten-password' onClick={handlePasswordClick}>Forgot your password?</a>
+      <button id='login-btn' type="submit">Submit</button>
     </div>
   )
 }
 
-export default LoginForm;
+export default ForgottenPasswordForm;
