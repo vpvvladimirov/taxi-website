@@ -10,20 +10,12 @@ const LoginForm = () => {
     setShowPassword(!showPassword);
   }
 
-  const handleSignUpClick = () => {
-    window.location.href = '/signup';
-  }
-
-  const handlePasswordClick = () => {
-    window.location.href = '/forgotten-password';
-  }
-
   return (
     <div className='login-form'>
       <div className='login-text'>Login</div>
       <div className="form-group">
         <label htmlFor="email">Email</label>
-        <input type="email" id="email" required />
+        <input type="email" id="email-field" required />
       </div>
       <div className="form-group">
 
@@ -36,8 +28,8 @@ const LoginForm = () => {
         </div>
       </div>
       <button id='login-btn' type="submit">Login</button>
-      <a className='sign-up-link' onClick={handleSignUpClick}>Don&apos;t have an account? Sign up</a>
-      <a className='forgotten-password' onClick={handlePasswordClick}>Forgot your password?</a>
+      <a className='sign-up-link' href='/signup'>Don&apos;t have an account? Sign up</a>
+      <a className='forgotten-password' href='/forgotten-password'>Forgot your password?</a>
     </div>
   )
 }

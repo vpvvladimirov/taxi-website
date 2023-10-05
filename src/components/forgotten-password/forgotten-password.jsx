@@ -10,13 +10,9 @@ const ForgottenPasswordForm = () => {
     setShowPassword(!showPassword);
   }
 
-  const handleLinkClick = () => {
-    window.location.href = '/signup';
-  }
-
   return (
     <div className='login-form'>
-      <div className='login-text'>Login</div>
+      <div className='login-text'>Change Password</div>
       <div className="form-group">
         <label htmlFor="password">New Password</label>
         <input type="password" id="password" required />

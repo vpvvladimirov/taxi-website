@@ -8,14 +8,20 @@ body {
   display: flex;
   flex-direction: column;
   justify-content: space-between;
-  align-items: center;
   gap: 30px;
-  margin: 0 auto;
   padding: 45px;
   border: 1px solid #ccc;
   border-radius: 12px;
   background-color: #fff;
   box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+#signup-form {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  align-items: center;
+  gap: 30px;
 }
 
 .signup-text {
@@ -94,6 +100,7 @@ button {
   border: none;
   border-radius: 30px;
   cursor: pointer;
+  align-self: center;
 }
 
 button:hover {
