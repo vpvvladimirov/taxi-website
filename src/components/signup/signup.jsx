@@ -15,28 +15,34 @@ const Signup = () => {
     }
   };
 
-  const handleSubmit = async (event) => {
-    event.preventDefault();
+  let [formData, setFormData] = useState({
+    firstName: '',
+    lastName: '',
+    username: '',
+    email: '',
+    password: '',
+    dateOfBirth: '',
+    gender: ''
+  });
 
-    const form = new FormData(event.target);
-    const data = {};
-    form.forEach((value, key) => {
-      data[key] = value;
+  const handleChange = (e) => {
+    const { name, value } = e.target;
+    setFormData({
+      ...formData,
+      [name]: value
     });
+  };
 
-    const response = await fetch('/api/users/register', {
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+    await fetch('api/users/register', {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',
       },
-      body: JSON.stringify(data),
+      body: JSON.stringify(formData),
     });
-
-    if (response.ok)
-      alert("User created");
-    else
-      alert("User not created");
-  };
+  }
 
   return (
     <div className='signup-form'>
@@ -46,26 +52,26 @@ const Signup = () => {
           <div className='column'>
             <div className="form-group">
               <label htmlFor="first-name">First Name</label>
-              <input type="text" id="first-name" required />
+              <input type="text" name='firstName' value={formData.firstName} onChange={handleChange} id="first-name" required />
             </div>
             <div className="form-group">
               <label htmlFor="last-name">Last Name</label>
-              <input type="text" id="last-name" required />
+              <input type="text" name='lastName' value={formData.lastName} onChange={handleChange} id="last-name" required />
             </div>
             <div className="form-group">
               <label htmlFor="username">Username</label>
-              <input type="text" id="username" required />
+              <input type="text" name='username' value={formData.username} onChange={handleChange} id="username" required />
             </div>
             <div className="form-group">
               <label htmlFor="email">Email</label>
-              <input type="email" id="email" required />
+              <input type="email" name='email' value={formData.email} onChange={handleChange} id="email" required />
             </div>
           </div>
           <div className='column'>
             <div className="form-group">
               <label htmlFor="password">Password</label>
               <div className='password-group'>
-                <input type={showPassword1 ? "text" : "password"} className="password-field" required />
+                <input type={showPassword1 ? "text" : "password"} name='password' value={formData.password} onChange={handleChange} className="password-field" required />
                 <i className={`password-toggle ${showPassword1 ? 'visible' : 'hidden'}`} onClick={() => togglePasswordVisibility(1)}>
                   <img src={showPassword1 ? hidePasswordIcon : showPasswordIcon} alt="Toggle Password" />
                 </i>
@@ -82,11 +88,12 @@ const Signup = () => {
             </div>
             <div className="form-group">
               <label htmlFor="dob">Date of Birth</label>
-              <input type="date" id="dob" required />
+              <input type="date" name='dateOfBirth' value={formData.dateOfBirth} onChange={handleChange} id="dob" required />
             </div>
             <div className="form-group">
               <label htmlFor="gender">Gender</label>
-              <select id="gender" required>
+              <select name='gender' value={formData.gender} onChange={handleChange} id="gender" required>
+                <option value=""></option>
                 <option value="male">Male</option>
                 <option value="female">Female</option>
                 <option value='attack-helicopter'>Attack Helicopter</option>
