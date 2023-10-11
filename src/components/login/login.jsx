@@ -14,8 +14,8 @@ const LoginForm = () => {
     <div className='login-form'>
       <div className='login-text'>Login</div>
       <div className="form-group">
-        <label htmlFor="email">Email</label>
-        <input type="email" id="email-field" required />
+        <label htmlFor="username">Username</label>
+        <input type="username" id="username-field" required />
       </div>
       <div className="form-group">
 
@@ -28,7 +28,7 @@ const LoginForm = () => {
         </div>
       </div>
       <button id='login-btn' type="submit">Login</button>
-      <a className='sign-up-link' href='/signup'>Don&apos;t have an account? Sign up</a>
+      <a className='sign-up-link' href='/signup'>Don&apos;t have an account yet? Sign up</a>
       <a className='forgotten-password' href='/forgotten-password'>Forgot your password?</a>
     </div>
   )

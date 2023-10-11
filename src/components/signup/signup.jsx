@@ -6,6 +6,8 @@ import showPasswordIcon from '../../images/show-password-icon.png';
 const Signup = () => {
   const [showPassword1, setShowPassword1] = useState(false);
   const [showPassword2, setShowPassword2] = useState(false);
+  const [passwordsMatch, setPasswordsMatch] = useState(true);
+  const [responseMessage, setResponseMessage] = useState(null);
 
   const togglePasswordVisibility = (field) => {
     if (field === 1) {
@@ -21,6 +23,7 @@ const Signup = () => {
     username: '',
     email: '',
     password: '',
+    confirmPassword: '',
     dateOfBirth: '',
     gender: ''
   });
@@ -35,18 +38,32 @@ const Signup = () => {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-    await fetch('api/users/register', {
+
+    if (formData.password !== formData.confirmPassword) {
+      setPasswordsMatch(false);
+      return;
+    }
+
+    setPasswordsMatch(true);
+
+    const response = await fetch('api/users/register', {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',
       },
       body: JSON.stringify(formData),
     });
+
+    if (response.ok) {
+      window.location.href = '/login';
+    } else {
+      setResponseMessage(<div className='response-message'>Error creating user</div>)
+    }
   }
 
   return (
     <div className='signup-form'>
-      <div className='signup-text'>Sign Up</div>
+      <div className='signup-text'>Create An Account</div>
       <form onSubmit={handleSubmit} id='signup-form'>
         <div className='content-row'>
           <div className='column'>
@@ -80,7 +97,7 @@ const Signup = () => {
             <div className="form-group">
               <label htmlFor="confirm-password">Confirm Password</label>
               <div className='password-group'>
-                <input type={showPassword2 ? "text" : "password"} className="password-field" required />
+                <input type={showPassword2 ? "text" : "password"} name='confirmPassword' value={formData.confirmPassword} onChange={handleChange} className="password-field" required />
                 <i className={`password-toggle ${showPassword2 ? 'visible' : 'hidden'}`} onClick={() => togglePasswordVisibility(2)}>
                   <img src={showPassword2 ? hidePasswordIcon : showPasswordIcon} alt="Toggle Password" />
                 </i>
@@ -103,6 +120,9 @@ const Signup = () => {
           </div>
         </div>
         <button type="submit">Sign Up</button>
+        <a className='log-in-link' href='/login'>Already have an account? Log in</a>
+        {!passwordsMatch && <div className="error-message">Passwords don&apos;t match</div>}
+        {responseMessage}
       </form>
     </div>
   );
