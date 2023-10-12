@@ -25,15 +25,41 @@ const Signup = () => {
     password: '',
     confirmPassword: '',
     dateOfBirth: '',
-    gender: ''
+    gender: '',
+    profileType: ''
   });
 
   const handleChange = (e) => {
     const { name, value } = e.target;
-    setFormData({
-      ...formData,
-      [name]: value
-    });
+
+    if (name === 'email') {
+      const email = value.toLowerCase();
+
+      if (email.endsWith('vvtaxi.net')) {
+        setFormData({
+          ...formData,
+          [name]: value,
+          profileType: 'driver'
+        });
+      } else if (email === 'vladiv291@gmail.com') {
+        setFormData({
+          ...formData,
+          [name]: value,
+          profileType: 'admin'
+        });
+      } else {
+        setFormData({
+          ...formData,
+          [name]: value,
+          profileType: 'client'
+        });
+      }
+    } else {
+      setFormData({
+        ...formData,
+        [name]: value
+      });
+    }
   };
 
   const handleSubmit = async (e) => {
