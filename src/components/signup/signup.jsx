@@ -72,7 +72,7 @@ const Signup = () => {
 
     setPasswordsMatch(true);
 
-    const response = await fetch('api/users/register', {
+    const response = await fetch('http://localhost:8080/taxi-website/php/src/register.php', {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',
@@ -81,9 +81,17 @@ const Signup = () => {
     });
 
     if (response.ok) {
-      window.location.href = '/login';
+      const data = await response.json();
+      if (data.success) {
+        // Handle successful registration
+        window.location.href = '/login';
+      } else {
+        // Handle registration error
+        setResponseMessage(<div className='response-message'>Error creating user</div>);
+      }
     } else {
-      setResponseMessage(<div className='response-message'>Error creating user</div>)
+      // Handle network error
+      setResponseMessage(<div className='response-message'>Network error</div>);
     }
   }
 
