@@ -4,17 +4,12 @@ import hidePasswordIcon from '../../images/hide-password-icon.png';
 import showPasswordIcon from '../../images/show-password-icon.png';
 
 const Signup = () => {
-  const [showPassword1, setShowPassword1] = useState(false);
-  const [showPassword2, setShowPassword2] = useState(false);
+  const [showPassword, setShowPassword] = useState(false);
   const [passwordsMatch, setPasswordsMatch] = useState(true);
   const [responseMessage, setResponseMessage] = useState(null);
 
-  const togglePasswordVisibility = (field) => {
-    if (field === 1) {
-      setShowPassword1(!showPassword1);
-    } else {
-      setShowPassword2(!showPassword2);
-    }
+  const togglePasswordVisibility = () => {
+    setShowPassword(!showPassword)
   };
 
   const [formData, setFormData] = useState({
@@ -122,18 +117,18 @@ const Signup = () => {
             <div className="form-group">
               <label htmlFor="password">Password</label>
               <div className='password-group'>
-                <input type={showPassword1 ? "text" : "password"} name='password' value={formData.password} onChange={handleChange} className="password-field" required />
-                <i className={`password-toggle ${showPassword1 ? 'visible' : 'hidden'}`} onClick={() => togglePasswordVisibility(1)}>
-                  <img src={showPassword1 ? hidePasswordIcon : showPasswordIcon} alt="Toggle Password" />
+                <input type={showPassword ? "text" : "password"} name='password' value={formData.password} onChange={handleChange} className="password-field" required />
+                <i className={`password-toggle ${showPassword ? 'visible' : 'hidden'}`} onClick={() => togglePasswordVisibility()}>
+                  <img src={showPassword ? hidePasswordIcon : showPasswordIcon} alt="Toggle Password" />
                 </i>
               </div>
             </div>
             <div className="form-group">
               <label htmlFor="confirm-password">Confirm Password</label>
               <div className='password-group'>
-                <input type={showPassword2 ? "text" : "password"} name='confirmPassword' value={formData.confirmPassword} onChange={handleChange} className="password-field" required />
-                <i className={`password-toggle ${showPassword2 ? 'visible' : 'hidden'}`} onClick={() => togglePasswordVisibility(2)}>
-                  <img src={showPassword2 ? hidePasswordIcon : showPasswordIcon} alt="Toggle Password" />
+                <input type={showPassword ? "text" : "password"} name='confirmPassword' value={formData.confirmPassword} onChange={handleChange} className="password-field" required />
+                <i className={`password-toggle ${showPassword ? 'visible' : 'hidden'}`} onClick={() => togglePasswordVisibility()}>
+                  <img src={showPassword ? hidePasswordIcon : showPasswordIcon} alt="Toggle Password" />
                 </i>
               </div>
             </div>

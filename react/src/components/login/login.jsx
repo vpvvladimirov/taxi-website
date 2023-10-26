@@ -23,14 +23,17 @@ const LoginForm = () => {
       </div>
       <div className="form-group">
         <label htmlFor="password">Password</label>
-        <input
-          type={showPassword ? 'text' : 'password'}
-          name="password"
-          required
-        />
-        <i className={`password-toggle ${showPassword ? 'visible' : 'hidden'}`} onClick={togglePasswordVisibility}>
-          <img src={showPassword ? hidePasswordIcon : showPasswordIcon} alt="Toggle Password" />
-        </i>
+        <div className='password-group'>
+          <input
+            id='password'
+            type={showPassword ? 'text' : 'password'}
+            name="password"
+            required
+          />
+          <i className={`password-toggle ${showPassword ? 'visible' : 'hidden'}`} onClick={togglePasswordVisibility}>
+            <img src={showPassword ? hidePasswordIcon : showPasswordIcon} alt="Toggle Password" />
+          </i>
+        </div>
       </div>
       <button type="submit">Login</button>
       <a className='sign-up-link' href='/signup'>Don&apos;t have an account yet? Sign up</a>

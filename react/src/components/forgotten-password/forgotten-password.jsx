@@ -14,8 +14,13 @@ const ForgottenPasswordForm = () => {
     <div className='login-form'>
       <div className='login-text'>Change Password</div>
       <div className="form-group">
-        <label htmlFor="password">New Password</label>
-        <input type="password" id="password" required />
+        <label htmlFor="confirm-password">New Password</label>
+        <div className='password-group'>
+          <input type={showPassword ? "text" : "password"} id="password" required />
+          <i className={`password-toggle ${showPassword ? 'visible' : 'hidden'}`} onClick={() => togglePasswordVisibility()}>
+            <img src={showPassword ? hidePasswordIcon : showPasswordIcon} alt="Toggle Password" />
+          </i>
+        </div>
       </div>
       <div className="form-group">
         <label htmlFor="password">Confirm New Password</label>
