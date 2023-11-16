@@ -67,7 +67,7 @@ const Signup = () => {
 
     setPasswordsMatch(true);
 
-    const response = await fetch('http://localhost:8080/taxi-website/php/src/register.php', {
+    const response = await fetch('http://localhost/taxi_website_php/register.php', {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',
@@ -75,6 +75,7 @@ const Signup = () => {
       body: JSON.stringify(formData),
     });
 
+    // Handle the response her
     if (response.ok) {
       const data = await response.json();
       if (data.success) {
