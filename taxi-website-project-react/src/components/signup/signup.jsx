@@ -5,20 +5,18 @@ import showPasswordIcon from '../../images/show-password-icon.png';
 
 const Signup = () => {
   const [showPassword, setShowPassword] = useState(false);
-  const [passwordsMatch, setPasswordsMatch] = useState(true);
   const [responseMessage, setResponseMessage] = useState(null);
 
   const togglePasswordVisibility = () => {
-    setShowPassword(!showPassword)
-  };
+    setShowPassword(!showPassword);
+  }
 
   const [formData, setFormData] = useState({
     firstName: '',
     lastName: '',
     username: '',
     email: '',
-    password: '',
-    confirmPassword: '',
+    confirmedPassword: '',
     dateOfBirth: '',
     gender: '',
     profileType: ''
@@ -60,14 +58,7 @@ const Signup = () => {
   const handleSubmit = async (e) => {
     e.preventDefault();
 
-    if (formData.password !== formData.confirmPassword) {
-      setPasswordsMatch(false);
-      return;
-    }
-
-    setPasswordsMatch(true);
-
-    const response = await fetch('http://localhost/taxi_website_php/register.php', {
+    const response = await fetch('http://localhost/taxi-website-project/taxi-website-php/register.php', {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',
@@ -94,7 +85,7 @@ const Signup = () => {
   return (
     <div className='signup-form'>
       <div className='signup-text'>Create An Account</div>
-      <form onSubmit={handleSubmit} id='signup-form'>
+      <form onSubmit={handleSubmit} id='signup-form' method='post'>
         <div className='content-row'>
           <div className='column'>
             <div className="form-group">
@@ -116,19 +107,10 @@ const Signup = () => {
           </div>
           <div className='column'>
             <div className="form-group">
-              <label htmlFor="password">Password</label>
+              <label htmlFor="confirm-password">Password</label>
               <div className='password-group'>
-                <input type={showPassword ? "text" : "password"} name='password' value={formData.password} onChange={handleChange} className="password-field" required />
-                <i className={`password-toggle ${showPassword ? 'visible' : 'hidden'}`} onClick={() => togglePasswordVisibility()}>
-                  <img src={showPassword ? hidePasswordIcon : showPasswordIcon} alt="Toggle Password" />
-                </i>
-              </div>
-            </div>
-            <div className="form-group">
-              <label htmlFor="confirm-password">Confirm Password</label>
-              <div className='password-group'>
-                <input type={showPassword ? "text" : "password"} name='confirmPassword' value={formData.confirmPassword} onChange={handleChange} className="password-field" required />
-                <i className={`password-toggle ${showPassword ? 'visible' : 'hidden'}`} onClick={() => togglePasswordVisibility()}>
+                <input type={showPassword ? "text" : "password"} name='confirmedPassword' value={formData.confirmedPassword} onChange={handleChange} className="password-field" required />
+                <i className={`password-toggle ${showPassword ? 'visible' : 'hidden'}`} onClick={togglePasswordVisibility}>
                   <img src={showPassword ? hidePasswordIcon : showPasswordIcon} alt="Toggle Password" />
                 </i>
               </div>
@@ -151,7 +133,6 @@ const Signup = () => {
         </div>
         <button type="submit">Sign Up</button>
         <a className='log-in-link' href='/login'>Already have an account? Log in</a>
-        {!passwordsMatch && <div className="error-message">Passwords don&apos;t match</div>}
         {responseMessage}
       </form>
     </div>
