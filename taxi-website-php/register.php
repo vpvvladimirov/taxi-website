@@ -1,7 +1,8 @@
 <?php
-header("Access-Control-Allow-Origin: *");
-header("Access-Control-Allow-Headers: *");
-header('Access-Control-Allow-Methods: POST, OPTIONS');
+header('Content-Type: application/json');
+header('Access-Control-Allow-Origin: http://localhost:3000'); // Update with your React app URL
+header('Access-Control-Allow-Methods: POST');
+header('Access-Control-Allow-Headers: Content-Type');
 
 $servername = 'localhost';
 $mysqlusername = "root";
@@ -14,25 +15,30 @@ if ($conn->connect_error) {
   die("Connection failed: " . $conn->connect_error);
 }
 
-echo $_SERVER["REQUEST_METHOD"];
+if ($_SERVER["REQUEST_METHOD"] === "POST") {
+  $rawData = file_get_contents("php://input");
 
-if ($_SERVER["REQUEST_METHOD"] == "POST") {
-  $firstName = $_POST['firstName'];
-  $lastName = $_POST['lastName'];
-  $username = $_POST['username'];
-  $email = $_POST['email'];
-  $confirmedPassword = $_POST['confirmedPassword'];
-  $dateOfBirth = $_POST['dateOfBirth'];
-  $gender = $_POST['gender'];
-  $profileType = $_POST['profileType'];
+  $requestData = json_decode($rawData, true);
 
-  $sql = "INSERT INTO users (firstName, lastName, username, email, confirmedPassword, dateOfBirth, gender, profileType) VALUES ('$firstName', '$lastName', '$username', '$email', '$confirmedPassword', '$dateOfBirth', '$gender', '$profileType')";
+  $firstName = $requestData['firstName'];
+  $lastName = $requestData['lastName'];
+  $username = $requestData['username'];
+  $email = $requestData['email'];
+  $pwd = $requestData['pwd'];
+  $dateOfBirth = $requestData['dateOfBirth'];
+  $gender = $requestData['gender'];
+  $profileType = $requestData['profileType'];
+
+
+  $sql = "INSERT INTO users (firstName, lastName, username, email, pwd, dateOfBirth, gender, profileType) VALUES ('$firstName', '$lastName', '$username', '$email', '$pwd', '$dateOfBirth', '$gender', '$profileType')";
 
   if ($conn->query($sql) === TRUE) {
-    echo "New record created successfully";
+    $response = ['success' => true, 'message' => 'New record created successfully'];
   } else {
-    echo "Error: " . $conn->error;
+    $response = ['success' => false, 'message' => 'Error: ' . $conn->error];
   }
+
+  echo json_encode($response);
 }
 
 $conn->close();

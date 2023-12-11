@@ -1,5 +1,6 @@
 import './signup.css';
 import { useState } from 'react';
+import axios from 'axios';
 import hidePasswordIcon from '../../images/hide-password-icon.png';
 import showPasswordIcon from '../../images/show-password-icon.png';
 
@@ -16,7 +17,7 @@ const Signup = () => {
     lastName: '',
     username: '',
     email: '',
-    confirmedPassword: '',
+    pwd: '',
     dateOfBirth: '',
     gender: '',
     profileType: ''
@@ -58,29 +59,32 @@ const Signup = () => {
   const handleSubmit = async (e) => {
     e.preventDefault();
 
-    const response = await fetch('http://localhost/taxi-website-project/taxi-website-php/register.php', {
-      method: 'POST',
-      headers: {
-        'Content-Type': 'application/json',
-      },
-      body: JSON.stringify(formData),
-    });
+    try {
+      const response = await axios.post('http://localhost/taxi-website-project/taxi-website-php/register.php', formData, {
+        headers: {
+          'Content-Type': 'application/json',
+        },
+      });
 
-    // Handle the response her
-    if (response.ok) {
-      const data = await response.json();
-      if (data.success) {
-        // Handle successful registration
-        window.location.href = '/login';
+      // Handle the response here
+      if (response.status === 200) {
+        const data = response.data;
+        if (data.success) {
+          // Handle successful registration
+          window.location.href = '/login';
+        } else {
+          // Handle registration error
+          setResponseMessage(<div className='response-message'>Error creating user</div>);
+        }
       } else {
-        // Handle registration error
-        setResponseMessage(<div className='response-message'>Error creating user</div>);
+        // Handle non-200 status code
+        setResponseMessage(<div className='response-message'>Server error</div>);
       }
-    } else {
-      // Handle network error
+    } catch (error) {
+      // Handle network error or any other Axios error
       setResponseMessage(<div className='response-message'>Network error</div>);
     }
-  }
+  };
 
   return (
     <div className='signup-form'>
@@ -109,7 +113,7 @@ const Signup = () => {
             <div className="form-group">
               <label htmlFor="confirm-password">Password</label>
               <div className='password-group'>
-                <input type={showPassword ? "text" : "password"} name='confirmedPassword' value={formData.confirmedPassword} onChange={handleChange} className="password-field" required />
+                <input type={showPassword ? "text" : "password"} name='pwd' value={formData.pwd} onChange={handleChange} className="password-field" required />
                 <i className={`password-toggle ${showPassword ? 'visible' : 'hidden'}`} onClick={togglePasswordVisibility}>
                   <img src={showPassword ? hidePasswordIcon : showPasswordIcon} alt="Toggle Password" />
                 </i>
