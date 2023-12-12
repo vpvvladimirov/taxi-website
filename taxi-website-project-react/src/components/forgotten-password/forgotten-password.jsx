@@ -11,8 +11,8 @@ const ForgottenPasswordForm = () => {
   }
 
   return (
-    <div className='login-form'>
-      <div className='login-text'>Change Password</div>
+    <div className='change-password-form'>
+      <div className='change-password-text'>Change Password</div>
       <div className="form-group">
         <label htmlFor="confirm-password">New Password</label>
         <div className='password-group'>
@@ -31,7 +31,7 @@ const ForgottenPasswordForm = () => {
           </i>
         </div>
       </div>
-      <button id='login-btn' type="submit">Submit</button>
+      <button id='change-password-btn' type="submit">Submit</button>
     </div>
   )
 }

@@ -6,6 +6,7 @@ import showPasswordIcon from '../../images/show-password-icon.png';
 
 const Signup = () => {
   const [showPassword, setShowPassword] = useState(false);
+  const [passwordsMatch, setPasswordsMatch] = useState(true);
   const [responseMessage, setResponseMessage] = useState(null);
 
   const togglePasswordVisibility = () => {
@@ -17,6 +18,7 @@ const Signup = () => {
     lastName: '',
     username: '',
     email: '',
+    password: '',
     pwd: '',
     dateOfBirth: '',
     gender: '',
@@ -58,6 +60,13 @@ const Signup = () => {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
+
+    if (formData.password !== formData.pwd) {
+      setPasswordsMatch(false);
+      return;
+    }
+
+    setPasswordsMatch(true);
 
     try {
       const response = await axios.post('http://localhost/taxi-website-project/taxi-website-php/register.php', formData, {
@@ -110,8 +119,15 @@ const Signup = () => {
             </div>
           </div>
           <div className='column'>
+            <label htmlFor="password">Password</label>
+            <div className='password-group'>
+              <input type={showPassword ? "text" : "password"} name='password' value={formData.password} onChange={handleChange} className="password-field" required />
+              <i className={`password-toggle ${showPassword ? 'visible' : 'hidden'}`} onClick={() => togglePasswordVisibility()}>
+                <img src={showPassword ? hidePasswordIcon : showPasswordIcon} alt="Toggle Password" />
+              </i>
+            </div>
             <div className="form-group">
-              <label htmlFor="confirm-password">Password</label>
+              <label htmlFor="confirm-password">Confirm Password</label>
               <div className='password-group'>
                 <input type={showPassword ? "text" : "password"} name='pwd' value={formData.pwd} onChange={handleChange} className="password-field" required />
                 <i className={`password-toggle ${showPassword ? 'visible' : 'hidden'}`} onClick={togglePasswordVisibility}>
@@ -135,11 +151,12 @@ const Signup = () => {
             </div>
           </div>
         </div>
-        <button type="submit">Sign Up</button>
+        <button id="submit-button" type="submit">Sign Up</button>
         <a className='log-in-link' href='/login'>Already have an account? Log in</a>
+        {!passwordsMatch && <div className="error-message">Passwords don&apos;t match</div>}
         {responseMessage}
-      </form>
-    </div>
+      </form >
+    </div >
   );
 };
 

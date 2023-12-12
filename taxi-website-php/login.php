@@ -17,25 +17,21 @@ if ($conn->connect_error) {
 
 if ($_SERVER["REQUEST_METHOD"] === "POST") {
   $rawData = file_get_contents("php://input");
-
   $requestData = json_decode($rawData, true);
 
-  $firstName = $requestData['firstName'];
-  $lastName = $requestData['lastName'];
   $username = $requestData['username'];
-  $email = $requestData['email'];
-  $pwd = $requestData['pwd'];
-  $dateOfBirth = $requestData['dateOfBirth'];
-  $gender = $requestData['gender'];
-  $profileType = $requestData['profileType'];
+  $password = $requestData['password'];
 
+  $username = mysqli_real_escape_string($conn, $username);
+  $password = mysqli_real_escape_string($conn, $password);
 
-  $sql = "INSERT INTO users (firstName, lastName, username, email, pwd, dateOfBirth, gender, profileType) VALUES ('$firstName', '$lastName', '$username', '$email', '$pwd', '$dateOfBirth', '$gender', '$profileType')";
+  $sql = "SELECT * FROM users WHERE username = '$username' AND pwd = '$password'";
+  $result = $conn->query($sql);
 
-  if ($conn->query($sql) === TRUE) {
-    $response = ['success' => true, 'message' => 'New record created successfully'];
+  if ($result->num_rows > 0) {
+    $response = ['success' => true, 'message' => 'Login successful'];
   } else {
-    $response = ['success' => false, 'message' => 'Error: ' . $conn->error];
+    $response = ['success' => false, 'message' => 'Invalid username or password'];
   }
 
   echo json_encode($response);
