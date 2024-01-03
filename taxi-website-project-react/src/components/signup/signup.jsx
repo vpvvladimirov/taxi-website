@@ -75,22 +75,17 @@ const Signup = () => {
         },
       });
 
-      // Handle the response here
       if (response.status === 200) {
         const data = response.data;
         if (data.success) {
-          // Handle successful registration
           window.location.href = '/login';
         } else {
-          // Handle registration error
           setResponseMessage(<div className='response-message'>Error creating user</div>);
         }
       } else {
-        // Handle non-200 status code
         setResponseMessage(<div className='response-message'>Server error</div>);
       }
     } catch (error) {
-      // Handle network error or any other Axios error
       setResponseMessage(<div className='response-message'>Network error</div>);
     }
   };
@@ -153,7 +148,7 @@ const Signup = () => {
         </div>
         <button id="submit-button" type="submit">Sign Up</button>
         <a className='log-in-link' href='/login'>Already have an account? Log in</a>
-        {!passwordsMatch && <div className="error-message">Passwords don&apos;t match</div>}
+        {!passwordsMatch && <div className="response-message">Passwords don&apos;t match</div>}
         {responseMessage}
       </form >
     </div >

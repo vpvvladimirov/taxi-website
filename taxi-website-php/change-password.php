@@ -20,7 +20,9 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") {
   $requestData = json_decode($rawData, true);
 
   $username = $requestData['username'];
-  $password = $requestData['password'];
+  $oldPassword = $requestData['oldPassword'];
+  $newPassword = $requestData['newPassword'];
+  $confirmPassword = $requestData['confirmPassword'];
 
   $username = mysqli_real_escape_string($conn, $username);
 
@@ -33,10 +35,21 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") {
     $row = $result->fetch_assoc();
     $hashedPwdFromDB = $row['pwd'];
 
-    if (password_verify($password, $hashedPwdFromDB)) {
-      $response = ['success' => true, 'message' => 'Login successful'];
+    if (password_verify($oldPassword, $hashedPwdFromDB)) {
+      $hashedNewPassword = password_hash($newPassword, PASSWORD_DEFAULT);
+
+      $updateStmt = $conn->prepare("UPDATE users SET pwd = ? WHERE username = ?");
+      $updateStmt->bind_param("ss", $hashedNewPassword, $username);
+
+      if ($updateStmt->execute() === TRUE) {
+        $response = ['success' => true, 'message' => 'Password changed successfully'];
+      } else {
+        $response = ['success' => false, 'message' => 'Error updating password: ' . $conn->error];
+      }
+
+      $updateStmt->close();
     } else {
-      $response = ['success' => false, 'message' => 'Invalid password'];
+      $response = ['success' => false, 'message' => 'Invalid old password'];
     }
   } else {
     $response = ['success' => false, 'message' => 'Invalid username'];

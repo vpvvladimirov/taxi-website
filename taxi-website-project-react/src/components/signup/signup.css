@@ -91,13 +91,8 @@ input {
   transition: 0.3s;
 }
 
-.error-message {
-  color: red;
-  font-size: 20px;
-  margin-top: -10px;
-}
-
 .response-message {
+  color: red;
   font-size: 20px;
   margin-top: -10px;
 }

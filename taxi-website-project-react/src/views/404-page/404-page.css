@@ -6,7 +6,5 @@
   height: 100%;
   background-image: url('../../images/image404.png');
   background-size: cover;
-  background-position: center;
-  opacity: 0.9;
   z-index: -1;
 }

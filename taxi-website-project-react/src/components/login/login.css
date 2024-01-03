@@ -15,8 +15,8 @@ body {
   display: flex;
   flex-direction: column;
   justify-content: space-between;
+  align-items: center;
   gap: 30px;
-  max-width: 400px;
   margin: 0 auto;
   padding: 45px;
   border: 1px solid #ccc;
@@ -94,4 +94,9 @@ input {
 .sign-up-link:hover,
 .forgotten-password:hover {
   text-decoration: underline;
+}
+
+.response-message {
+  color: red;
+  font-size: 20px;
 }
