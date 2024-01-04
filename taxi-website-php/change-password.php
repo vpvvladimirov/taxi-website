@@ -20,44 +20,25 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") {
   $requestData = json_decode($rawData, true);
 
   $username = $requestData['username'];
-  $oldPassword = $requestData['oldPassword'];
   $newPassword = $requestData['newPassword'];
   $confirmPassword = $requestData['confirmPassword'];
 
+  $hashedNewPassword = password_hash($newPassword, PASSWORD_DEFAULT);
+
   $username = mysqli_real_escape_string($conn, $username);
 
-  $stmt = $conn->prepare("SELECT pwd FROM users WHERE username = ?");
-  $stmt->bind_param("s", $username);
-  $stmt->execute();
-  $result = $stmt->get_result();
+  $updateStmt = $conn->prepare("UPDATE users SET pwd = ? WHERE username = ?");
+  $updateStmt->bind_param("ss", $hashedNewPassword, $username);
 
-  if ($result->num_rows > 0) {
-    $row = $result->fetch_assoc();
-    $hashedPwdFromDB = $row['pwd'];
-
-    if (password_verify($oldPassword, $hashedPwdFromDB)) {
-      $hashedNewPassword = password_hash($newPassword, PASSWORD_DEFAULT);
-
-      $updateStmt = $conn->prepare("UPDATE users SET pwd = ? WHERE username = ?");
-      $updateStmt->bind_param("ss", $hashedNewPassword, $username);
-
-      if ($updateStmt->execute() === TRUE) {
-        $response = ['success' => true, 'message' => 'Password changed successfully'];
-      } else {
-        $response = ['success' => false, 'message' => 'Error updating password: ' . $conn->error];
-      }
-
-      $updateStmt->close();
-    } else {
-      $response = ['success' => false, 'message' => 'Invalid old password'];
-    }
+  if ($updateStmt->execute() === TRUE) {
+    $response = ['success' => true, 'message' => 'Password changed successfully'];
   } else {
-    $response = ['success' => false, 'message' => 'Invalid username'];
+    $response = ['success' => false, 'message' => 'Error updating password: ' . $conn->error];
   }
 
   echo json_encode($response);
 
-  $stmt->close();
+  $updateStmt->close();
 }
 
 $conn->close();

@@ -15,7 +15,6 @@ const ForgottenPasswordForm = () => {
 
   const [formData, setFormData] = useState({
     username: '',
-    oldPassword: '',
     newPassword: '',
     confirmPassword: '',
   });
@@ -31,7 +30,7 @@ const ForgottenPasswordForm = () => {
   const handleChangePassword = async (e) => {
     e.preventDefault();
 
-    if (formData.password !== formData.pwd) {
+    if (formData.newPassword !== formData.confirmPassword) {
       setPasswordsMatch(false);
       return;
     }
@@ -50,7 +49,7 @@ const ForgottenPasswordForm = () => {
         if (data.success) {
           window.location.href = '/login';
         } else {
-          setResponseMessage(<div className='response-message'>Error chaning password</div>);
+          setResponseMessage(<div className='response-message'>Error changing password</div>);
         }
       } else {
         setResponseMessage(<div className='response-message'>Server error</div>);
@@ -67,15 +66,6 @@ const ForgottenPasswordForm = () => {
         <div className="form-group">
           <label htmlFor="username">Username</label>
           <input type="text" name="username" onChange={handleChange} value={formData.username} required />
-        </div>
-        <div className="form-group">
-          <label htmlFor="old-password">Old Password</label>
-          <div className='password-group'>
-            <input type={showPassword ? 'text' : 'password'} className="password-field" name="oldPassword" onChange={handleChange} value={formData.oldPassword} required />
-            <i className={`password-toggle ${showPassword ? 'visible' : 'hidden'}`} onClick={togglePasswordVisibility}>
-              <img src={showPassword ? hidePasswordIcon : showPasswordIcon} alt="Toggle Password" />
-            </i>
-          </div>
         </div>
         <div className="form-group">
           <label htmlFor="password">New Password</label>

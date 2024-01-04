@@ -36,11 +36,11 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") {
 
     if (strpos($email, '@vvtaxi.net') !== false) {
       $stmtDrivers = $conn->prepare("INSERT INTO drivers (firstName, lastName, email, dateOfBirth, gender, userID) VALUES (?, ?, ?, ?, ?, ?)");
-      $stmtDrivers->bind_param("isssss", $firstName, $lastName, $email, $dateOfBirth, $gender, $userID);
+      $stmtDrivers->bind_param("sssssi", $firstName, $lastName, $email, $dateOfBirth, $gender, $userID);
       $stmtDrivers->execute();
     } else {
       $stmtClients = $conn->prepare("INSERT INTO clients (firstName, lastName, email, dateOfBirth, gender, userID) VALUES (?, ?, ?, ?, ?, ?)");
-      $stmtClients->bind_param("isssss", $firstName, $lastName, $email, $dateOfBirth, $gender, $userID);
+      $stmtClients->bind_param("sssssi", $firstName, $lastName, $email, $dateOfBirth, $gender, $userID);
       $stmtClients->execute();
     }
 
