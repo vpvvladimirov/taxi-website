@@ -12,15 +12,15 @@ const LoginForm = () => {
     setShowPassword(!showPassword);
   }
 
-  const [formData, setFormData] = useState({
+  const [loginData, setLoginData] = useState({
     username: '',
     pwd: '',
   });
 
   const handleChange = (e) => {
     const { name, value } = e.target;
-    setFormData({
-      ...formData,
+    setLoginData({
+      ...loginData,
       [name]: value
     });
   }
@@ -29,7 +29,7 @@ const LoginForm = () => {
     e.preventDefault();
 
     try {
-      const response = await axios.post('http://localhost/taxi-website-project/taxi-website-php/login.php', formData, {
+      const response = await axios.post('http://localhost/taxi-website-project/taxi-website-php/login.php', loginData, {
         headers: {
           'Content-Type': 'application/json',
         },
@@ -40,6 +40,7 @@ const LoginForm = () => {
         if (data.success && data.token) {
           localStorage.setItem('authToken', data.token);
           setResponseMessage(<div className='response-message' style={{ color: "black" }}>Logged in successfully</div>);
+          window.location.href = '/home';
         } else {
           setResponseMessage(<div className='response-message'>Invalid username or password</div>);
         }
@@ -52,29 +53,31 @@ const LoginForm = () => {
   };
 
   return (
-    <div className='login-form'>
-      <div className='login-text'>Login</div>
-      <form onSubmit={handleSubmit} id='login-form' method='post'>
-        <div className="form-group">
-          <label htmlFor="username">Username</label>
-          <input type="text" name='username' onChange={handleChange} value={formData.username} required />
-        </div>
-        <div className="form-group">
-          <label htmlFor="password">Password</label>
-          <div className='password-group'>
-            <input id='password' type={showPassword ? 'text' : 'password'}
-              name="pwd" onChange={handleChange} value={formData.pwd} required />
-            <i className={`password-toggle ${showPassword ? 'visible' : 'hidden'}`} onClick={togglePasswordVisibility}>
-              <img src={showPassword ? hidePasswordIcon : showPasswordIcon} alt="Toggle Password" />
-            </i>
+    <main>
+      <div className='login-form'>
+        <div className='login-text'>Login</div>
+        <form onSubmit={handleSubmit} id='login-form' method='post'>
+          <div className="form-group">
+            <label htmlFor="username">Username</label>
+            <input type="text" name='username' onChange={handleChange} value={loginData.username} required />
           </div>
-        </div>
-        <button id="login-btn" type="submit">Login</button>
-      </form>
-      <a className='sign-up-link' href='/signup'>Don&apos;t have an account yet? Sign up</a>
-      <a className='forgotten-password' href='/forgotten-password'>Forgot your password?</a>
-      {responseMessage}
-    </div>
+          <div className="form-group">
+            <label htmlFor="password">Password</label>
+            <div className='password-group'>
+              <input id='password' type={showPassword ? 'text' : 'password'}
+                name="pwd" onChange={handleChange} value={loginData.pwd} required />
+              <i className={`password-toggle ${showPassword ? 'visible' : 'hidden'}`} onClick={togglePasswordVisibility}>
+                <img src={showPassword ? hidePasswordIcon : showPasswordIcon} alt="Toggle Password" />
+              </i>
+            </div>
+          </div>
+          <button id="login-btn" type="submit">Login</button>
+        </form>
+        <a className='sign-up-link' href='/signup'>Don&apos;t have an account yet? Sign up</a>
+        <a className='forgotten-password' href='/forgotten-password'>Forgot your password?</a>
+        {responseMessage}
+      </div>
+    </main>
   )
 }
 

@@ -10,7 +10,7 @@ header('Access-Control-Allow-Headers: Content-Type');
 
 $servername = 'localhost';
 $mysqlusername = "root";
-$userpassword = "20051607";
+$userpassword = "";
 $dbname = "taxi_website_db";
 
 $conn = new mysqli($servername, $mysqlusername, $userpassword, $dbname);

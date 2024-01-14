@@ -13,7 +13,7 @@ const ForgottenPasswordForm = () => {
     setShowPassword(!showPassword);
   }
 
-  const [formData, setFormData] = useState({
+  const [forgottenPasswordData, setForgottenPasswordData] = useState({
     username: '',
     newPassword: '',
     confirmPassword: '',
@@ -21,8 +21,8 @@ const ForgottenPasswordForm = () => {
 
   const handleChange = (e) => {
     const { name, value } = e.target;
-    setFormData({
-      ...formData,
+    setForgottenPasswordData({
+      ...forgottenPasswordData,
       [name]: value
     });
   }
@@ -30,7 +30,7 @@ const ForgottenPasswordForm = () => {
   const handleChangePassword = async (e) => {
     e.preventDefault();
 
-    if (formData.newPassword !== formData.confirmPassword) {
+    if (forgottenPasswordData.newPassword !== forgottenPasswordData.confirmPassword) {
       setPasswordsMatch(false);
       return;
     }
@@ -38,7 +38,7 @@ const ForgottenPasswordForm = () => {
     setPasswordsMatch(true);
 
     try {
-      const response = await axios.post('http://localhost/taxi-website-project/taxi-website-php/change-password.php', formData, {
+      const response = await axios.post('http://localhost/taxi-website-project/taxi-website-php/change-password.php', forgottenPasswordData, {
         headers: {
           'Content-Type': 'application/json',
         },
@@ -60,36 +60,38 @@ const ForgottenPasswordForm = () => {
   };
 
   return (
-    <div className='change-password-form'>
-      <form onSubmit={handleChangePassword} id='change-password-form' method='post'>
-        <div className='change-password-text'>Change Password</div>
-        <div className="form-group">
-          <label htmlFor="username">Username</label>
-          <input type="text" name="username" onChange={handleChange} value={formData.username} required />
-        </div>
-        <div className="form-group">
-          <label htmlFor="password">New Password</label>
-          <div className='password-group'>
-            <input type={showPassword ? 'text' : 'password'} className="password-field" name="newPassword" onChange={handleChange} value={formData.newPassword} required />
-            <i className={`password-toggle ${showPassword ? 'visible' : 'hidden'}`} onClick={togglePasswordVisibility}>
-              <img src={showPassword ? hidePasswordIcon : showPasswordIcon} alt="Toggle Password" />
-            </i>
+    <main>
+      <div className='change-password-form'>
+        <form onSubmit={handleChangePassword} id='change-password-form' method='post'>
+          <div className='change-password-text'>Change Password</div>
+          <div className="form-group">
+            <label htmlFor="username">Username</label>
+            <input type="text" name="username" onChange={handleChange} value={forgottenPasswordData.username} required />
           </div>
-        </div>
-        <div className="form-group">
-          <label htmlFor="confirm-password">Confirm New Password</label>
-          <div className='password-group'>
-            <input type={showPassword ? 'text' : 'password'} className="password-field" name="confirmPassword" onChange={handleChange} value={formData.confirmPassword} required />
-            <i className={`password-toggle ${showPassword ? 'visible' : 'hidden'}`} onClick={togglePasswordVisibility}>
-              <img src={showPassword ? hidePasswordIcon : showPasswordIcon} alt="Toggle Password" />
-            </i>
+          <div className="form-group">
+            <label htmlFor="password">New Password</label>
+            <div className='password-group'>
+              <input type={showPassword ? 'text' : 'password'} className="password-field" name="newPassword" onChange={handleChange} value={forgottenPasswordData.newPassword} required />
+              <i className={`password-toggle ${showPassword ? 'visible' : 'hidden'}`} onClick={togglePasswordVisibility}>
+                <img src={showPassword ? hidePasswordIcon : showPasswordIcon} alt="Toggle Password" />
+              </i>
+            </div>
           </div>
-        </div>
-        <button id='change-password-btn' type="submit">Submit</button>
-        {!passwordsMatch && <div className="response-message">Passwords don&apos;t match</div>}
-        {responseMessage}
-      </form>
-    </div>
+          <div className="form-group">
+            <label htmlFor="confirm-password">Confirm New Password</label>
+            <div className='password-group'>
+              <input type={showPassword ? 'text' : 'password'} className="password-field" name="confirmPassword" onChange={handleChange} value={forgottenPasswordData.confirmPassword} required />
+              <i className={`password-toggle ${showPassword ? 'visible' : 'hidden'}`} onClick={togglePasswordVisibility}>
+                <img src={showPassword ? hidePasswordIcon : showPasswordIcon} alt="Toggle Password" />
+              </i>
+            </div>
+          </div>
+          <button id='change-password-btn' type="submit">Submit</button>
+          {!passwordsMatch && <div className="response-message">Passwords don&apos;t match</div>}
+          {responseMessage}
+        </form>
+      </div>
+    </main>
   )
 }
 

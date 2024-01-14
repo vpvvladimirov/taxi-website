@@ -1,4 +1,5 @@
-body {
+main {
+  height: 100vh;
   display: flex;
   justify-content: center;
   align-items: center;
@@ -12,12 +13,13 @@ body {
 }
 
 .login-form {
+  max-width: 400px;
+  margin: auto;
   display: flex;
   flex-direction: column;
   justify-content: space-between;
   align-items: center;
   gap: 30px;
-  margin: 0 auto;
   padding: 45px;
   border: 1px solid #ccc;
   border-radius: 12px;
