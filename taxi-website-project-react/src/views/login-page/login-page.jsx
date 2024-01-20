@@ -1,5 +1,5 @@
 import LoginForm from '../../components/login/login';
-import Background from '../../components/background/background'
+import Background from '../../components/background/background';
 
 const LoginPage = () => {
   return (

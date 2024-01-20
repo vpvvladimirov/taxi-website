@@ -33,12 +33,12 @@ const LoginForm = () => {
         headers: {
           'Content-Type': 'application/json',
         },
+        withCredentials: true,
       });
 
       if (response.status === 200) {
         const data = response.data;
-        if (data.success && data.token) {
-          localStorage.setItem('authToken', data.token);
+        if (data.success) {
           setResponseMessage(<div className='response-message' style={{ color: "black" }}>Logged in successfully</div>);
           window.location.href = '/home';
         } else {

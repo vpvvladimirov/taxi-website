@@ -6,7 +6,6 @@ main {
 }
 
 .signup-form {
-  max-width: 700px;
   display: flex;
   flex-direction: column;
   justify-content: space-between;

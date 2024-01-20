@@ -5,6 +5,7 @@ import LoginPage from '../src/views/login-page/login-page';
 import SignupPage from '../src/views/signup-page/signup-page';
 import ForgottenPasswordPage from './views/forgotten-password-page/forgotten-password-page';
 import Error404 from './views/404-page/404-page';
+import WelcomePage from './views/welcome-page/welcome-page';
 
 const App = () => {
   return (
@@ -12,6 +13,7 @@ const App = () => {
       <Router>
         <Routes>
           <Route index element={<Navigate replace to="/home" />} />
+          <Route path='/welcome' element={<WelcomePage />} />
           <Route path='/home' element={<HomePage />} />
           <Route path='/login' element={<LoginPage />} />
           <Route path='/signup' element={<SignupPage />} />

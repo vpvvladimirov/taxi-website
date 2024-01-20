@@ -28,30 +28,23 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") {
   $gender = $requestData['gender'];
   $profileType = $requestData['profileType'];
 
-  $stmt = $conn->prepare("INSERT INTO users (username, pwd, profileType) VALUES (?, ?, ?)");
-  $stmt->bind_param("sss", $username, $pwd, $profileType);
+  $insertUserQuery = "INSERT INTO users (username, pwd, profileType) VALUES ('$username', '$pwd', '$profileType')";
 
-  if ($stmt->execute()) {
+  if ($conn->query($insertUserQuery) === TRUE) {
     $userID = $conn->insert_id;
 
     if (strpos($email, '@vvtaxi.net') !== false) {
-      $stmtDrivers = $conn->prepare("INSERT INTO drivers (firstName, lastName, email, dateOfBirth, gender, userID) VALUES (?, ?, ?, ?, ?, ?)");
-      $stmtDrivers->bind_param("sssssi", $firstName, $lastName, $email, $dateOfBirth, $gender, $userID);
-      $stmtDrivers->execute();
+      $insertDriverQuery = "INSERT INTO drivers (firstName, lastName, email, dateOfBirth, gender, userID) VALUES ('$firstName', '$lastName', '$email', '$dateOfBirth', '$gender', $userID)";
+      $conn->query($insertDriverQuery);
     } else {
-      $stmtClients = $conn->prepare("INSERT INTO clients (firstName, lastName, email, dateOfBirth, gender, userID) VALUES (?, ?, ?, ?, ?, ?)");
-      $stmtClients->bind_param("sssssi", $firstName, $lastName, $email, $dateOfBirth, $gender, $userID);
-      $stmtClients->execute();
+      $insertClientQuery = "INSERT INTO clients (firstName, lastName, email, dateOfBirth, gender, userID) VALUES ('$firstName', '$lastName', '$email', '$dateOfBirth', '$gender', $userID)";
+      $conn->query($insertClientQuery);
     }
 
     $response = ['success' => true, 'message' => 'New record created successfully'];
   } else {
     $response = ['success' => false, 'message' => 'Error: ' . $conn->error];
   }
-
-  $stmt->close();
-  if (isset($stmtDrivers)) $stmtDrivers->close();
-  if (isset($stmtClients)) $stmtClients->close();
 
   echo json_encode($response);
 }

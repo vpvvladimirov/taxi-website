@@ -27,18 +27,15 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") {
 
   $username = mysqli_real_escape_string($conn, $username);
 
-  $updateStmt = $conn->prepare("UPDATE users SET pwd = ? WHERE username = ?");
-  $updateStmt->bind_param("ss", $hashedNewPassword, $username);
+  $query = "UPDATE users SET pwd = '$hashedNewPassword' WHERE username = '$username'";
 
-  if ($updateStmt->execute() === TRUE) {
+  if ($conn->query($query) === TRUE) {
     $response = ['success' => true, 'message' => 'Password changed successfully'];
   } else {
     $response = ['success' => false, 'message' => 'Error updating password: ' . $conn->error];
   }
 
   echo json_encode($response);
-
-  $updateStmt->close();
 }
 
 $conn->close();
