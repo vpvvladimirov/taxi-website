@@ -1,10 +1,14 @@
+import './welcome-page.css';
 import Background from '../../components/background/background';
 
 const WelcomePage = () => {
   return (
     <>
       <Background />
-      <h1 style={{ color: 'white' }}>JOIN THE BIGGEST TAXI COMMUNITY IN BULGARIA!</h1>
+      <div id='join-container'>
+        <p id='join-p'>JOIN THE BIGGEST<br /> TAXI COMMUNITY<br /> IN BULGARIA!</p>
+        <a id='join-link' href='/login'>JOIN NOW</a>
+      </div >
     </>
   );
 };

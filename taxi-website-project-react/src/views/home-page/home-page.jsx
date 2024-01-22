@@ -3,6 +3,7 @@ import axios from 'axios';
 import { useState, useEffect } from 'react';
 import Header from '../../components/header/header';
 import WelcomePage from '../welcome-page/welcome-page';
+import OrderTaxi from '../../components/order-taxi/order-taxi';
 
 const HomePage = () => {
   const [authenticated, setAuthenticated] = useState(false);
@@ -32,6 +33,7 @@ const HomePage = () => {
       {authenticated ? (
         <div>
           <Header />
+          <OrderTaxi />
         </div>
       ) : (
         <WelcomePage />

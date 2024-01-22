@@ -1,0 +1,38 @@
+#join-container::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0, 0, 0, 0.3);
+  z-index: -1;
+}
+
+#join-container {
+  text-align: center;
+  padding-top: 10%;
+}
+
+#join-container p,
+#join-container button {
+  z-index: 1;
+}
+
+#join-p {
+  color: white;
+  font-size: 70px;
+  font-weight: bold;
+}
+
+#join-link {
+  color: black;
+  font-weight: bold;
+  font-size: 40px;
+  background-color: #f5f410;
+  border: none;
+  border-radius: 20px;
+  cursor: pointer;
+  padding: 12px 18px;
+  text-decoration: none;
+}

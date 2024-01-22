@@ -4,16 +4,7 @@ header('Access-Control-Allow-Origin: http://localhost:3000');
 header('Access-Control-Allow-Methods: POST');
 header('Access-Control-Allow-Headers: Content-Type');
 
-$servername = 'localhost';
-$mysqlusername = "root";
-$userpassword = "";
-$dbname = "taxi_website_db";
-
-$conn = new mysqli($servername, $mysqlusername, $userpassword, $dbname);
-
-if ($conn->connect_error) {
-  die("Connection failed: " . $conn->connect_error);
-}
+include 'db_connection.php';
 
 if ($_SERVER["REQUEST_METHOD"] === "POST") {
   $rawData = file_get_contents("php://input");
