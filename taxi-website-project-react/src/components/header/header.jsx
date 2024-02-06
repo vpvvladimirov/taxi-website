@@ -5,13 +5,11 @@ import vvtLogo from '../../images/vvt-logo.jpg';
 
 const Header = () => {
   const [username, setUsername] = useState(null);
-  const [userID, setUserID] = useState(null);
-  const [profileType, setProfileType] = useState(null);
 
   useEffect(() => {
     const fetchUserData = async () => {
       try {
-        const response = await axios.get('http://localhost/taxi-website-project/taxi-website-php/get-user-data.php', {
+        const response = await axios.get('http://localhost/taxi-website-project/taxi-website-php/get_user_data.php', {
           withCredentials: true,
         });
 
@@ -19,8 +17,6 @@ const Header = () => {
           const data = response.data;
           if (data.success) {
             setUsername(data.username);
-            setUserID(data.userID);
-            setProfileType(data.profileType);
           }
         }
       } catch (error) {
@@ -58,7 +54,7 @@ const Header = () => {
       </ul>
       {username ? (
         <div className='user-greeting'>
-          Hi, {username} with id {userID} and a profile type of {profileType}|
+          <a href='/account-info'>Account</a>
           <button onClick={handleLogout}>Logout</button>
         </div>
       ) : (

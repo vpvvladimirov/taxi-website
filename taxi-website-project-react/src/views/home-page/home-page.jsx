@@ -1,6 +1,6 @@
 import './home-page.css';
 import axios from 'axios';
-import { useState, useEffect } from 'react';
+import React, { useState, useEffect } from 'react';
 import Header from '../../components/header/header';
 import WelcomePage from '../welcome-page/welcome-page';
 import OrderTaxi from '../../components/order-taxi/order-taxi';
@@ -11,7 +11,7 @@ const HomePage = () => {
   useEffect(() => {
     const checkAuth = async () => {
       try {
-        const response = await axios.get('http://localhost/taxi-website-project/taxi-website-php/get-user-data.php', {
+        const response = await axios.get('http://localhost/taxi-website-project/taxi-website-php/get_user_data.php', {
           withCredentials: true,
         });
 

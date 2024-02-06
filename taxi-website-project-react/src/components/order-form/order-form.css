@@ -1,0 +1,6 @@
+#order-taxi-form-container {
+  display: flex;
+  flex-direction: column;
+  margin-top: 170px;
+  gap: 80px;
+}

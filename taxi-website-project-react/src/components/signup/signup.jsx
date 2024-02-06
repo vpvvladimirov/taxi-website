@@ -1,5 +1,5 @@
 import './signup.css';
-import { useState } from 'react';
+import React, { useState } from 'react';
 import axios from 'axios';
 import hidePasswordIcon from '../../images/hide-password-icon.png';
 import showPasswordIcon from '../../images/show-password-icon.png';
@@ -99,19 +99,19 @@ const Signup = () => {
             <div className='column'>
               <div className="form-group">
                 <label htmlFor="first-name">First Name</label>
-                <input type="text" name='firstName' value={signupData.firstName} onChange={handleChange} id="first-name" required />
+                <input type="text" name='firstName' value={signupData.firstName} onChange={handleChange} required />
               </div>
               <div className="form-group">
                 <label htmlFor="last-name">Last Name</label>
-                <input type="text" name='lastName' value={signupData.lastName} onChange={handleChange} id="last-name" required />
+                <input type="text" name='lastName' value={signupData.lastName} onChange={handleChange} required />
               </div>
               <div className="form-group">
                 <label htmlFor="username">Username</label>
-                <input type="text" name='username' value={signupData.username} onChange={handleChange} id="username" required />
+                <input type="text" name='username' value={signupData.username} onChange={handleChange} required />
               </div>
               <div className="form-group">
                 <label htmlFor="email">Email</label>
-                <input type="email" name='email' value={signupData.email} onChange={handleChange} id="email" required />
+                <input type="email" name='email' value={signupData.email} onChange={handleChange} required />
               </div>
             </div>
             <div className='column'>
@@ -133,7 +133,7 @@ const Signup = () => {
               </div>
               <div className="form-group">
                 <label htmlFor="dob">Date of Birth</label>
-                <input type="date" name='dateOfBirth' value={signupData.dateOfBirth} onChange={handleChange} id="dob" required />
+                <input type="date" name='dateOfBirth' value={signupData.dateOfBirth} onChange={handleChange} required />
               </div>
               <div className="form-group">
                 <label htmlFor="gender">Gender</label>

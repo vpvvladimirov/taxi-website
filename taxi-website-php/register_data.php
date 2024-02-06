@@ -1,6 +1,19 @@
 <?php
 include('db_connection.php');
 
+function generateDriverID()
+{
+    $characters = '0123456789';
+    $driverID = '';
+    $length = 4;
+
+    for ($i = 0; $i < $length; $i++) {
+        $driverID .= $characters[rand(0, strlen($characters) - 1)];
+    }
+
+    return $driverID;
+}
+
 function handleRegistration($data)
 {
     global $conn;
@@ -20,15 +33,38 @@ function handleRegistration($data)
         $userID = $conn->insert_id;
 
         if (strpos($email, '@vvtaxi.net') !== false) {
-            $insertDriverQuery = "INSERT INTO drivers (firstName, lastName, email, dateOfBirth, gender, userID) VALUES ('$firstName', '$lastName', '$email', '$dateOfBirth', '$gender', $userID)";
-            $conn->query($insertDriverQuery);
+            $driverID = generateDriverID();
+
+            $insertDriverQuery = "INSERT INTO drivers (driverID, firstName, lastName, email, dateOfBirth, gender, userID) VALUES ($driverID, '$firstName', '$lastName', '$email', '$dateOfBirth', '$gender', $userID)";
+
+            if ($conn->query($insertDriverQuery) === TRUE) {
+                $insertVehicleQuery = "INSERT INTO vehicles (driverID) VALUES ($driverID)";
+
+                if ($conn->query($insertVehicleQuery) === TRUE) {
+                    $vehicleID = $conn->insert_id;
+
+                    $updateDriverQuery = "UPDATE drivers SET vehicleID = $vehicleID WHERE driverID = $driverID";
+
+                    if ($conn->query($updateDriverQuery) === TRUE) {
+                        return ['success' => true, 'message' => 'New driver, vehicle, and associated records created successfully'];
+                    } else {
+                        return ['success' => false, 'message' => 'Error updating driver with vehicleID: ' . $conn->error];
+                    }
+                } else {
+                    return ['success' => false, 'message' => 'Error inserting vehicle: ' . $conn->error];
+                }
+            } else {
+                return ['success' => false, 'message' => 'Error inserting driver: ' . $conn->error];
+            }
         } else {
             $insertClientQuery = "INSERT INTO clients (firstName, lastName, email, dateOfBirth, gender, userID) VALUES ('$firstName', '$lastName', '$email', '$dateOfBirth', '$gender', $userID)";
-            $conn->query($insertClientQuery);
+            if ($conn->query($insertClientQuery) === TRUE) {
+                return ['success' => true, 'message' => 'New client record created successfully'];
+            } else {
+                return ['success' => false, 'message' => 'Error inserting client: ' . $conn->error];
+            }
         }
-
-        return ['success' => true, 'message' => 'New record created successfully'];
     } else {
-        return ['success' => false, 'message' => 'Error: ' . $conn->error];
+        return ['success' => false, 'message' => 'Error inserting user: ' . $conn->error];
     }
 }

@@ -1,5 +1,5 @@
 import './forgotten-password.css';
-import { useState } from 'react';
+import React, { useState } from 'react';
 import axios from 'axios';
 import hidePasswordIcon from '../../images/hide-password-icon.png';
 import showPasswordIcon from '../../images/show-password-icon.png';

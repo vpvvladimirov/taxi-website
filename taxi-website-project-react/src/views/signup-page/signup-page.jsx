@@ -1,3 +1,4 @@
+import React from 'react';
 import SignupForm from '../../components/signup/signup';
 import Background from '../../components/background/background'
 

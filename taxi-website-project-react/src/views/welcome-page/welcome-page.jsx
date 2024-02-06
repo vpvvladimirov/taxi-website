@@ -1,4 +1,5 @@
 import './welcome-page.css';
+import React from 'react';
 import Background from '../../components/background/background';
 
 const WelcomePage = () => {
