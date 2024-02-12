@@ -4,7 +4,7 @@ import axios from 'axios';
 import vvtLogo from '../../images/vvt-logo.jpg';
 
 const Header = () => {
-  const [username, setUsername] = useState(null);
+  const [profileType, setProfileType] = useState(null);
 
   useEffect(() => {
     const fetchUserData = async () => {
@@ -16,7 +16,7 @@ const Header = () => {
         if (response.status === 200) {
           const data = response.data;
           if (data.success) {
-            setUsername(data.username);
+            setProfileType(data.profileType);
           }
         }
       } catch (error) {
@@ -47,21 +47,18 @@ const Header = () => {
 
   return (
     <header className='vvt-header'>
-      <ul className='vvt-logo-container'>
+      <div className='vvt-logo-container'>
         <button className='vvt-logo-btn' type='button' onClick={logoOnClick}>
           <img className='vvt-logo' src={vvtLogo} alt='VVTaxi' />
         </button>
-      </ul>
-      {username ? (
-        <div className='user-greeting'>
-          <a href='/account-info'>Account</a>
-          <button onClick={handleLogout}>Logout</button>
-        </div>
-      ) : (
-        <div className='user-greeting'>
-          <a href='/login'>Login</a>
-        </div>
-      )}
+      </div>
+      <div className='user-fields'>
+        <a href='/home'>Home</a>
+        {profileType === 'admin' && <a href='/all-accounts' className='admin-field'>All accounts</a>}
+        {(profileType === 'admin' || profileType === 'driver') && <a href='/trips' className='driver-field'>Trips</a>}
+        <a href='/account-info'>Account</a>
+        <a onClick={handleLogout}>Logout</a>
+      </div>
     </header>
   );
 };

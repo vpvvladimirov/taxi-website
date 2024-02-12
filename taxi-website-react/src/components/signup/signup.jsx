@@ -11,7 +11,7 @@ const Signup = () => {
 
   const togglePasswordVisibility = () => {
     setShowPassword(!showPassword);
-  }
+  };
 
   const [signupData, setSignupData] = useState({
     firstName: '',

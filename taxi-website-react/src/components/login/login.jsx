@@ -42,7 +42,7 @@ const LoginForm = () => {
           setResponseMessage(<div className='response-message' style={{ color: "black" }}>Logged in successfully</div>);
           window.location.href = '/home';
         } else {
-          setResponseMessage(<div className='response-message'>Invalid username or password</div>);
+          setResponseMessage(<div className='response-message'>Error logging in</div>);
         }
       } else {
         console.log('Server error');

@@ -35,7 +35,7 @@ function handleRegistration($data)
         if (strpos($email, '@vvtaxi.net') !== false) {
             $driverID = generateDriverID();
 
-            $insertDriverQuery = "INSERT INTO drivers (driverID, firstName, lastName, email, dateOfBirth, gender, userID) VALUES ($driverID, '$firstName', '$lastName', '$email', '$dateOfBirth', '$gender', $userID)";
+            $insertDriverQuery = "INSERT INTO drivers (driverID, userID, firstName, lastName, email, dateOfBirth, gender) VALUES ($driverID, $userID, '$firstName', '$lastName', '$email', '$dateOfBirth', '$gender')";
 
             if ($conn->query($insertDriverQuery) === TRUE) {
                 $insertVehicleQuery = "INSERT INTO vehicles (driverID) VALUES ($driverID)";
@@ -57,7 +57,7 @@ function handleRegistration($data)
                 return ['success' => false, 'message' => 'Error inserting driver: ' . $conn->error];
             }
         } else {
-            $insertClientQuery = "INSERT INTO clients (firstName, lastName, email, dateOfBirth, gender, userID) VALUES ('$firstName', '$lastName', '$email', '$dateOfBirth', '$gender', $userID)";
+            $insertClientQuery = "INSERT INTO clients (firstName, userID, lastName, email, dateOfBirth, gender) VALUES ('$firstName', $userID, '$lastName', '$email', '$dateOfBirth', '$gender')";
             if ($conn->query($insertClientQuery) === TRUE) {
                 return ['success' => true, 'message' => 'New client record created successfully'];
             } else {

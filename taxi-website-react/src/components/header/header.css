@@ -1,6 +1,6 @@
 .vvt-header {
   display: flex;
-  justify-content: space-around;
+  justify-content: space-between;
   align-items: center;
   height: 80px;
   background: #f5f410;
@@ -9,6 +9,7 @@
   position: fixed;
   right: 0;
   left: 0;
+  padding: 0 150px;
 }
 
 .vvt-logo-container {
@@ -24,4 +25,21 @@
   border: none;
   background-color: inherit;
   cursor: pointer;
+}
+
+.user-fields {
+  display: flex;
+  justify-content: space-between;
+  gap: 40px;
+  font-size: 20px;
+}
+
+.user-fields * {
+  text-decoration: none;
+  color: black;
+  cursor: pointer;
+}
+
+.user-fields *:hover {
+  background-color: #d7d71569;
 }
