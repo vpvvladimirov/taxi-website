@@ -1,32 +1,9 @@
-import React, { useState, useEffect } from 'react';
-import axios from 'axios';
+import React from 'react';
+import AccountInfoViewModel from './account-info-viewmodel';
 import './account-info.css';
 
 const AccountInfo = () => {
-  const [userInfo, setUserInfo] = useState(null);
-  const [loading, setLoading] = useState(true);
-  const [error, setError] = useState(null);
-
-  useEffect(() => {
-    const fetchUserInfo = async () => {
-      try {
-        const response = await axios.get('http://localhost/taxi-website-project/taxi-website-php/get_user_data.php', {
-          withCredentials: true,
-        });
-        if (response.data.success) {
-          setUserInfo(response.data);
-        } else {
-          setError(response.data.message);
-        }
-      } catch (error) {
-        setError('An error occurred while fetching user information.');
-      } finally {
-        setLoading(false);
-      }
-    };
-
-    fetchUserInfo();
-  }, []);
+  const { userInfo, loading, error } = AccountInfoViewModel();
 
   if (loading) {
     return <div>Loading...</div>;
@@ -48,7 +25,6 @@ const AccountInfo = () => {
         </div>
         {userInfo.specificInfo && (
           <div>
-            <h3>Specific Information</h3>
             {Object.entries(userInfo.specificInfo).map(([key, value]) => (
               <div key={key}>
                 <strong>{key}:</strong> {value}

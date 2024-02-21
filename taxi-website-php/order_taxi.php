@@ -1,10 +1,23 @@
 <?php
-header('Content-Type: application/json');
-header('Access-Control-Allow-Origin: http://localhost:3000');
-header('Access-Control-Allow-Methods: POST');
-header('Access-Control-Allow-Headers: Content-Type');
+session_start();
+include 'headers.php';
+include 'db_connection.php';
 
-include('order_taxi_data.php');
+function handleOrder($data)
+{
+  global $conn;
+
+  $pickupAddress = $data['pickupAddress'];
+  $dropoffAddress = $data['dropoffAddress'];
+
+  $insertTripsQuery = "INSERT INTO trips (pickupAddress, dropoffAddress, currentStatus) VALUES ('$pickupAddress', '$dropoffAddress', 'active')";
+
+  if ($conn->query($insertTripsQuery) === TRUE) {
+    return ['success' => true, 'message' => 'New trips record created successfully'];
+  } else {
+    return ['success' => false, 'message' => 'Error creating trip: ' . $conn->error];
+  }
+}
 
 if ($_SERVER["REQUEST_METHOD"] === "POST") {
   $rawData = file_get_contents("php://input");

@@ -1,41 +1,9 @@
-import axios from 'axios';
 import './order-form.css';
-import React, { useState } from 'react';
+import OrderFormViewModel from './order-form-viewmodel';
+import React from 'react';
 
 const OrderForm = () => {
-  const [orderData, setOrderData] = useState({
-    pickupAddress: '',
-    dropoffAddress: ''
-  });
-
-  const handleChange = (e) => {
-    const { name, value } = e.target;
-    setOrderData({
-      ...orderData,
-      [name]: value
-    });
-  }
-
-  const handleSubmit = async (e) => {
-    e.preventDefault();
-
-    try {
-      const response = await axios.post('http://localhost/taxi-website-project/taxi-website-php/order_taxi.php', orderData, {
-        headers: {
-          'Content-Type': 'application/json',
-        },
-      });
-
-      if (response.status === 200) {
-        const data = response.data;
-        if (data.success) {
-          window.location.href = '/home';
-        }
-      }
-    } catch (error) {
-      console.log('Network error', error);
-    }
-  }
+  const { orderData, handleChange, handleSubmit } = OrderFormViewModel();
 
   return (
     <div id="order-taxi-form-container">

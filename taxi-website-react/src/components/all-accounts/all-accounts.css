@@ -1,3 +1,10 @@
-.all-accounts-container {
+.search-account-container {
   padding-top: 90px;
+  display: flex;
+  justify-content: center;
+  flex-direction: column;
+}
+
+.all-info-container {
+  display: flex;
 }

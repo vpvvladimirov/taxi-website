@@ -1,56 +1,18 @@
 import './login.css';
-import React, { useState } from 'react';
-import axios from 'axios';
+import React from 'react';
+import LoginFormViewModel from './login-viewmodel';
 import hidePasswordIcon from '../../images/hide-password-icon.png';
 import showPasswordIcon from '../../images/show-password-icon.png';
 
 const LoginForm = () => {
-  const [showPassword, setShowPassword] = useState(false);
-  const [responseMessage, setResponseMessage] = useState(null);
-
-  const togglePasswordVisibility = () => {
-    setShowPassword(!showPassword);
-  }
-
-  const [loginData, setLoginData] = useState({
-    username: '',
-    pwd: '',
-  });
-
-  const handleChange = (e) => {
-    const { name, value } = e.target;
-    setLoginData({
-      ...loginData,
-      [name]: value
-    });
-  }
-
-  const handleSubmit = async (e) => {
-    e.preventDefault();
-
-    try {
-      const response = await axios.post('http://localhost/taxi-website-project/taxi-website-php/login.php', loginData, {
-        headers: {
-          'Content-Type': 'application/json',
-        },
-        withCredentials: true,
-      });
-
-      if (response.status === 200) {
-        const data = response.data;
-        if (data.success) {
-          setResponseMessage(<div className='response-message' style={{ color: "black" }}>Logged in successfully</div>);
-          window.location.href = '/home';
-        } else {
-          setResponseMessage(<div className='response-message'>Error logging in</div>);
-        }
-      } else {
-        console.log('Server error');
-      }
-    } catch (error) {
-      console.log('Network error', error);
-    }
-  };
+  const {
+    showPassword,
+    responseMessage,
+    loginData,
+    togglePasswordVisibility,
+    handleChange,
+    handleSubmit
+  } = LoginFormViewModel();
 
   return (
     <main>

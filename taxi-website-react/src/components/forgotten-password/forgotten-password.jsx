@@ -1,63 +1,19 @@
 import './forgotten-password.css';
-import React, { useState } from 'react';
-import axios from 'axios';
+import React from 'react';
+import ForgottenPasswordViewModel from './forgotten-password-viewmodel';
 import hidePasswordIcon from '../../images/hide-password-icon.png';
 import showPasswordIcon from '../../images/show-password-icon.png';
 
 const ForgottenPasswordForm = () => {
-  const [showPassword, setShowPassword] = useState(false);
-  const [passwordsMatch, setPasswordsMatch] = useState(true);
-  const [responseMessage, setResponseMessage] = useState(null);
-
-  const togglePasswordVisibility = () => {
-    setShowPassword(!showPassword);
-  }
-
-  const [forgottenPasswordData, setForgottenPasswordData] = useState({
-    username: '',
-    newPassword: '',
-    confirmPassword: '',
-  });
-
-  const handleChange = (e) => {
-    const { name, value } = e.target;
-    setForgottenPasswordData({
-      ...forgottenPasswordData,
-      [name]: value
-    });
-  }
-
-  const handleChangePassword = async (e) => {
-    e.preventDefault();
-
-    if (forgottenPasswordData.newPassword !== forgottenPasswordData.confirmPassword) {
-      setPasswordsMatch(false);
-      return;
-    }
-
-    setPasswordsMatch(true);
-
-    try {
-      const response = await axios.post('http://localhost/taxi-website-project/taxi-website-php/change-password.php', forgottenPasswordData, {
-        headers: {
-          'Content-Type': 'application/json',
-        },
-      });
-
-      if (response.status === 200) {
-        const data = response.data;
-        if (data.success) {
-          window.location.href = '/login';
-        } else {
-          setResponseMessage(<div className='response-message'>Error changing password</div>);
-        }
-      } else {
-        setResponseMessage(<div className='response-message'>Server error</div>);
-      }
-    } catch (error) {
-      setResponseMessage(<div className='response-message'>Network error</div>);
-    }
-  };
+  const {
+    showPassword,
+    passwordsMatch,
+    responseMessage,
+    forgottenPasswordData,
+    togglePasswordVisibility,
+    handleChange,
+    handleChangePassword,
+  } = ForgottenPasswordViewModel();
 
   return (
     <main>
