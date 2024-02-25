@@ -2,6 +2,7 @@ import './header.css';
 import React from 'react';
 import HeaderViewModel from './header-viewmodel';
 import vvtLogo from '../../images/vvt-logo.jpg';
+import { Link } from 'react-router-dom';
 
 const Header = () => {
   const { profileType, handleLogout } = HeaderViewModel();
@@ -18,11 +19,11 @@ const Header = () => {
         </button>
       </div>
       <div className='user-fields'>
-        <a href='/home'>Home</a>
+        <Link to='/home'>Home</Link>
         {profileType === 'admin' && <a href='/all-accounts' className='admin-field'>All accounts</a>}
         {(profileType === 'admin' || profileType === 'driver') && <a href='/trips' className='driver-field'>Trips</a>}
-        <a href='/account-info'>Account</a>
-        <a onClick={handleLogout}>Logout</a>
+        <Link to='/account-info'>Account</Link>
+        <Link onClick={handleLogout}>Logout</Link>
       </div>
     </header>
   );

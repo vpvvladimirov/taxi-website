@@ -1,6 +1,6 @@
 <?php
 session_start();
-include 'headers.php';
+include_once 'headers.php';
 
 if (isset($_SESSION['userID'])) {
   session_unset();

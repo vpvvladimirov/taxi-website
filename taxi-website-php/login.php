@@ -1,11 +1,11 @@
 <?php
 session_start();
-include 'headers.php';
-include 'db_connection.php';
+include_once 'headers.php';
+include_once 'db_connection.php';
 
-function handleLogin($requestData)
-{
-  global $conn;
+if ($_SERVER["REQUEST_METHOD"] === "POST") {
+  $rawData = file_get_contents("php://input");
+  $requestData = json_decode($rawData, true);
 
   $username = mysqli_real_escape_string($conn, $requestData['username']);
   $pwd = $requestData['pwd'];
@@ -25,20 +25,13 @@ function handleLogin($requestData)
       $_SESSION['username'] = $username;
       $_SESSION['profileType'] = $profileType;
 
-      return ['success' => true, 'message' => 'Login successful', 'userID' => $userID, 'username' => $username, 'profileType' => $profileType];
+      $response = ['success' => true, 'message' => 'Login successful', 'userID' => $userID, 'username' => $username, 'profileType' => $profileType];
     } else {
-      return ['success' => false, 'message' => 'Invalid password'];
+      $response = ['success' => false, 'message' => 'Invalid password'];
     }
   } else {
-    return ['success' => false, 'message' => 'Invalid username'];
+    $response = ['success' => false, 'message' => 'Invalid username'];
   }
-}
-
-if ($_SERVER["REQUEST_METHOD"] === "POST") {
-  $rawData = file_get_contents("php://input");
-  $requestData = json_decode($rawData, true);
-
-  $response = handleLogin($requestData);
 
   echo json_encode($response);
 }

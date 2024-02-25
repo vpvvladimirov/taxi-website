@@ -1,6 +1,6 @@
 <?php
-include 'headers.php';
-include 'db_connection.php';
+include_once 'headers.php';
+include_once 'db_connection.php';
 
 if ($_SERVER["REQUEST_METHOD"] === "POST") {
   $rawData = file_get_contents("php://input");
@@ -17,9 +17,9 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") {
   $query = "UPDATE users SET pwd = '$hashedNewPassword' WHERE username = '$username'";
 
   if ($conn->query($query) === TRUE) {
-    $response = ['success' => true, 'message' => 'Password changed successfully'];
+    $response = ['success' => true];
   } else {
-    $response = ['success' => false, 'message' => 'Error updating password: ' . $conn->error];
+    $response = ['success' => false];
   }
 
   echo json_encode($response);

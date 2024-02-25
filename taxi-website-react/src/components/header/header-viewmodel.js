@@ -7,7 +7,7 @@ const HeaderViewModel = () => {
   useEffect(() => {
     const fetchUserData = async () => {
       try {
-        const response = await axios.get('http://localhost/taxi-website-project/taxi-website-php/get_user_data.php', {
+        const response = await axios.get('http://localhost/taxi-website-project/taxi-website-php/get_profile_type.php', {
           withCredentials: true,
         });
 

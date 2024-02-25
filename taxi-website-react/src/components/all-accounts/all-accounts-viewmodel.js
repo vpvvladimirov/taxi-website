@@ -27,7 +27,6 @@ const AllAccountsViewModel = () => {
   };
 
   const handleModify = async () => {
-    // Implement functionality to modify account data
   };
 
   const handleInputChange = (e) => {

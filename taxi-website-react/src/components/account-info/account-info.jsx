@@ -10,36 +10,39 @@ const AccountInfo = () => {
   }
 
   if (error) {
-    return <div>Error: {error}</div>;
+    return <div>Error: {error.message}</div>;
   }
 
   return (
     <main>
       <div className="account-info">
         <h2>User Information</h2>
-        <div>
-          <strong>Username:</strong> {userInfo.username}
-        </div>
-        <div>
-          <strong>Profile Type:</strong> {userInfo.profileType}
-        </div>
-        {userInfo.specificInfo && (
+        {userInfo && (
           <div>
-            {Object.entries(userInfo.specificInfo).map(([key, value]) => (
-              <div key={key}>
-                <strong>{key}:</strong> {value}
+            {
+              <div>
+                <div><strong>Username:</strong> {userInfo.username}</div>
+                <div><strong>Profile Type:</strong> {userInfo.profileType}</div>
+                <div><strong>First Name:</strong> {userInfo.firstName}</div>
+                <div><strong>Last Name:</strong> {userInfo.lastName}</div>
+                <div><strong>Email:</strong> {userInfo.email}</div>
+                <div><strong>Date of Birth:</strong> {userInfo.dateOfBirth}</div>
+                <div><strong>Gender:</strong> {userInfo.gender}</div>
               </div>
-            ))}
+            }
           </div>
         )}
-        {userInfo.vehicleInfo && (
+        {userInfo && userInfo.profileType === 'driver' && (
           <div>
             <h3>Vehicle Information</h3>
-            {Object.entries(userInfo.vehicleInfo).map(([key, value]) => (
-              <div key={key}>
-                <strong>{key}:</strong> {value}
+            {
+              <div>
+                <div><strong>License Plate:</strong> {userInfo.licensePlate}</div>
+                <div><strong>Model:</strong> {userInfo.model}</div>
+                <div><strong>Year:</strong> {userInfo.year}</div>
+                <div><strong>Current Status:</strong> {userInfo.currentStatus}</div>
               </div>
-            ))}
+            }
           </div>
         )}
       </div>

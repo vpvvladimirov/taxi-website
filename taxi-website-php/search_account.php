@@ -1,7 +1,7 @@
 <?php
 session_start();
-include 'headers.php';
-include 'db_connection.php';
+include_once 'headers.php';
+include_once 'db_connection.php';
 
 if (isset($_GET['username'])) {
   $username = mysqli_real_escape_string($conn, $_GET['username']);
@@ -39,7 +39,6 @@ if (isset($_GET['username'])) {
           $clientInfo = $resultSpecific->fetch_assoc();
           $response['clientInfo'] = $clientInfo;
 
-          // Fetch vehicle info for driver
           $vehicleQuery = "SELECT * FROM vehicles WHERE driverID IN (SELECT driverID FROM drivers WHERE userID = $userID)";
           $vehicleResult = $conn->query($vehicleQuery);
           if ($vehicleResult->num_rows > 0) {
