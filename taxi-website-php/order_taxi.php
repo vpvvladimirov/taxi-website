@@ -1,5 +1,4 @@
 <?php
-session_start();
 include_once 'headers.php';
 include_once 'db_connection.php';
 
@@ -9,16 +8,24 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") {
 
   $pickupAddress = $requestData['pickupAddress'];
   $dropoffAddress = $requestData['dropoffAddress'];
+  $userID = $requestData['userID'];
 
-  $insertTripsQuery = "INSERT INTO trips (pickupAddress, dropoffAddress, currentStatus) VALUES ('$pickupAddress', '$dropoffAddress', 'active')";
+  $query = "SELECT * FROM clients WHERE userID = $userID";
+  $result = $conn->query($query);
 
-  if ($conn->query($insertTripsQuery) === TRUE) {
-    $response = ['success' => true, 'message' => 'New trips record created successfully'];
-  } else {
-    $response = ['success' => false, 'message' => 'Error creating trip: ' . $conn->error];
+  if ($result->num_rows > 0) {
+    $row = $result->fetch_assoc();
+    $clientID = $row['clientID'];
+
+    $insertTripsQuery = "INSERT INTO trips (clientID, pickupAddress, dropoffAddress, currentStatus) VALUES ('$clientID', '$pickupAddress', '$dropoffAddress', 'active')";
+
+    if ($conn->query($insertTripsQuery) === TRUE) {
+      $response = ['success' => true, 'message' => 'New trips record created successfully'];
+    } else {
+      $response = ['success' => false, 'message' => 'Error creating trip: ' . $conn->error];
+    }
+    echo json_encode($response);
   }
-
-  echo json_encode($response);
 }
 
 $conn->close();

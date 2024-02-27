@@ -1,7 +1,11 @@
 <?php
-session_start();
+include_once 'session_handler.php';
 include_once 'db_connection.php';
 include_once 'headers.php';
+
+if (session_status() == PHP_SESSION_NONE) {
+  session_start();
+}
 
 if (isset($_SESSION['userID'])) {
   $userID = $_SESSION['userID'];
