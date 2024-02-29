@@ -3,10 +3,9 @@ import axios from 'axios';
 
 const LoginFormViewModel = () => {
   const [showPassword, setShowPassword] = useState(false);
-  const [responseMessage, setResponseMessage] = useState(null);
   const [loginData, setLoginData] = useState({
     username: '',
-    pwd: '',
+    pwd: ''
   });
 
   const togglePasswordVisibility = () => {
@@ -29,26 +28,23 @@ const LoginFormViewModel = () => {
         headers: {
           'Content-Type': 'application/json',
         },
-        withCredentials: true,
       });
 
-      if (response.status === 200) {
-        const data = response.data;
-        if (data.success) {
-          setResponseMessage({ type: 'success', message: 'Logged in successfully' });
-          window.location.href = '/home';
-        } else {
-          setResponseMessage({ type: 'error', message: 'Error logging in' });
-        }
+      if (response.data.success) {
+        sessionStorage.setItem('userID', response.data.userID);
+        sessionStorage.setItem('username', response.data.username);
+        sessionStorage.setItem('profileType', response.data.profileType);
+
+        window.location.href = '/home';
       } else {
-        console.log('Server error');
+        console.log(response.data.message);
       }
     } catch (error) {
-      console.log('Network error', error);
+      console.error('Login failed:', error);
     }
   };
 
-  return { showPassword, responseMessage, loginData, togglePasswordVisibility, handleChange, handleSubmit };
+  return { showPassword, loginData, togglePasswordVisibility, handleChange, handleSubmit };
 };
 
 export default LoginFormViewModel;
