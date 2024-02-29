@@ -3,8 +3,7 @@ include_once 'headers.php';
 include_once 'db_connection.php';
 
 if ($_SERVER["REQUEST_METHOD"] === "POST") {
-  $rawData = file_get_contents("php://input");
-  $requestData = json_decode($rawData, true);
+  $requestData = json_decode(file_get_contents("php://input"), true);
 
   $username = mysqli_real_escape_string($conn, $requestData['username']);
   $pwd = $requestData['pwd'];
@@ -19,10 +18,6 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") {
     if (password_verify($pwd, $hashedPwdFromDB)) {
       $userID = $row['userID'];
       $profileType = $row['profileType'];
-
-      session_id($userID);
-      include_once 'session_handler.php';
-      setSessionData($userID, $username, $profileType);
 
       $response = ['success' => true, 'message' => 'Login successful', 'userID' => $userID, 'username' => $username, 'profileType' => $profileType];
     } else {
