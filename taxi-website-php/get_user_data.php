@@ -1,16 +1,13 @@
 <?php
-include_once 'session_handler.php';
 include_once 'headers.php';
 include_once 'db_connection.php';
 
-if (session_status() == PHP_SESSION_NONE) {
-    session_start();
-}
+if ($_SERVER["REQUEST_METHOD"] === "POST") {
+    $requestData = json_decode(file_get_contents("php://input"), true);
 
-if (isset($_SESSION['userID'], $_SESSION['profileType'], $_SESSION['username'])) {
-    $userID = $_SESSION['userID'];
-    $profileType = $_SESSION['profileType'];
-    $username = $_SESSION['username'];
+    $userID = $requestData['userID'];
+    $profileType = $requestData['profileType'];
+    $username = $requestData['username'];
 
     $response = [
         'success' => true,

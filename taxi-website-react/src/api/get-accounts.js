@@ -1,7 +1,7 @@
 import { useState, useEffect } from "react";
 import axios from "axios";
 
-const AllAccountsViewModel = () => {
+const GetAccounts = () => {
   const [users, setUsers] = useState([]);
 
   useEffect(() => {
@@ -18,17 +18,7 @@ const AllAccountsViewModel = () => {
       });
   };
 
-  const deleteUser = (userID) => {
-    axios.delete(`http://localhost/taxi-website-project/taxi-website-php/delete_user.php?userID=${userID}`)
-      .then(() => {
-        fetchData();
-      })
-      .catch(error => {
-        console.error('Error deleting user:', error);
-      });
-  };
-
-  return { users, deleteUser };
+  return { users, fetchData };
 };
 
-export default AllAccountsViewModel;
+export default GetAccounts;

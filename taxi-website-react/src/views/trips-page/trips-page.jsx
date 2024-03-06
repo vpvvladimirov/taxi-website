@@ -1,21 +1,21 @@
 import React from "react";
 import Header from "../../components/header/header";
 import Trips from "../../components/trips/trips";
-import HomePageViewModel from "../home-page/home-page-viewmodel";
-import WelcomePage from "../welcome-page/welcome-page";
+import IsDriver from "../../api/is-driver";
+import HomePage from "../home-page/home-page";
 
 const TripsPage = () => {
-  const { authenticated } = HomePageViewModel();
+  const { authenticatedDriver } = IsDriver();
 
   return (
     <>
-      {authenticated ? (
+      {authenticatedDriver ? (
         <div>
           <Header />
           <Trips />
         </div>
       ) : (
-        <WelcomePage />
+        <HomePage />
       )}
     </>
   );

@@ -1,7 +1,7 @@
 import { useState } from 'react';
 import axios from 'axios';
 
-const LoginFormViewModel = () => {
+const Login = () => {
   const [showPassword, setShowPassword] = useState(false);
   const [loginData, setLoginData] = useState({
     username: '',
@@ -47,4 +47,4 @@ const LoginFormViewModel = () => {
   return { showPassword, loginData, togglePasswordVisibility, handleChange, handleSubmit };
 };
 
-export default LoginFormViewModel;
+export default Login;

@@ -1,6 +1,6 @@
 import './login.css';
 import React from 'react';
-import LoginFormViewModel from './login-viewmodel';
+import Login from '../../api/login';
 import hidePasswordIcon from '../../images/hide-password-icon.png';
 import showPasswordIcon from '../../images/show-password-icon.png';
 
@@ -11,7 +11,7 @@ const LoginForm = () => {
     togglePasswordVisibility,
     handleChange,
     handleSubmit
-  } = LoginFormViewModel();
+  } = Login();
 
   return (
     <main>

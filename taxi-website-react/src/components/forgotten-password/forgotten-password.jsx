@@ -1,6 +1,6 @@
 import './forgotten-password.css';
 import React from 'react';
-import ForgottenPasswordViewModel from './forgotten-password-viewmodel';
+import ChangePassword from '../../api/change-password';
 import hidePasswordIcon from '../../images/hide-password-icon.png';
 import showPasswordIcon from '../../images/show-password-icon.png';
 
@@ -13,7 +13,7 @@ const ForgottenPasswordForm = () => {
     togglePasswordVisibility,
     handleChange,
     handleChangePassword,
-  } = ForgottenPasswordViewModel();
+  } = ChangePassword();
 
   return (
     <main>

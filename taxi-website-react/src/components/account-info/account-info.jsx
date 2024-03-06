@@ -1,46 +1,40 @@
 import React from 'react';
-import AccountInfoViewModel from './account-info-viewmodel';
+import UseUserData from '../../api/use-user-data';
 import './account-info.css';
 
 const AccountInfo = () => {
-  const { userInfo, loading, error } = AccountInfoViewModel();
-
-  if (loading) {
-    return <div>Loading...</div>;
-  }
-
-  if (error) {
-    return <div>Error: {error.message}</div>;
-  }
+  const { userData } = UseUserData();
 
   return (
     <main>
       <div className="account-info">
         <h2>User Information</h2>
-        {userInfo && (
+        {userData ? (
           <div>
             {
               <div>
-                <div><strong>Username:</strong> {userInfo.username}</div>
-                <div><strong>Profile Type:</strong> {userInfo.profileType}</div>
-                <div><strong>First Name:</strong> {userInfo.firstName}</div>
-                <div><strong>Last Name:</strong> {userInfo.lastName}</div>
-                <div><strong>Email:</strong> {userInfo.email}</div>
-                <div><strong>Date of Birth:</strong> {userInfo.dateOfBirth}</div>
-                <div><strong>Gender:</strong> {userInfo.gender}</div>
+                <div><strong>Username:</strong> {userData.username}</div>
+                <div><strong>Profile Type:</strong> {userData.profileType}</div>
+                <div><strong>First Name:</strong> {userData.firstName}</div>
+                <div><strong>Last Name:</strong> {userData.lastName}</div>
+                <div><strong>Email:</strong> {userData.email}</div>
+                <div><strong>Date of Birth:</strong> {userData.dateOfBirth}</div>
+                <div><strong>Gender:</strong> {userData.gender}</div>
               </div>
             }
           </div>
+        ) : (
+          <div>No user information available</div>
         )}
-        {userInfo && userInfo.profileType === 'driver' && (
+        {userData && userData.profileType === 'driver' && (
           <div>
             <h3>Vehicle Information</h3>
             {
               <div>
-                <div><strong>License Plate:</strong> {userInfo.licensePlate}</div>
-                <div><strong>Model:</strong> {userInfo.model}</div>
-                <div><strong>Year:</strong> {userInfo.year}</div>
-                <div><strong>Current Status:</strong> {userInfo.currentStatus}</div>
+                <div><strong>License Plate:</strong> {userData.licensePlate}</div>
+                <div><strong>Model:</strong> {userData.model}</div>
+                <div><strong>Year:</strong> {userData.year}</div>
+                <div><strong>Current Status:</strong> {userData.currentStatus}</div>
               </div>
             }
           </div>

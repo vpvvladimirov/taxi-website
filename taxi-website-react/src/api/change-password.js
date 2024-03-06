@@ -1,7 +1,7 @@
 import { useState } from 'react';
 import axios from 'axios';
 
-const ForgottenPasswordViewModel = () => {
+const ChangePassword = () => {
   const [showPassword, setShowPassword] = useState(false);
   const [passwordsMatch, setPasswordsMatch] = useState(true);
   const [responseMessage, setResponseMessage] = useState(null);
@@ -66,4 +66,4 @@ const ForgottenPasswordViewModel = () => {
   };
 };
 
-export default ForgottenPasswordViewModel;
+export default ChangePassword;

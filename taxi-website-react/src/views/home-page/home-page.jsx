@@ -1,11 +1,11 @@
 import React from 'react';
-import HomePageViewModel from './home-page-viewmodel';
+import IsAuthenticated from '../../api/is-authenticated';
 import Header from '../../components/header/header';
-import WelcomePage from '../welcome-page/welcome-page';
 import OrderTaxi from '../../components/order-taxi/order-taxi';
+import WelcomePage from '../welcome-page/welcome-page';
 
 const HomePage = () => {
-  const { authenticated } = HomePageViewModel();
+  const { authenticated } = IsAuthenticated();
 
   return (
     <>

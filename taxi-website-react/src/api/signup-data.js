@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import axios from 'axios';
 
-const SignupViewModel = () => {
+const SignupData = () => {
   const [showPassword, setShowPassword] = useState(false);
   const [passwordsMatch, setPasswordsMatch] = useState(true);
   const [responseMessage, setResponseMessage] = useState(null);
@@ -90,4 +90,4 @@ const SignupViewModel = () => {
   return { signupData, showPassword, passwordsMatch, responseMessage, togglePasswordVisibility, handleChange, handleSubmit };
 };
 
-export default SignupViewModel;
+export default SignupData;

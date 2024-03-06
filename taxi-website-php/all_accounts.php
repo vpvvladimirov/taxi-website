@@ -1,5 +1,4 @@
 <?php
-include_once 'session_handler.php';
 include_once 'db_connection.php';
 include_once 'headers.php';
 

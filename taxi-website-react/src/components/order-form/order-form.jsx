@@ -1,9 +1,9 @@
 import './order-form.css';
-import OrderFormViewModel from './order-form-viewmodel';
+import OrderTaxi from '../../api/order-taxi';
 import React from 'react';
 
 const OrderForm = () => {
-  const { orderData, handleChange, handleSubmit } = OrderFormViewModel();
+  const { orderData, handleChange, handleSubmit } = OrderTaxi();
 
   return (
     <div id="order-taxi-form-container">

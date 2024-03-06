@@ -22,12 +22,6 @@
   height: 130px;
 }
 
-.vvt-logo-btn {
-  border: none;
-  background-color: inherit;
-  cursor: pointer;
-}
-
 .user-fields {
   display: flex;
   justify-content: space-between;

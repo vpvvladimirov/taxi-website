@@ -1,11 +1,11 @@
 import React from 'react';
-import SignupViewModel from './signup-viewmodel';
+import SignupData from '../../api/signup-data';
 import hidePasswordIcon from '../../images/hide-password-icon.png';
 import showPasswordIcon from '../../images/show-password-icon.png';
 import './signup.css';
 
 const Signup = () => {
-  const { signupData, showPassword, passwordsMatch, responseMessage, togglePasswordVisibility, handleChange, handleSubmit } = SignupViewModel();
+  const { signupData, showPassword, passwordsMatch, responseMessage, togglePasswordVisibility, handleChange, handleSubmit } = SignupData();
 
   return (
     <main>
