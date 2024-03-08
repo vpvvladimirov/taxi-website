@@ -1,10 +1,35 @@
-.search-account-container {
-  padding-top: 90px;
-  display: flex;
-  justify-content: center;
-  flex-direction: column;
+#all-accounts-text {
+  text-align: center;
+  margin-bottom: 35px;
 }
 
-.all-info-container {
+#all-accounts-table {
+  list-style-type: none;
+  padding: 0;
+  gap: 20px;
+
+  font-size: 20px;
+}
+
+#modify-user-button,
+#delete-user-button {
+  border: none;
+  font-size: 20px;
+  padding: 12px;
+  border-radius: 10px;
+  cursor: pointer;
+}
+
+#modify-user-button {
+  background-color: rgb(7, 6, 70);
+  color: white;
+}
+
+#delete-user-button {
+  background-color: rgb(202, 15, 15);
+}
+
+#button-group {
   display: flex;
+  gap: 10px;
 }

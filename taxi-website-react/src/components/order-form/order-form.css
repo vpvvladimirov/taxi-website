@@ -3,3 +3,18 @@
   flex-direction: column;
   gap: 80px;
 }
+
+#accepted-trips-list {
+  overflow: auto;
+  max-height: 300px;
+  list-style-type: none;
+}
+
+#create-trip-button {
+  font-size: 25px;
+  font-weight: bold;
+  background-color: rgb(224, 239, 22);
+  border: none;
+  padding: 10px 70px;
+  border-radius: 10px;
+}

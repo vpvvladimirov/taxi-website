@@ -7,40 +7,44 @@ const AccountInfo = () => {
 
   return (
     <main>
-      <div className="account-info">
-        <h2>User Information</h2>
-        {userData ? (
-          <div>
-            {
-              <div>
-                <div><strong>Username:</strong> {userData.username}</div>
-                <div><strong>Profile Type:</strong> {userData.profileType}</div>
-                <div><strong>First Name:</strong> {userData.firstName}</div>
-                <div><strong>Last Name:</strong> {userData.lastName}</div>
-                <div><strong>Email:</strong> {userData.email}</div>
-                <div><strong>Date of Birth:</strong> {userData.dateOfBirth}</div>
-                <div><strong>Gender:</strong> {userData.gender}</div>
-              </div>
-            }
-          </div>
-        ) : (
-          <div>No user information available</div>
-        )}
-        {userData && userData.profileType === 'driver' && (
-          <div>
-            <h3>Vehicle Information</h3>
-            {
-              <div>
-                <div><strong>License Plate:</strong> {userData.licensePlate}</div>
-                <div><strong>Model:</strong> {userData.model}</div>
-                <div><strong>Year:</strong> {userData.year}</div>
-                <div><strong>Current Status:</strong> {userData.currentStatus}</div>
-              </div>
-            }
-          </div>
-        )}
+      <div id="account-info">
+        <div>
+          <h1 id='user-info-text'>User Information</h1>
+          {userData ? (
+            <>
+              {
+                <ul id='user-info-list'>
+                  <li><strong>Username:</strong> {userData.username}</li>
+                  <li><strong>Email:</strong> {userData.email}</li>
+                  <li><strong>Profile Type:</strong> {userData.profileType}</li>
+                  <li><strong>First Name:</strong> {userData.firstName}</li>
+                  <li><strong>Last Name:</strong> {userData.lastName}</li>
+                  <li><strong>Date of Birth:</strong> {userData.dateOfBirth}</li>
+                  <li><strong>Gender:</strong> {userData.gender}</li>
+                </ul>
+              }
+            </>
+          ) : (
+            <div>No user information available</div>
+          )}
+        </div>
+        <div>
+          {userData && userData.profileType === 'driver' && (
+            <>
+              <h1 id='vehicle-info-text'>Vehicle Information</h1>
+              {
+                <ul id='vehicle-info-list'>
+                  <li><strong>License Plate:</strong> {userData.licensePlate}</li>
+                  <li><strong>Model:</strong> {userData.model}</li>
+                  <li><strong>Year:</strong> {userData.year}</li>
+                  <li><strong>Current Status:</strong> {userData.currentStatus}</li>
+                </ul>
+              }
+            </>
+          )}
+        </div>
       </div>
-    </main>
+    </main >
   );
 };
 

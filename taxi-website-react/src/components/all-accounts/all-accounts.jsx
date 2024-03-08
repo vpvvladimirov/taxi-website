@@ -14,22 +14,34 @@ const AllAccounts = () => {
   return (
     <main>
       <div>
-        <h2>All users</h2>
-        <ul>
-          {users.length > 0 ? (
-            users.map(user => (
-              <li key={user.userID}>
-                <div>User ID: {user.userID}</div>
-                <div>Username: {user.username}</div>
-                <div>Profile Type: {user.profileType}</div>
-                <button>Modify user</button>
-                <button onClick={() => handleDelete(user.userID)}>Delete user</button>
-              </li>
-            ))
-          ) : (
-            <li>No users</li>
-          )}
-        </ul>
+        <h1 id='all-accounts-text'>All accounts</h1>
+        {users.length > 0 ? (
+          <table id='all-accounts-table'>
+            <thead>
+              <tr>
+                <th>User ID</th>
+                <th>Username</th>
+                <th>Profile Type</th>
+                <th>Actions</th>
+              </tr>
+            </thead>
+            <tbody>
+              {users.map(user => (
+                <tr key={user.userID}>
+                  <td>{user.userID}</td>
+                  <td>{user.username}</td>
+                  <td>{user.profileType}</td>
+                  <td>
+                    <button id='modify-user-button'>Edit</button>
+                    <button id='delete-user-button' onClick={() => handleDelete(user.userID)}>Delete</button>
+                  </td>
+                </tr>
+              ))}
+            </tbody>
+          </table>
+        ) : (
+          <p>No users</p>
+        )}
       </div>
     </main>
   );

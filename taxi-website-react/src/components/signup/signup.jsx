@@ -34,7 +34,8 @@ const Signup = () => {
             <div className='column'>
               <label htmlFor="password">Password</label>
               <div className='password-group'>
-                <input type={showPassword ? "text" : "password"} name='password' value={signupData.password} onChange={handleChange} className="password-field" required />
+                <input type={showPassword ? "text" : "password"} name='password' value={signupData.password} onChange={handleChange}
+                  className="password-field" required />
                 <i className={`password-toggle ${showPassword ? 'visible' : 'hidden'}`} onClick={() => togglePasswordVisibility()}>
                   <img src={showPassword ? hidePasswordIcon : showPasswordIcon} alt="Toggle Password" />
                 </i>
@@ -42,7 +43,8 @@ const Signup = () => {
               <div className="form-group">
                 <label htmlFor="confirm-password">Confirm Password</label>
                 <div className='password-group'>
-                  <input type={showPassword ? "text" : "password"} name='pwd' value={signupData.pwd} onChange={handleChange} className="password-field" required />
+                  <input type={showPassword ? "text" : "password"} name='pwd' value={signupData.pwd} onChange={handleChange}
+                    className="password-field" required />
                   <i className={`password-toggle ${showPassword ? 'visible' : 'hidden'}`} onClick={togglePasswordVisibility}>
                     <img src={showPassword ? hidePasswordIcon : showPasswordIcon} alt="Toggle Password" />
                   </i>
@@ -58,7 +60,6 @@ const Signup = () => {
                   <option value=""></option>
                   <option value="male">Male</option>
                   <option value="female">Female</option>
-                  <option value='attack-helicopter'>Attack Helicopter</option>
                   <option value="other">Other</option>
                 </select>
               </div>
