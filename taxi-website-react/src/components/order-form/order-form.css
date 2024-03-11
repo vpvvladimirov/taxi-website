@@ -1,13 +1,17 @@
 #order-taxi-form-container {
   display: flex;
   flex-direction: column;
-  gap: 80px;
+  gap: 50px;
 }
 
 #accepted-trips-list {
   overflow: auto;
-  max-height: 300px;
-  list-style-type: none;
+  max-height: 800px;
+  font-size: 20px;
+}
+
+#accepted-trips-table td {
+  padding: 0 35px;
 }
 
 #create-trip-button {
@@ -17,4 +21,21 @@
   border: none;
   padding: 10px 70px;
   border-radius: 10px;
+  margin-top: 20px;
+  cursor: pointer;
+}
+
+#accepted-trips-text {
+  text-align: center;
+  margin-top: 0;
+}
+
+#accept-driver-button {
+  border: none;
+  color: white;
+  background-color: rgb(3, 89, 81);
+  font-size: 20px;
+  padding: 10px 10px;
+  border-radius: 8px;
+  cursor: pointer;
 }
