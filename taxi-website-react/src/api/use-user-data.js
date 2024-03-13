@@ -3,8 +3,6 @@ import axios from 'axios';
 
 const UseUserData = () => {
   const [userData, setUserData] = useState(null);
-  const [loading, setLoading] = useState(true);
-  const [error, setError] = useState(null);
 
   useEffect(() => {
     const fetchData = async () => {
@@ -21,19 +19,17 @@ const UseUserData = () => {
         if (response.data.success) {
           setUserData(response.data);
         } else {
-          setError(response.data.message);
+          console.error(response.data.message);
         }
       } catch (error) {
-        setError('An error occurred while fetching user information.');
-      } finally {
-        setLoading(false);
+        console.error('An error occurred while fetching user information.');
       }
     };
 
     fetchData();
   }, []);
 
-  return { userData, loading, error };
+  return { userData };
 };
 
 export default UseUserData;

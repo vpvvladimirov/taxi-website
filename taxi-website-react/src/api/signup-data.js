@@ -58,6 +58,25 @@ const SignupData = () => {
   const handleSubmit = async (e) => {
     e.preventDefault();
 
+    const trimmedData = Object.fromEntries(
+      Object.entries(signupData).map(([key, value]) => [key, value.trim()])
+    );
+
+    const isEmpty = Object.values(trimmedData).some(value => value === '');
+
+    if (isEmpty) {
+      setResponseMessage(<div className='response-message'>Please fill in all fields</div>);
+      return;
+    }
+
+    const currentDate = new Date();
+    const selectedDate = new Date(trimmedData.dateOfBirth);
+
+    if (selectedDate >= currentDate) {
+      setResponseMessage(<div className='response-message'>Date of birth must be before the current date</div>);
+      return;
+    }
+
     if (signupData.password !== signupData.pwd) {
       setPasswordsMatch(false);
       return;

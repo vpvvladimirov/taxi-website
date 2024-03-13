@@ -11,6 +11,7 @@ import OrderTaxiPage from './views/order-taxi-page/order-taxi-page';
 import AccountInfoPage from './views/account-info-page/account-info-page';
 import AllAccountsPage from './views/all-accounts-page/all-accounts-page';
 import TripsPage from './views/trips-page/trips-page';
+import ModifyUserPage from './views/modify-user-page/modify-user-page';
 
 const App = () => {
   return (
@@ -27,6 +28,7 @@ const App = () => {
           <Route path='/order-taxi' element={<OrderTaxiPage />} />
           <Route path='/all-accounts' element={<AllAccountsPage />} />
           <Route path='/trips' element={<TripsPage />} />
+          <Route path='modify-user/:userID' element={<ModifyUserPage />} />
           <Route path="/error-404" element={<Error404 />} />
           <Route path='/*' element={<Navigate to="/error-404" replace />} />
         </Routes>

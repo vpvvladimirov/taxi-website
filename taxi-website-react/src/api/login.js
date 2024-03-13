@@ -1,8 +1,9 @@
-import { useState } from 'react';
+import React, { useState } from 'react';
 import axios from 'axios';
 
 const Login = () => {
   const [showPassword, setShowPassword] = useState(false);
+  const [responseMessage, setResponseMessage] = useState(null);
   const [loginData, setLoginData] = useState({
     username: '',
     pwd: ''
@@ -34,9 +35,9 @@ const Login = () => {
         sessionStorage.setItem('userID', response.data.userID);
         sessionStorage.setItem('username', response.data.username);
         sessionStorage.setItem('profileType', response.data.profileType);
-
         window.location.href = '/home';
       } else {
+        setResponseMessage(<div className='response-message'>Invalid username or password</div>);
         console.log(response.data.message);
       }
     } catch (error) {
@@ -44,7 +45,7 @@ const Login = () => {
     }
   };
 
-  return { showPassword, loginData, togglePasswordVisibility, handleChange, handleSubmit };
+  return { showPassword, loginData, responseMessage, togglePasswordVisibility, handleChange, handleSubmit };
 };
 
 export default Login;

@@ -23,11 +23,10 @@ const OrderForm = () => {
               <tbody>
                 {trips.map(trip => (
                   <>
-                    <br />
                     <tr key={trip.activeTripID}>
-                      <td>Driver: {trip.driverID}</td>
-                      <td>Pickup Address: {trip.pickupAddress}</td>
-                      <td>Destination: {trip.dropoffAddress}</td>
+                      <td>{trip.driverID}</td>
+                      <td>{trip.pickupAddress}</td>
+                      <td>{trip.dropoffAddress}</td>
                       <td>
                         <button id='accept-driver-button'>Accept Driver</button>
                       </td>

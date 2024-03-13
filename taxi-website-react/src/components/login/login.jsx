@@ -8,6 +8,7 @@ const LoginForm = () => {
   const {
     showPassword,
     loginData,
+    responseMessage,
     togglePasswordVisibility,
     handleChange,
     handleSubmit
@@ -36,6 +37,7 @@ const LoginForm = () => {
         </form>
         <a className='sign-up-link' href='/signup'>Don&apos;t have an account yet? Sign up</a>
         <a className='forgotten-password' href='/forgotten-password'>Forgot your password?</a>
+        {responseMessage}
       </div>
     </main>
   )

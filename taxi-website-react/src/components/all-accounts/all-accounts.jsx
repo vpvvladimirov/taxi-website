@@ -1,6 +1,7 @@
 import React from 'react';
 import GetAccounts from '../../api/get-accounts';
 import DeleteUser from '../../api/delete-user';
+import { Link } from 'react-router-dom';
 import './all-accounts.css';
 
 const AllAccounts = () => {
@@ -32,7 +33,9 @@ const AllAccounts = () => {
                   <td>{user.username}</td>
                   <td>{user.profileType}</td>
                   <td>
-                    <button id='modify-user-button'>Edit</button>
+                    <Link to={`/modify-user/${user.userID}`}>
+                      <button id='modify-user-button'>Edit</button>
+                    </Link>
                     <button id='delete-user-button' onClick={() => handleDelete(user.userID)}>Delete</button>
                   </td>
                 </tr>

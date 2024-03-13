@@ -53,6 +53,7 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") {
                     $row = $result->fetch_assoc();
                     $response += [
                         'licensePlate' => $row['licensePlate'],
+                        'brand' => $row['brand'],
                         'model' => $row['model'],
                         'year' => $row['year'],
                         'currentStatus' => $row['currentStatus']

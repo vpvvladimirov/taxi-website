@@ -1,10 +1,10 @@
 import React from "react";
 import Header from "../../components/header/header";
-import AllAccounts from "../../components/all-accounts/all-accounts";
-import IsAdmin from "../../api/is-admin";
+import ModifyUser from "../../components/modify-user/modify-user";
 import Error404 from "../404-page/404-page";
+import IsAdmin from "../../api/is-admin";
 
-const AllAccountsPage = () => {
+const ModifyUserPage = () => {
   const { authenticatedAdmin } = IsAdmin();
 
   return (
@@ -12,13 +12,13 @@ const AllAccountsPage = () => {
       {authenticatedAdmin ? (
         <div>
           <Header />
-          <AllAccounts />
+          <ModifyUser />
         </div>
       ) : (
         <Error404 />
       )}
     </>
-  );
-}
+  )
+};
 
-export default AllAccountsPage;
+export default ModifyUserPage;

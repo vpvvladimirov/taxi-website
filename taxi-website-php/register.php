@@ -51,7 +51,7 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") {
         $response = ['success' => false, 'message' => 'Error inserting driver: ' . $conn->error];
       }
     } else {
-      $insertClientQuery = "INSERT INTO clients (firstName, userID, lastName, email, dateOfBirth, gender) VALUES ('$firstName', $userID, '$lastName', '$email', '$dateOfBirth', '$gender')";
+      $insertClientQuery = "INSERT INTO clients (firstName, userID, lastName, email, dateOfBirth, gender) VALUES ('$firstName', $userID, '$lastName','$email', '$dateOfBirth', '$gender')";
       if ($conn->query($insertClientQuery) === TRUE) {
         $response = ['success' => true, 'message' => 'New client record created successfully'];
       } else {

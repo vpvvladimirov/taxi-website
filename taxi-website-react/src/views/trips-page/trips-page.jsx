@@ -2,7 +2,7 @@ import React from "react";
 import Header from "../../components/header/header";
 import Trips from "../../components/trips/trips";
 import IsDriver from "../../api/is-driver";
-import HomePage from "../home-page/home-page";
+import Error404 from "../404-page/404-page";
 
 const TripsPage = () => {
   const { authenticatedDriver } = IsDriver();
@@ -15,7 +15,7 @@ const TripsPage = () => {
           <Trips />
         </div>
       ) : (
-        <HomePage />
+        <Error404 />
       )}
     </>
   );
