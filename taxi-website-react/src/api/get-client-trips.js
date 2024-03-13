@@ -2,7 +2,7 @@ import { useState, useEffect } from "react";
 import axios from "axios";
 
 const FetchClientTrips = () => {
-  const [trips, setTrips] = useState([]);
+  const [activeTrips, setActiveTrips] = useState([]);
   const userID = sessionStorage.getItem('userID');
 
   useEffect(() => {
@@ -10,14 +10,14 @@ const FetchClientTrips = () => {
       userID: userID
     })
       .then(response => {
-        setTrips(response.data);
+        setActiveTrips(response.data);
       })
       .catch(error => {
         console.error('Error fetching trips:', error);
       });
   }, [userID]);
 
-  return { trips };
+  return { activeTrips };
 };
 
 export default FetchClientTrips;

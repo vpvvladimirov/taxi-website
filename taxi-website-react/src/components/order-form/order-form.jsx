@@ -2,33 +2,43 @@ import './order-form.css';
 import OrderTaxi from '../../api/order-taxi';
 import React from 'react';
 import FetchClientTrips from '../../api/get-client-trips';
+import AcceptDriver from '../../api/accept-driver';
 
 const OrderForm = () => {
   const { orderData, handleChange, handleSubmit } = OrderTaxi();
-  const { trips } = FetchClientTrips();
+  const { activeTrips } = FetchClientTrips();
+  const { acceptDriver } = AcceptDriver();
+
+  const handleDriver = (tripID, driverID) => {
+    acceptDriver(tripID, driverID);
+  };
 
   return (
     <div id="order-taxi-form-container">
-      {trips.length > 0 ? (
+      {activeTrips.length > 0 ? (
         <div>
           <h1 id='accepted-trips-text'>Accepted Trips</h1>
           <div id='accepted-trips-list'>
             <table id='accepted-trips-table'>
               <thead>
-                <th>Driver</th>
-                <th>Pickup Address</th>
-                <th>Destination</th>
-                <th>Action</th>
+                <tr>
+                  <th>Trip №</th>
+                  <th>Pickup Address</th>
+                  <th>Destination</th>
+                  <th>Driver №</th>
+                  <th>Action</th>
+                </tr>
               </thead>
               <tbody>
-                {trips.map(trip => (
+                {activeTrips.map(trip => (
                   <>
                     <tr key={trip.activeTripID}>
-                      <td>{trip.driverID}</td>
+                      <td>{trip.tripID}</td>
                       <td>{trip.pickupAddress}</td>
                       <td>{trip.dropoffAddress}</td>
+                      <td>{trip.driverID}</td>
                       <td>
-                        <button id='accept-driver-button'>Accept Driver</button>
+                        <button id='accept-driver-button' onClick={() => handleDriver(trip.tripID, trip.driverID)}>Accept Driver</button>
                       </td>
                     </tr>
                   </>
