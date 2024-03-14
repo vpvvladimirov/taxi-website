@@ -1,0 +1,22 @@
+#home-page-container {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  gap: 30px;
+}
+
+.triangle-container {
+  margin-top: 130px;
+  padding: 0 10px;
+}
+
+.triangle {
+  stroke: #fbab29;
+  stroke-width: 20;
+  cursor: pointer;
+  transition: transform 0.4s ease;
+}
+
+.triangle:hover {
+  transform: translate(-10px, -10px);
+}
