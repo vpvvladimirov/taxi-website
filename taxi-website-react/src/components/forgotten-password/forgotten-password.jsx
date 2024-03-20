@@ -74,11 +74,11 @@ const ForgottenPasswordForm = () => {
             </div>
           </div>
           <button id='change-password-btn' type="submit">Submit</button>
-          {responseMessage}
         </form>
+        {responseMessage}
       </div>
     </main>
-  )
-}
+  );
+};
 
 export default ForgottenPasswordForm;

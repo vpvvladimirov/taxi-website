@@ -28,7 +28,7 @@ const ChangePassword = () => {
     e.preventDefault();
 
     if (forgottenPasswordData.newPassword !== forgottenPasswordData.confirmPassword) {
-      setResponseMessage(<Alert severity='warning'>Passwords don&apos;t match</Alert>);
+      setResponseMessage(<Alert severity="warning">Passwords don&apos;t match</Alert>);
       return;
     }
 
@@ -42,16 +42,16 @@ const ChangePassword = () => {
       if (response.status === 200) {
         const data = response.data;
         if (data.success) {
-          setResponseMessage(<Alert severity='success'>Password changed successfully</Alert>);
+          setResponseMessage(<Alert severity="success">Password changed successfully</Alert>);
           window.location.href = '/login';
         } else {
-          setResponseMessage(<Alert severity='error'>Invalid username or email</Alert>);
+          setResponseMessage(<Alert severity="error">Invalid username or email</Alert>);
         }
       } else {
-        setResponseMessage(<Alert severity='error'>Server error</Alert>);
+        setResponseMessage(<Alert severity="error">Server error</Alert>);
       }
     } catch (error) {
-      setResponseMessage(<Alert severity='error'>Network error</Alert>);
+      setResponseMessage(<Alert severity="error">Network error</Alert>);
     }
   };
 

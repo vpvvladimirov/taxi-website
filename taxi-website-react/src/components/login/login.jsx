@@ -53,7 +53,7 @@ const LoginForm = () => {
         {responseMessage}
       </div>
     </main>
-  )
-}
+  );
+};
 
 export default LoginForm;

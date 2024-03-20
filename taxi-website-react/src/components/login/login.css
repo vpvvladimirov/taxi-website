@@ -6,8 +6,6 @@
 }
 
 #login-container {
-  max-width: 400px;
-  margin: auto;
   display: flex;
   flex-direction: column;
   justify-content: space-between;
