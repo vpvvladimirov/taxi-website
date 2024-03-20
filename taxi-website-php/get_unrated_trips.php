@@ -13,10 +13,7 @@ if ($result->num_rows > 0) {
   $row = $result->fetch_assoc();
   $clientID = $row['clientID'];
 
-  $query = "SELECT at.*, d.averageRating, d.tripCount 
-            FROM active_trips AS at
-            INNER JOIN drivers AS d ON at.driverID = d.driverID
-            WHERE at.clientID = '$clientID'";
+  $query = "SELECT * FROM trips WHERE clientID = '$clientID' AND currentStatus = 'in progress'";
   $result = $conn->query($query);
 
   if ($result->num_rows > 0) {

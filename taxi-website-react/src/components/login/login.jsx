@@ -16,27 +16,40 @@ const LoginForm = () => {
 
   return (
     <main>
-      <div className='login-form'>
-        <div className='login-text'>Login</div>
-        <form onSubmit={handleSubmit} id='login-form' method='post'>
-          <div className="form-group">
-            <label htmlFor="username">Username</label>
-            <input type="text" name='username' onChange={handleChange} value={loginData.username} required />
+      <div id='login-container'>
+        <div id='login-text'>Login</div>
+        <form id='login-form' onSubmit={handleSubmit}>
+          <div className="login-form-group">
+            <label className='login-label' htmlFor="username">Username</label>
+            <input
+              type="text"
+              name='username'
+              className='login-input'
+              id='username'
+              onChange={handleChange}
+              value={loginData.username}
+              required />
           </div>
-          <div className="form-group">
-            <label htmlFor="password">Password</label>
-            <div className='password-group'>
-              <input id='password' type={showPassword ? 'text' : 'password'}
-                name="pwd" onChange={handleChange} value={loginData.pwd} required />
+          <div className="login-form-group">
+            <label className='login-label' htmlFor="login-pwd">Password</label>
+            <div className='login-password-group'>
+              <input
+                type={showPassword ? 'text' : 'password'}
+                name="pwd"
+                className='login-input'
+                id='login-pwd'
+                onChange={handleChange}
+                value={loginData.pwd}
+                required />
               <i className={`password-toggle ${showPassword ? 'visible' : 'hidden'}`} onClick={togglePasswordVisibility}>
                 <img src={showPassword ? hidePasswordIcon : showPasswordIcon} alt="Toggle Password" />
               </i>
             </div>
           </div>
-          <button id="login-btn" type="submit">Login</button>
+          <button id="login-button" type="submit">Login</button>
         </form>
-        <a className='sign-up-link' href='/signup'>Don&apos;t have an account yet? Sign up</a>
-        <a className='forgotten-password' href='/forgotten-password'>Forgot your password?</a>
+        <a id='sign-up-link' href='/signup'>Don&apos;t have an account yet? Sign up</a>
+        <a id='forgotten-password-link' href='/forgotten-password'>Forgot your password?</a>
         {responseMessage}
       </div>
     </main>

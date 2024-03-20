@@ -1,9 +1,9 @@
-import { useState } from 'react';
+import React, { useState } from 'react';
 import axios from 'axios';
+import Alert from '@mui/material/Alert';
 
 const ChangePassword = () => {
   const [showPassword, setShowPassword] = useState(false);
-  const [passwordsMatch, setPasswordsMatch] = useState(true);
   const [responseMessage, setResponseMessage] = useState(null);
   const [forgottenPasswordData, setForgottenPasswordData] = useState({
     username: '',
@@ -27,11 +27,9 @@ const ChangePassword = () => {
     e.preventDefault();
 
     if (forgottenPasswordData.newPassword !== forgottenPasswordData.confirmPassword) {
-      setPasswordsMatch(false);
+      setResponseMessage(<Alert severity='warning'>Passwords don&apos;t match</Alert>);
       return;
     }
-
-    setPasswordsMatch(true);
 
     try {
       const response = await axios.post('http://localhost/taxi-website-project/taxi-website-php/change_password.php', forgottenPasswordData, {
@@ -43,21 +41,20 @@ const ChangePassword = () => {
       if (response.status === 200) {
         const data = response.data;
         if (data.success) {
-          window.location.href = '/login';
+          setResponseMessage(<Alert severity='success'>Password changed successfully</Alert>);
         } else {
-          setResponseMessage('Error changing password');
+          setResponseMessage(<Alert severity='error'>Error changing password</Alert>);
         }
       } else {
-        setResponseMessage('Server error');
+        setResponseMessage(<Alert severity='error'>Server error</Alert>);
       }
     } catch (error) {
-      setResponseMessage('Network error');
+      setResponseMessage(<Alert severity='error'>Network error</Alert>);
     }
   };
 
   return {
     showPassword,
-    passwordsMatch,
     responseMessage,
     forgottenPasswordData,
     togglePasswordVisibility,

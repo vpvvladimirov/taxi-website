@@ -1,12 +1,13 @@
 import React, { useState } from 'react';
 import axios from 'axios';
+import Alert from '@mui/material/Alert';
 
 const Login = () => {
   const [showPassword, setShowPassword] = useState(false);
   const [responseMessage, setResponseMessage] = useState(null);
   const [loginData, setLoginData] = useState({
     username: '',
-    pwd: ''
+    pwd: '',
   });
 
   const togglePasswordVisibility = () => {
@@ -21,31 +22,80 @@ const Login = () => {
     });
   };
 
+  const getLocation = () => {
+    return new Promise((resolve, reject) => {
+      if ("geolocation" in navigator) {
+        navigator.geolocation.getCurrentPosition(
+          (position) => {
+            resolve({
+              latitude: position.coords.latitude,
+              longitude: position.coords.longitude
+            });
+          },
+          (error) => {
+            reject(error);
+          }
+        );
+      } else {
+        reject(new Error('Geolocation not supported'));
+      }
+    });
+  };
+
   const handleSubmit = async (e) => {
     e.preventDefault();
 
     try {
-      const response = await axios.post('http://localhost/taxi-website-project/taxi-website-php/login.php', loginData, {
+      let location = null;
+
+      try {
+        location = await getLocation();
+      } catch (error) {
+        setResponseMessage(<Alert severity="warning">Please enable location permission</Alert>);
+        return;
+      }
+
+      const dataWithLocation = { ...loginData, location };
+
+      const response = await axios.post('http://localhost/taxi-website-project/taxi-website-php/login.php', dataWithLocation, {
         headers: {
           'Content-Type': 'application/json',
         },
       });
 
-      if (response.data.success) {
-        sessionStorage.setItem('userID', response.data.userID);
-        sessionStorage.setItem('username', response.data.username);
-        sessionStorage.setItem('profileType', response.data.profileType);
-        window.location.href = '/home';
+      if (response.status === 200) {
+        const data = response.data;
+        if (data.success) {
+          setResponseMessage(<Alert severity="success">Logged in successfully</Alert>);
+
+          const { userID, username, profileType } = response.data;
+
+          sessionStorage.setItem('userID', userID);
+          sessionStorage.setItem('username', username);
+          sessionStorage.setItem('profileType', profileType);
+          sessionStorage.setItem('latitude', location.latitude);
+          sessionStorage.setItem('longitude', location.longitude);
+
+          window.location.href = '/home';
+        } else {
+          setResponseMessage(<Alert severity="error">Invalid username or password</Alert>);
+        }
       } else {
-        setResponseMessage(<div className='response-message'>Invalid username or password</div>);
-        console.log(response.data.message);
+        setResponseMessage(<Alert severity="error">Server error</Alert>);
       }
     } catch (error) {
-      console.error('Login failed:', error);
+      setResponseMessage(<Alert severity="error">Network error</Alert>);
     }
   };
 
-  return { showPassword, loginData, responseMessage, togglePasswordVisibility, handleChange, handleSubmit };
+  return {
+    showPassword,
+    loginData,
+    responseMessage,
+    togglePasswordVisibility,
+    handleChange,
+    handleSubmit
+  };
 };
 
 export default Login;

@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import axios from 'axios';
+import Alert from '@mui/material/Alert';
 
 const SignupData = () => {
   const [showPassword, setShowPassword] = useState(false);
@@ -65,7 +66,7 @@ const SignupData = () => {
     const isEmpty = Object.values(trimmedData).some(value => value === '');
 
     if (isEmpty) {
-      setResponseMessage(<div className='response-message'>Please fill in all fields</div>);
+      setResponseMessage(<Alert severity='warning'>Please fill in all the fields</Alert>);
       return;
     }
 
@@ -73,7 +74,7 @@ const SignupData = () => {
     const selectedDate = new Date(trimmedData.dateOfBirth);
 
     if (selectedDate >= currentDate) {
-      setResponseMessage(<div className='response-message'>Date of birth must be before the current date</div>);
+      setResponseMessage(<Alert severity='warning'>Please enter a valid date of birth</Alert>);
       return;
     }
 
@@ -94,19 +95,28 @@ const SignupData = () => {
       if (response.status === 200) {
         const data = response.data;
         if (data.success) {
+          setResponseMessage(<Alert severity="success">Logged in successfully</Alert>);
           window.location.href = '/login';
         } else {
-          setResponseMessage(<div className='response-message'>Error creating user</div>);
+          setResponseMessage(<Alert severity="error">Error creating user</Alert>);
         }
       } else {
-        setResponseMessage(<div className='response-message'>Server error</div>);
+        setResponseMessage(<Alert severity="error">Server error</Alert>);
       }
     } catch (error) {
-      setResponseMessage(<div className='response-message'>Network error</div>);
+      setResponseMessage(<Alert severity="error">Network error</Alert>);
     }
   };
 
-  return { signupData, showPassword, passwordsMatch, responseMessage, togglePasswordVisibility, handleChange, handleSubmit };
+  return {
+    signupData,
+    showPassword,
+    passwordsMatch,
+    responseMessage,
+    togglePasswordVisibility,
+    handleChange,
+    handleSubmit
+  };
 };
 
 export default SignupData;

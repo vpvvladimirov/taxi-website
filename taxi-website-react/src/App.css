@@ -3,3 +3,29 @@ body {
   padding: 0;
   background-color: rgb(243, 244, 246);
 }
+
+main {
+  height: 100vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+::-webkit-scrollbar {
+  width: 10px;
+  visibility: hidden;
+}
+
+::-webkit-scrollbar-track {
+  background: #f1f45d;
+}
+
+::-webkit-scrollbar-thumb {
+  background: #fbab29;
+  border-radius: 50px;
+}
+
+/* Hover effect */
+::-webkit-scrollbar-thumb:hover {
+  background: #ff9800;
+}

@@ -3,8 +3,7 @@ include_once 'headers.php';
 include_once 'db_connection.php';
 
 if ($_SERVER["REQUEST_METHOD"] === "POST") {
-  $rawData = file_get_contents("php://input");
-  $requestData = json_decode($rawData, true);
+  $requestData = json_decode(file_get_contents("php://input"), true);
 
   $firstName = $requestData['firstName'];
   $lastName = $requestData['lastName'];

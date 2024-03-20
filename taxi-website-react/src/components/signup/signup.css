@@ -1,11 +1,4 @@
-main {
-  height: 100vh;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-}
-
-.signup-form {
+#signup-container {
   display: flex;
   flex-direction: column;
   justify-content: space-between;
@@ -25,80 +18,69 @@ main {
   gap: 30px;
 }
 
-.signup-text {
+#signup-text {
   text-align: center;
   font-weight: bold;
   font-size: 35px;
   margin-bottom: 30px;
 }
 
-.content-row {
+#signup-content-row {
   display: flex;
   flex-direction: row;
   justify-content: space-between;
   gap: 80px;
 }
 
-.column {
+.signup-column {
   display: flex;
   flex-direction: column;
   justify-content: space-between;
   gap: 20px;
 }
 
-.form-group {
+.signup-form-group {
   display: flex;
   flex-direction: column;
   gap: 10px;
 }
 
-label {
+.signup-label {
   display: block;
   font-weight: bold;
   font-size: 22px;
   padding-left: 4px;
 }
 
-input {
-  width: calc(100% - 20px);
+.signup-input {
+  width: calc(100% - 30px);
   padding: 14px;
   border: 1px solid #ccc;
   border-radius: 15px;
   font-size: 26px;
 }
 
-.password-group {
+.signup-password-group {
   display: flex;
   align-items: center;
   justify-content: space-between;
 }
 
-.password-field {
+#signup-password,
+#signup-pwd {
   width: calc(100% - 95px);
 }
 
 .password-toggle img {
-  width: 50px;
-  height: auto;
+  height: 50px;
 }
 
-#gender {
-  width: calc(100%);
-  padding: 14px;
-  border: 1px solid #ccc;
-  border-radius: 15px;
-  font-size: 26px;
-  background-color: #fff;
-  transition: 0.3s;
+
+#dob {
+  width: 85%;
 }
 
-.response-message {
-  color: red;
-  font-size: 20px;
-  margin-top: -10px;
-}
-
-#submit-button {
+#signup-button {
   width: 80%;
   padding: 12px;
   margin: 35px 0 12px 0;
@@ -110,11 +92,11 @@ input {
   align-self: center;
 }
 
-#submit-button:hover {
+#signup-button:hover {
   background-color: #f6f50f;
 }
 
-.log-in-link {
+#log-in-link {
   text-align: center;
   margin-top: -5px;
   cursor: pointer;
@@ -122,6 +104,6 @@ input {
   text-decoration: none;
 }
 
-.log-in-link:hover {
+#log-in-link:hover {
   text-decoration: underline;
 }
