@@ -4,7 +4,6 @@ import Alert from '@mui/material/Alert';
 
 const SignupData = () => {
   const [showPassword, setShowPassword] = useState(false);
-  const [passwordsMatch, setPasswordsMatch] = useState(true);
   const [responseMessage, setResponseMessage] = useState(null);
 
   const togglePasswordVisibility = () => {
@@ -79,11 +78,9 @@ const SignupData = () => {
     }
 
     if (signupData.password !== signupData.pwd) {
-      setPasswordsMatch(false);
+      setResponseMessage(<Alert severity='warning'>Passwords don&apos;t match</Alert>);
       return;
     }
-
-    setPasswordsMatch(true);
 
     try {
       const response = await axios.post('http://localhost/taxi-website-project/taxi-website-php/register.php', signupData, {
@@ -111,7 +108,6 @@ const SignupData = () => {
   return {
     signupData,
     showPassword,
-    passwordsMatch,
     responseMessage,
     togglePasswordVisibility,
     handleChange,

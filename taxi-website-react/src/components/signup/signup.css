@@ -71,8 +71,9 @@
   width: calc(100% - 95px);
 }
 
-.password-toggle img {
+.signup-password-toggle img {
   height: 50px;
+  cursor: pointer;
 }
 
 

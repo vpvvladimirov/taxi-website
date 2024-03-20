@@ -7,6 +7,7 @@ const ChangePassword = () => {
   const [responseMessage, setResponseMessage] = useState(null);
   const [forgottenPasswordData, setForgottenPasswordData] = useState({
     username: '',
+    email: '',
     newPassword: '',
     confirmPassword: '',
   });
@@ -42,8 +43,9 @@ const ChangePassword = () => {
         const data = response.data;
         if (data.success) {
           setResponseMessage(<Alert severity='success'>Password changed successfully</Alert>);
+          window.location.href = '/login';
         } else {
-          setResponseMessage(<Alert severity='error'>Error changing password</Alert>);
+          setResponseMessage(<Alert severity='error'>Invalid username or email</Alert>);
         }
       } else {
         setResponseMessage(<Alert severity='error'>Server error</Alert>);

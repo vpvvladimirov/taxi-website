@@ -41,7 +41,7 @@ const LoginForm = () => {
                 onChange={handleChange}
                 value={loginData.pwd}
                 required />
-              <i className={`password-toggle ${showPassword ? 'visible' : 'hidden'}`} onClick={togglePasswordVisibility}>
+              <i className={`login-password-toggle ${showPassword ? 'visible' : 'hidden'}`} onClick={togglePasswordVisibility}>
                 <img src={showPassword ? hidePasswordIcon : showPasswordIcon} alt="Toggle Password" />
               </i>
             </div>

@@ -24,9 +24,21 @@ const ForgottenPasswordForm = () => {
             <input
               type="text"
               name="username"
+              id='username'
               className='change-password-input'
               onChange={handleChange}
               value={forgottenPasswordData.username}
+              required />
+          </div>
+          <div className="change-password-form-group">
+            <label className='change-password-label' htmlFor="email">Email</label>
+            <input
+              type="text"
+              name="email"
+              id='email'
+              className='change-password-input'
+              onChange={handleChange}
+              value={forgottenPasswordData.email}
               required />
           </div>
           <div className="change-password-form-group">
@@ -40,7 +52,7 @@ const ForgottenPasswordForm = () => {
                 onChange={handleChange}
                 value={forgottenPasswordData.newPassword}
                 required />
-              <i className={`password-toggle ${showPassword ? 'visible' : 'hidden'}`} onClick={togglePasswordVisibility}>
+              <i className={`forgotten-password-toggle ${showPassword ? 'visible' : 'hidden'}`} onClick={togglePasswordVisibility}>
                 <img src={showPassword ? hidePasswordIcon : showPasswordIcon} alt="Toggle Password" />
               </i>
             </div>
@@ -56,7 +68,7 @@ const ForgottenPasswordForm = () => {
                 onChange={handleChange}
                 value={forgottenPasswordData.confirmPassword}
                 required />
-              <i className={`password-toggle ${showPassword ? 'visible' : 'hidden'}`} onClick={togglePasswordVisibility}>
+              <i className={`forgotten-password-toggle ${showPassword ? 'visible' : 'hidden'}`} onClick={togglePasswordVisibility}>
                 <img src={showPassword ? hidePasswordIcon : showPasswordIcon} alt="Toggle Password" />
               </i>
             </div>

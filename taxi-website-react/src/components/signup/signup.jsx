@@ -7,7 +7,7 @@ import showPasswordIcon from '../../images/show-password-icon.png';
 const Signup = () => {
   const {
     signupData,
-    showPassword, passwordsMatch,
+    showPassword,
     responseMessage,
     togglePasswordVisibility,
     handleChange,
@@ -78,7 +78,7 @@ const Signup = () => {
                     value={signupData.password}
                     onChange={handleChange}
                     required />
-                  <i className={`password-toggle ${showPassword ? 'visible' : 'hidden'}`} onClick={() => togglePasswordVisibility()}>
+                  <i className={`signup-password-toggle ${showPassword ? 'visible' : 'hidden'}`} onClick={() => togglePasswordVisibility()}>
                     <img src={showPassword ? hidePasswordIcon : showPasswordIcon} alt="Toggle Password" />
                   </i>
                 </div>
@@ -94,7 +94,7 @@ const Signup = () => {
                     value={signupData.pwd}
                     onChange={handleChange}
                     required />
-                  <i className={`password-toggle ${showPassword ? 'visible' : 'hidden'}`} onClick={togglePasswordVisibility}>
+                  <i className={`signup-password-toggle ${showPassword ? 'visible' : 'hidden'}`} onClick={togglePasswordVisibility}>
                     <img src={showPassword ? hidePasswordIcon : showPasswordIcon} alt="Toggle Password" />
                   </i>
                 </div>
@@ -129,7 +129,6 @@ const Signup = () => {
           </div>
           <button id="signup-button" type="submit">Sign Up</button>
           <a id='log-in-link' href='/login'>Already have an account? Log in</a>
-          {!passwordsMatch && <div className="response-message">Passwords don&apos;t match</div>}
           {responseMessage}
         </form >
       </div >
