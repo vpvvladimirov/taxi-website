@@ -1,0 +1,49 @@
+#create-trip-text {
+  text-align: center;
+  font-weight: bold;
+  font-size: 35px;
+  margin-bottom: 30px;
+}
+
+#create-trip-form {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  gap: 30px;
+}
+
+.create-trip-form-group {
+  display: flex;
+  gap: 10px;
+  flex-direction: column;
+}
+
+.create-trip-label {
+  display: block;
+  font-weight: bold;
+  font-size: 22px;
+  padding-left: 4px;
+}
+
+.create-trip-input {
+  width: calc(100% - 30px);
+  padding: 14px;
+  border: 1px solid #ccc;
+  border-radius: 15px;
+  font-size: 26px;
+}
+
+#create-trip-button {
+  width: 100%;
+  padding: 12px;
+  margin: 20px 0 0 0;
+  font-size: 28px;
+  background-color: #ffff00;
+  border: none;
+  border-radius: 30px;
+  cursor: pointer;
+}
+
+#create-trip-button:hover {
+  background-color: #f6f50f;
+}

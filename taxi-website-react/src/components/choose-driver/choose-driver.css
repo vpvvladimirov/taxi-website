@@ -1,7 +1,21 @@
+#choose-driver-container {
+  display: flex;
+  justify-content: space-evenly;
+  flex-direction: column;
+  margin-top: 130px;
+}
+
 #accepted-trips-list {
   overflow: auto;
-  max-height: 800px;
+  max-height: 700px;
   font-size: 20px;
+  display: flex;
+  justify-content: center;
+}
+
+#accepted-trips-table {
+  background-color: rgb(220, 219, 219);
+  border-radius: 5px;
 }
 
 #accepted-trips-table td {
