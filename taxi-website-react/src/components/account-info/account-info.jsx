@@ -35,6 +35,7 @@ const AccountInfo = () => {
               {
                 <ul id='vehicle-info-list'>
                   <li><strong>License Plate:</strong> {userData.licensePlate}</li>
+                  <li><strong>Brand:</strong> {userData.brand}</li>
                   <li><strong>Model:</strong> {userData.model}</li>
                   <li><strong>Year:</strong> {userData.year}</li>
                   <li><strong>Current Status:</strong> {userData.currentStatus}</li>

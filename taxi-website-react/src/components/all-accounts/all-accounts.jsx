@@ -1,8 +1,10 @@
+import './all-accounts.css';
 import React from 'react';
 import GetAccounts from '../../api/get-accounts';
 import DeleteUser from '../../api/delete-user';
 import { Link } from 'react-router-dom';
-import './all-accounts.css';
+import EditIcon from '@mui/icons-material/Edit';
+import DeleteIcon from '@mui/icons-material/Delete';
 
 const AllAccounts = () => {
   const { users, fetchData } = GetAccounts();
@@ -13,10 +15,10 @@ const AllAccounts = () => {
   };
 
   return (
-    <main>
-      <div>
-        <h1 id='all-accounts-text'>All accounts</h1>
-        {users.length > 0 ? (
+    <div id='all-accounts-container'>
+      <h1 id='all-accounts-text'>All accounts</h1>
+      {users.length > 0 ? (
+        <div id='all-accounts-list'>
           <table id='all-accounts-table'>
             <thead>
               <tr>
@@ -32,21 +34,21 @@ const AllAccounts = () => {
                   <td>{user.userID}</td>
                   <td>{user.username}</td>
                   <td>{user.profileType}</td>
-                  <td>
-                    <Link to={`/modify-user/${user.userID}`}>
-                      <button id='modify-user-button'>Edit</button>
+                  <td id='action-cell'>
+                    <Link id='modify-user-link' to={`/modify-user/${user.userID}`}>
+                      <button id='modify-user-button'><EditIcon /></button>
                     </Link>
-                    <button id='delete-user-button' onClick={() => handleDelete(user.userID)}>Delete</button>
+                    <button id='delete-user-button' onClick={() => handleDelete(user.userID)}><DeleteIcon /></button>
                   </td>
                 </tr>
               ))}
             </tbody>
           </table>
-        ) : (
-          <p>No users</p>
-        )}
-      </div>
-    </main>
+        </div>
+      ) : (
+        <p>No users</p>
+      )}
+    </div>
   );
 };
 

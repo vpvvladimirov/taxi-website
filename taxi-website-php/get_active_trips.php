@@ -13,9 +13,10 @@ if ($result->num_rows > 0) {
   $row = $result->fetch_assoc();
   $driverID = $row['driverID'];
 
-  $query = "SELECT t.* FROM trips t
-        LEFT JOIN active_trips at ON t.tripID = at.tripID
-        WHERE t.currentStatus = 'active' AND at.driverID != '$driverID'";
+  $query = "SELECT t.*
+            FROM trips t
+            LEFT JOIN active_trips act ON t.tripID = act.tripID AND act.driverID = '$driverID'
+            WHERE t.currentStatus = 'active' AND (act.driverID != '$driverID' OR act.driverID IS NULL)";
   $result = $conn->query($query);
 
   if (mysqli_num_rows($result) > 0) {
@@ -29,6 +30,8 @@ if ($result->num_rows > 0) {
   } else {
     echo json_encode(array('message' => 'No active trips found'));
   }
+} else {
+  echo json_encode(array('message' => 'No driverID found'));
 }
 
 $conn->close();

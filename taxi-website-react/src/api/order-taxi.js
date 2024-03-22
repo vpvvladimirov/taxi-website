@@ -1,7 +1,9 @@
-import { useState } from 'react';
+import React, { useState } from 'react';
 import axios from 'axios';
+import Alert from '@mui/material/Alert';
 
 const OrderTaxi = () => {
+  const [responseMessage, setResponseMessage] = useState(null);
   const [orderData, setOrderData] = useState({
     pickupAddress: '',
     dropoffAddress: '',
@@ -29,7 +31,7 @@ const OrderTaxi = () => {
       if (response.status === 200) {
         const data = response.data;
         if (data.success) {
-          window.location.href = '/home';
+          setResponseMessage(<Alert severity='success'>Taxi ordered successfully</Alert>);
         }
       }
     } catch (error) {
@@ -37,7 +39,7 @@ const OrderTaxi = () => {
     }
   };
 
-  return { orderData, handleChange, handleSubmit };
+  return { orderData, responseMessage, handleChange, handleSubmit };
 };
 
 export default OrderTaxi;

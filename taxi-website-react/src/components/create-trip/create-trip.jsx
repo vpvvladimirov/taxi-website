@@ -3,7 +3,7 @@ import React from "react";
 import OrderTaxi from "../../api/order-taxi";
 
 const CreateTrip = () => {
-  const { orderData, handleChange, handleSubmit } = OrderTaxi();
+  const { orderData, responseMessage, handleChange, handleSubmit } = OrderTaxi();
 
   return (
     <div id='create-trip-container'>
@@ -33,6 +33,7 @@ const CreateTrip = () => {
         </div>
         <button id='create-trip-button' type="submit">Order Taxi</button>
       </form>
+      {responseMessage}
     </div>
   );
 };
