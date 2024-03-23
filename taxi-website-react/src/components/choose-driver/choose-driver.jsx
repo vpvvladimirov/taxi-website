@@ -23,9 +23,7 @@ const ChooseDriver = () => {
               <th>Trip №</th>
               <th>Pickup Address</th>
               <th>Destination</th>
-              <th>Driver №</th>
-              <th>First Name</th>
-              <th>Last Name</th>
+              <th>Driver</th>
               <th>Trip Count</th>
               <th>Driver Rating</th>
               <th>Action</th>
@@ -37,9 +35,7 @@ const ChooseDriver = () => {
                 <td>{trip.tripID}</td>
                 <td>{trip.pickupAddress}</td>
                 <td>{trip.dropoffAddress}</td>
-                <td>{trip.driverID}</td>
-                <td>{trip.firstName}</td>
-                <td>{trip.lastName}</td>
+                <td>{trip.firstName} {trip.lastName} | {trip.driverID}</td>
                 <td>{trip.tripCount}</td>
                 <td>
                   <Stack spacing={1}>
@@ -51,7 +47,7 @@ const ChooseDriver = () => {
                 </td>
               </tr>
             ))}
-          </tbody >
+          </tbody>
         </table>
       </div>
     </div>

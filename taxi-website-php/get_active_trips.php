@@ -13,9 +13,10 @@ if ($result->num_rows > 0) {
   $row = $result->fetch_assoc();
   $driverID = $row['driverID'];
 
-  $query = "SELECT t.*
+  $query = "SELECT t.*, c.*
             FROM trips t
             LEFT JOIN active_trips act ON t.tripID = act.tripID AND act.driverID = '$driverID'
+            LEFT JOIN clients c ON t.clientID = c.clientID
             WHERE t.currentStatus = 'active' AND (act.driverID != '$driverID' OR act.driverID IS NULL)";
   $result = $conn->query($query);
 

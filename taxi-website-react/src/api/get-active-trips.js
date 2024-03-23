@@ -7,11 +7,11 @@ const FetchTrips = () => {
 
   useEffect(() => {
     fetchTrips();
-  }, [userID]);
+  }, []);
 
   const fetchTrips = () => {
     axios.post('http://localhost/taxi-website-project/taxi-website-php/get_active_trips.php', {
-      userID: userID
+      userID
     })
       .then(response => {
         setTrips(response.data);
