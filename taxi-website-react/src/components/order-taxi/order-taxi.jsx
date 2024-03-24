@@ -3,7 +3,7 @@ import React from 'react';
 
 const OrderTaxi = () => {
   return (
-    <div id="order-taxi-container">
+    <div id="order-taxi-banner">
       <img id='order-taxi-image' src='https://media.drivingelectric.com/image/private/s--oXQeYz3s--/v1701345491/drivingelectric/2023-11/Renault%205%20teaser%204_fhio7b.jpg' alt='Order Taxi' />
       <div id='texts-container'>
         <h1 className='order-taxi-text' style={{ fontSize: '50px' }}>Ready to roll?</h1>

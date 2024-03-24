@@ -39,7 +39,7 @@ const ChooseDriver = () => {
                 <td>{trip.tripCount}</td>
                 <td>
                   <Stack spacing={1}>
-                    <Rating value={trip.averageRating} precision={0.5} readOnly />
+                    <Rating value={parseFloat(trip.averageRating)} precision={0.5} readOnly />
                   </Stack>
                 </td>
                 <td>
