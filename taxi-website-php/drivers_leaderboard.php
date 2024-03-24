@@ -2,7 +2,7 @@
 include_once 'db_connection.php';
 include_once 'headers.php';
 
-$query = "SELECT * FROM drivers ORDER BY averageRating DESC";
+$query = "SELECT * FROM drivers ORDER BY averageRating DESC LIMIT 10";
 $result = $conn->query($query);
 
 if ($result->num_rows > 0) {

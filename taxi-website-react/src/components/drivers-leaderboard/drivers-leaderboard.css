@@ -1,0 +1,47 @@
+#drivers-leaderboard-container {
+  display: flex;
+  align-self: center;
+  margin-top: 150px;
+}
+
+#drivers-leaderboard-table {
+  background-color: rgb(33, 32, 32);
+  border-radius: 0 0 10px 10px;
+  color: white;
+  font-size: 25px;
+  padding: 10px 30px;
+}
+
+#drivers-leaderboard-table caption {
+  background-color: rgb(235, 191, 18);
+  border-radius: 10px 10px 0 0;
+  color: black;
+  font-size: 35px;
+  padding: 15px 0;
+  border-bottom: 2px rgb(112, 111, 111) solid;
+}
+
+#drivers-leaderboard-table td {
+  padding: 10px 35px;
+  text-align: center;
+}
+
+#drivers-leaderboard-text {
+  text-align: center;
+  margin-top: 0;
+}
+
+#rating-td {
+  display: flex;
+  justify-content: space-between;
+  gap: 10px;
+}
+
+#rating-td .MuiRating-iconEmpty {
+  color: white;
+}
+
+#position-td {
+  text-align: end;
+  padding-right: 0 !important;
+}
