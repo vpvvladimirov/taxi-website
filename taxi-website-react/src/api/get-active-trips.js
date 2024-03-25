@@ -5,10 +5,6 @@ const FetchTrips = () => {
   const [trips, setTrips] = useState([]);
   const userID = sessionStorage.getItem('userID');
 
-  useEffect(() => {
-    fetchTrips();
-  }, []);
-
   const fetchTrips = () => {
     axios.post('http://localhost/taxi-website-project/taxi-website-php/get_active_trips.php', {
       userID
@@ -20,6 +16,12 @@ const FetchTrips = () => {
         console.error('Error fetching trips:', error);
       });
   };
+
+  useEffect(() => {
+    fetchTrips();
+    const interval = setInterval(fetchTrips, 3000);
+    return () => clearInterval(interval);
+  }, []);
 
   return { trips, fetchTrips };
 };

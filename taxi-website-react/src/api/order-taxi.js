@@ -32,6 +32,7 @@ const OrderTaxi = () => {
         const data = response.data;
         if (data.success) {
           setResponseMessage(<Alert severity='success'>Taxi ordered successfully</Alert>);
+          window.location.reload();
         }
       }
     } catch (error) {

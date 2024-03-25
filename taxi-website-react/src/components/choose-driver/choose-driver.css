@@ -3,6 +3,7 @@
   justify-content: space-evenly;
   flex-direction: column;
   margin-top: 130px;
+  align-items: center;
 }
 
 #accepted-trips-list {

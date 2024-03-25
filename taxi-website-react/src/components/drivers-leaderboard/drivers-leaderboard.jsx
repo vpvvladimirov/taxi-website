@@ -30,7 +30,17 @@ const DriversLeaderBoard = () => {
               <td id='rating-td'>
                 {driver.averageRating}
                 <Stack spacing={1}>
-                  <Rating value={parseFloat(driver.averageRating)} precision={0.5} size='large' readOnly />
+                  <Rating
+                    value={parseFloat(driver.averageRating)}
+                    precision={0.5}
+                    size='large'
+                    readOnly
+                    sx={{
+                      '& .MuiRating-iconEmpty': {
+                        color: 'white',
+                      },
+                    }}
+                  />
                 </Stack>
               </td>
             </tr>

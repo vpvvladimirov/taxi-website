@@ -6,7 +6,7 @@ import Rating from '@mui/material/Rating';
 import Stack from '@mui/material/Stack';
 
 const ChooseDriver = () => {
-  const { acceptDriver } = AcceptDriver();
+  const { acceptDriver, responseMessage } = AcceptDriver();
   const { activeTrips } = FetchClientTrips();
 
   const handleDriver = (tripID, driverID) => {
@@ -50,6 +50,7 @@ const ChooseDriver = () => {
           </tbody>
         </table>
       </div>
+      {responseMessage}
     </div>
   );
 };
