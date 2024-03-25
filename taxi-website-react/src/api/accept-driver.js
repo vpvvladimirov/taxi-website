@@ -11,7 +11,7 @@ const AcceptDriver = () => {
       driverID
     })
       .then(() => {
-        setResponseMessage(<Alert>Driver {driverID} accepted successfully</Alert>);
+        setResponseMessage(<Alert severity="success">Driver {driverID} accepted successfully</Alert>);
         window.location.reload();
       })
       .catch(error => {

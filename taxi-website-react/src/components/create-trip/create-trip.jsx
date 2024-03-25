@@ -18,6 +18,7 @@ const CreateTrip = () => {
             id="pickup-address"
             name="pickupAddress"
             className='create-trip-input'
+            required
           />
         </div>
         <div className="create-trip-form-group">
@@ -29,6 +30,7 @@ const CreateTrip = () => {
             id="dropoff-address"
             name="dropoffAddress"
             className='create-trip-input'
+            required
           />
         </div>
         <button id='create-trip-button' type="submit">Order Taxi</button>

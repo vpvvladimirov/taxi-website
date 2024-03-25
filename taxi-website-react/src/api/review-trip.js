@@ -1,7 +1,9 @@
 import axios from "axios";
-import { useState } from "react";
+import React, { useState } from "react";
+import Alert from '@mui/material/Alert';
 
 const ReviewTrip = () => {
+  const [responseMessage, setResponseMessage] = useState(null);
   const [reviewData, setReviewData] = useState({
     comment: '',
   });
@@ -36,12 +38,23 @@ const ReviewTrip = () => {
           'Content-Type': 'application/json',
         },
       });
+
+      setResponseMessage(<Alert severity="success">Review sent successfully</Alert>);
+      window.location.reload();
+
     } catch {
       console.error("There was an error");
     }
   };
 
-  return { reviewData, rating, handleChange, handleRatingChange, handleSubmit };
+  return {
+    reviewData,
+    rating,
+    responseMessage,
+    handleChange,
+    handleRatingChange,
+    handleSubmit
+  };
 };
 
 export default ReviewTrip;

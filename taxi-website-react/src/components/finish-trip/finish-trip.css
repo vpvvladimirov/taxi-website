@@ -1,0 +1,64 @@
+#finish-trip-text {
+  text-align: center;
+  font-weight: bold;
+  font-size: 35px;
+}
+
+#finish-trip-form {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  gap: 20px;
+}
+
+#finish-trip-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 10px;
+  margin-top: 130px;
+}
+
+.finish-trip-label {
+  display: block;
+  font-weight: bold;
+  font-size: 22px;
+  padding-left: 10px;
+}
+
+.finish-trip-input {
+  width: calc(100% - 30px);
+  height: 300px;
+  padding: 10px;
+  border: 1px solid #ccc;
+  border-radius: 15px;
+  font-size: 26px;
+  resize: vertical;
+  align-self: center;
+}
+
+#finish-trip-button {
+  width: 100%;
+  padding: 12px;
+  margin: 20px 0 0 0;
+  font-size: 28px;
+  background-color: #ffff00;
+  border: none;
+  border-radius: 30px;
+  cursor: pointer;
+}
+
+#finish-trip-button:hover {
+  background-color: #f6f50f;
+}
+
+#remaining-chars {
+  margin: 0;
+  padding-left: 15px;
+}
+
+.finish-trip-form-group {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
