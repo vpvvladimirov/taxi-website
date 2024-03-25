@@ -5,6 +5,8 @@ import Alert from '@mui/material/Alert';
 const Login = () => {
   const [showPassword, setShowPassword] = useState(false);
   const [responseMessage, setResponseMessage] = useState(null);
+  const [loading, setLoading] = useState(false); // Add loading state
+
   const [loginData, setLoginData] = useState({
     username: '',
     pwd: '',
@@ -44,6 +46,7 @@ const Login = () => {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
+    setLoading(true);
 
     try {
       let location = null;
@@ -52,6 +55,7 @@ const Login = () => {
         location = await getLocation();
       } catch (error) {
         setResponseMessage(<Alert severity="warning">Please enable location permission</Alert>);
+        setLoading(false);
         return;
       }
 
@@ -85,6 +89,8 @@ const Login = () => {
       }
     } catch (error) {
       setResponseMessage(<Alert severity="error">Network error</Alert>);
+    } finally {
+      setLoading(false);
     }
   };
 
@@ -92,6 +98,7 @@ const Login = () => {
     showPassword,
     loginData,
     responseMessage,
+    loading,
     togglePasswordVisibility,
     handleChange,
     handleSubmit

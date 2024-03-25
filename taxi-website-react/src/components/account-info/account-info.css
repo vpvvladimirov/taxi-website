@@ -1,13 +1,16 @@
-#account-info {
+#account-info-container {
   display: flex;
   gap: 100px;
+  background-color: rgb(248, 248, 166);
+  padding: 20px 50px;
+  border-radius: 20px;
 }
 
 #user-info-text,
 #vehicle-info-text {
   text-align: center;
   margin-bottom: 25px;
-  font-size: 33px;
+  font-size: 35px;
 }
 
 #user-info-list,
@@ -17,6 +20,7 @@
   display: flex;
   flex-direction: column;
   gap: 20px;
+  font-size: 25px;
 }
 
 #user-info-list li,

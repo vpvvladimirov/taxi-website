@@ -3,12 +3,14 @@ import React from 'react';
 import Login from '../../api/login';
 import hidePasswordIcon from '../../images/hide-password-icon.png';
 import showPasswordIcon from '../../images/show-password-icon.png';
+import LinearProgress from '@mui/material/LinearProgress';
 
 const LoginForm = () => {
   const {
     showPassword,
     loginData,
     responseMessage,
+    loading, // Receive loading state
     togglePasswordVisibility,
     handleChange,
     handleSubmit
@@ -46,7 +48,8 @@ const LoginForm = () => {
               </i>
             </div>
           </div>
-          <button id="login-button" type="submit">Login</button>
+          <button id="login-button" type="submit" disabled={loading}>Login</button>
+          {loading && <LinearProgress />}
         </form>
         <a id='sign-up-link' href='/signup'>Don&apos;t have an account yet? Sign up</a>
         <a id='forgotten-password-link' href='/forgotten-password'>Forgot your password?</a>
