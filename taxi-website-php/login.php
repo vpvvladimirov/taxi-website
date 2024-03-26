@@ -5,11 +5,14 @@ include_once 'db_connection.php';
 if ($_SERVER["REQUEST_METHOD"] === "POST") {
   $requestData = json_decode(file_get_contents("php://input"), true);
 
-  $username = mysqli_real_escape_string($conn, $requestData['username']);
+  $username = $requestData['username'];
   $pwd = $requestData['pwd'];
 
-  $query = "SELECT userID, pwd, profileType FROM users WHERE username = '$username'";
-  $result = $conn->query($query);
+  $query = "SELECT userID, pwd, profileType FROM users WHERE username = ?";
+  $stmt = $conn->prepare($query);
+  $stmt->bind_param("s", $username);
+  $stmt->execute();
+  $result = $stmt->get_result();
 
   if ($result->num_rows > 0) {
     $row = $result->fetch_assoc();
@@ -28,6 +31,8 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") {
   }
 
   echo json_encode($response);
+
+  $stmt->close();
 }
 
 $conn->close();

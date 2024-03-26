@@ -2,60 +2,72 @@
 include_once 'db_connection.php';
 include_once 'headers.php';
 
-$requestData = json_decode(file_get_contents("php://input"), true);
+if ($_SERVER["REQUEST_METHOD"] === "POST") {
+  $requestData = json_decode(file_get_contents("php://input"), true);
 
-$userID = $requestData['userID'];
-$rating = $requestData['rating'];
-$comment = $requestData['comment'];
+  $userID = $requestData['userID'];
+  $rating = $requestData['rating'];
+  $comment = $requestData['comment'];
 
-$query = "SELECT clientID FROM clients WHERE userID = '$userID'";
-$result = $conn->query($query);
-
-if ($result->num_rows > 0) {
-  $row = $result->fetch_assoc();
-  $clientID = $row['clientID'];
-
-  $query = "SELECT * FROM trips WHERE clientID = '$clientID' AND currentStatus = 'in progress'";
-  $result = $conn->query($query);
+  $query = "SELECT clientID FROM clients WHERE userID = ?";
+  $stmt = $conn->prepare($query);
+  $stmt->bind_param("i", $userID);
+  $stmt->execute();
+  $result = $stmt->get_result();
 
   if ($result->num_rows > 0) {
     $row = $result->fetch_assoc();
-    $driverID = $row['driverID'];
-    $tripID = $row['tripID'];
+    $clientID = $row['clientID'];
 
-    $query = "INSERT INTO reviews (clientID, driverID, tripID, rating, comment) VALUES ($clientID, $driverID, $tripID, $rating, '$comment')";
+    $query = "SELECT * FROM trips WHERE clientID = ? AND currentStatus = 'in progress'";
+    $stmt = $conn->prepare($query);
+    $stmt->bind_param("i", $clientID);
+    $stmt->execute();
+    $result = $stmt->get_result();
 
-    if ($conn->query($query) === TRUE) {
-      $reviewID = $conn->insert_id;
+    if ($result->num_rows > 0) {
+      $row = $result->fetch_assoc();
+      $driverID = $row['driverID'];
+      $tripID = $row['tripID'];
 
-      $query = "UPDATE trips SET reviewID = '$reviewID', currentStatus = 'reviewed' WHERE tripID = '$tripID'";
+      $query = "INSERT INTO reviews (clientID, driverID, tripID, rating, comment) VALUES (?, ?, ?, ?, ?)";
+      $stmt = $conn->prepare($query);
+      $stmt->bind_param("iiids", $clientID, $driverID, $tripID, $rating, $comment);
+      $stmt->execute();
 
-      if ($conn->query($query) === TRUE) {
-        $query = "UPDATE drivers SET tripCount = tripCount + 1 WHERE driverID = '$driverID'";
+      if ($stmt->affected_rows > 0) {
+        $reviewID = $stmt->insert_id;
 
-        if ($conn->query($query) === TRUE) {
-          $query = "UPDATE drivers SET averageRating = (averageRating * (tripCount - 1) + $rating) / tripCount WHERE driverID = '$driverID'";
+        $query = "UPDATE trips SET reviewID = ?, currentStatus = 'reviewed' WHERE tripID = ?";
+        $stmt = $conn->prepare($query);
+        $stmt->bind_param("ii", $reviewID, $tripID);
+        $stmt->execute();
 
-          if ($conn->query($query) === TRUE) {
+        if ($stmt->affected_rows > 0) {
+          $query = "UPDATE drivers SET tripCount = tripCount + 1, averageRating = (averageRating * tripCount + ?) / (tripCount + 1) WHERE driverID = ?";
+          $stmt = $conn->prepare($query);
+          $stmt->bind_param("di", $rating, $driverID);
+          $stmt->execute();
+
+          if ($stmt->affected_rows > 0) {
             $response = ['success' => true, 'message' => 'New review record created successfully'];
           } else {
             $response = ['success' => false, 'message' => 'Error updating driver average rating: ' . $conn->error];
           }
         } else {
-          $response = ['success' => false, 'message' => 'Error updating trip count: ' . $conn->error];
+          $response = ['success' => false, 'message' => 'Error updating trip status: ' . $conn->error];
         }
       } else {
-        $response = ['success' => false, 'message' => 'Error updating trip status: ' . $conn->error];
+        $response = ['success' => false, 'message' => 'Error inserting review record: ' . $conn->error];
       }
     } else {
-      $response = ['success' => false, 'message' => 'Error inserting review record: ' . $conn->error];
+      $response = ['success' => false, 'message' => 'No in-progress trip found for the user'];
     }
   } else {
-    $response = ['success' => false, 'message' => 'No in-progress trip found for the user'];
+    $response = ['success' => false, 'message' => 'User not found'];
   }
-} else {
-  $response = ['success' => false, 'message' => 'User not found'];
+
+  echo json_encode($response);
 }
 
-echo json_encode($response);
 $conn->close();

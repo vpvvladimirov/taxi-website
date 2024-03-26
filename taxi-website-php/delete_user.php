@@ -5,13 +5,15 @@ include_once 'headers.php';
 if (isset($_GET['userID'])) {
   $userID = $_GET['userID'];
 
-  $query = "DELETE FROM users WHERE userID = $userID";
-
-  if ($conn->query($query) === TRUE) {
+  $query = "DELETE FROM users WHERE userID = ?";
+  $stmt = $conn->prepare($query);
+  $stmt->bind_param("i", $userID);
+  if ($stmt->execute()) {
     echo "User deleted successfully";
   } else {
     echo "Error deleting user: " . $conn->error;
   }
+  $stmt->close();
 } else {
   echo "User ID not provided";
 }

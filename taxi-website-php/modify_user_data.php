@@ -7,71 +7,61 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") {
 
   $userID = $requestData['userID'];
 
-  $query = "SELECT * FROM users WHERE userID = $userID";
-  $result = $conn->query($query);
+  // Prepare SELECT query to retrieve user information
+  $query = "SELECT profileType, username FROM users WHERE userID = ?";
+  $stmt = $conn->prepare($query);
+  $stmt->bind_param("i", $userID);
+  $stmt->execute();
+  $result = $stmt->get_result();
+
+  $response = [
+    'success' => true,
+    'userID' => $userID
+  ];
+
   if ($result->num_rows > 0) {
     $row = $result->fetch_assoc();
     $profileType = $row['profileType'];
     $username = $row['username'];
-  }
+    $response['username'] = $username;
+    $response['profileType'] = $profileType;
 
-  $response = [
-    'success' => true,
-    'userID' => $userID,
-    'username' => $username,
-    'profileType' => $profileType
-  ];
+    switch ($profileType) {
+      case 'client':
+      case 'admin':
+        $query = "SELECT * FROM clients WHERE userID = ?";
+        break;
+      case 'driver':
+        $query = "SELECT d.*, v.licensePlate, v.model, v.brand, v.year, v.currentStatus 
+                          FROM drivers d 
+                          LEFT JOIN vehicles v ON d.driverID = v.driverID 
+                          WHERE d.userID = ?";
+        break;
+      default:
+        break;
+    }
 
-  switch ($profileType) {
-    case 'client':
-    case 'admin':
-      $query = "SELECT * FROM clients WHERE userID = $userID";
-      $result = $conn->query($query);
+    if (isset($query)) {
+      $stmt = $conn->prepare($query);
+      $stmt->bind_param("i", $userID);
+      $stmt->execute();
+      $result = $stmt->get_result();
+
       if ($result->num_rows > 0) {
         $row = $result->fetch_assoc();
-        $response += [
-          'firstName' => $row['firstName'],
-          'lastName' => $row['lastName'],
-          'email' => $row['email'],
-          'dateOfBirth' => $row['dateOfBirth'],
-          'gender' => $row['gender']
-        ];
+        $response += $row;
       }
-      break;
-    case 'driver':
-      $query = "SELECT * FROM drivers WHERE userID = $userID";
-      $result = $conn->query($query);
-      if ($result->num_rows > 0) {
-        $row = $result->fetch_assoc();
-        $driverID = $row['driverID'];
-        $response += [
-          'driverID' => $driverID,
-          'firstName' => $row['firstName'],
-          'lastName' => $row['lastName'],
-          'email' => $row['email'],
-          'dateOfBirth' => $row['dateOfBirth'],
-          'gender' => $row['gender']
-        ];
-
-        $query = "SELECT * FROM vehicles WHERE driverID = $driverID";
-        $result = $conn->query($query);
-        if ($result->num_rows > 0) {
-          $row = $result->fetch_assoc();
-          $response += [
-            'licensePlate' => $row['licensePlate'],
-            'model' => $row['model'],
-            'brand' => $row['brand'],
-            'year' => $row['year'],
-            'currentStatus' => $row['currentStatus']
-          ];
-        }
-      }
-      break;
-    default:
-      break;
+    }
+  } else {
+    $response = [
+      'success' => false,
+      'message' => 'User not found'
+    ];
   }
 
   echo json_encode($response);
+
+  $stmt->close();
 }
 
 $conn->close();

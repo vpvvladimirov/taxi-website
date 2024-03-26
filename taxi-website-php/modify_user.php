@@ -14,21 +14,36 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") {
   $dateOfBirth = $requestData['dateOfBirth'];
   $gender = $requestData['gender'];
 
-  $query = "UPDATE users SET username = '$username' WHERE userID = $userID";
-  $conn->query($query);
+  // Prepare UPDATE query for users table
+  $query = "UPDATE users SET username = ? WHERE userID = ?";
+  $stmt = $conn->prepare($query);
+  $stmt->bind_param("si", $username, $userID);
+  $stmt->execute();
+  $stmt->close();
 
   switch ($profileType) {
     case 'client':
     case 'admin':
-      $query = "UPDATE clients SET firstName = '$firstName', lastName = '$lastName', email = '$email', dateOfBirth = '$dateOfBirth', gender = '$gender' WHERE userID = $userID";
-      $conn->query($query);
+      $query = "UPDATE clients SET firstName = ?, lastName = ?, email = ?, dateOfBirth = ?, gender = ? WHERE userID = ?";
+      $stmt = $conn->prepare($query);
+      $stmt->bind_param("sssssi", $firstName, $lastName, $email, $dateOfBirth, $gender, $userID);
+      $stmt->execute();
+      $stmt->close();
       break;
     case 'driver':
-      $query = "UPDATE drivers SET firstName = '$firstName', lastName = '$lastName', email = '$email', dateOfBirth = '$dateOfBirth', gender = '$gender' WHERE userID = $userID";
-      $conn->query($query);
+      $query = "UPDATE drivers SET firstName = ?, lastName = ?, email = ?, dateOfBirth = ?, gender = ? WHERE userID = ?";
+      $stmt = $conn->prepare($query);
+      $stmt->bind_param("sssssi", $firstName, $lastName, $email, $dateOfBirth, $gender, $userID);
+      $stmt->execute();
+      $stmt->close();
 
-      $query1 = "SELECT driverID FROM drivers WHERE userID = $userID";
-      $result = $conn->query($query1);
+      $query = "SELECT driverID FROM drivers WHERE userID = ?";
+      $stmt = $conn->prepare($query);
+      $stmt->bind_param("i", $userID);
+      $stmt->execute();
+      $result = $stmt->get_result();
+      $stmt->close();
+
       if ($result->num_rows > 0) {
         $row = $result->fetch_assoc();
         $driverID = $row['driverID'];
@@ -39,8 +54,11 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") {
         $year = $requestData['year'];
         $currentStatus = $requestData['currentStatus'];
 
-        $query2 = "UPDATE vehicles SET licensePlate = '$licensePlate', model = '$model', brand = '$brand', year = $year, currentStatus = '$currentStatus' WHERE driverID = $driverID";
-        $conn->query($query2);
+        $query = "UPDATE vehicles SET licensePlate = ?, model = ?, brand = ?, year = ?, currentStatus = ? WHERE driverID = ?";
+        $stmt = $conn->prepare($query);
+        $stmt->bind_param("sssisi", $licensePlate, $model, $brand, $year, $currentStatus, $driverID);
+        $stmt->execute();
+        $stmt->close();
       }
       break;
     default:

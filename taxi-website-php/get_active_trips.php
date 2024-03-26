@@ -6,8 +6,11 @@ $requestData = json_decode(file_get_contents("php://input"), true);
 
 $userID = $requestData['userID'];
 
-$query = "SELECT driverID FROM drivers WHERE userID = '$userID'";
-$result = $conn->query($query);
+$query = "SELECT driverID FROM drivers WHERE userID = ?";
+$stmt = $conn->prepare($query);
+$stmt->bind_param("i", $userID);
+$stmt->execute();
+$result = $stmt->get_result();
 
 if ($result->num_rows > 0) {
   $row = $result->fetch_assoc();
@@ -15,12 +18,15 @@ if ($result->num_rows > 0) {
 
   $query = "SELECT t.*, c.*
             FROM trips t
-            LEFT JOIN active_trips act ON t.tripID = act.tripID AND act.driverID = '$driverID'
+            LEFT JOIN active_trips act ON t.tripID = act.tripID AND act.driverID = ?
             LEFT JOIN clients c ON t.clientID = c.clientID
-            WHERE t.currentStatus = 'active' AND (act.driverID != '$driverID' OR act.driverID IS NULL)";
-  $result = $conn->query($query);
+            WHERE t.currentStatus = 'active' AND (act.driverID != ? OR act.driverID IS NULL)";
+  $stmt = $conn->prepare($query);
+  $stmt->bind_param("ii", $driverID, $driverID);
+  $stmt->execute();
+  $result = $stmt->get_result();
 
-  if (mysqli_num_rows($result) > 0) {
+  if ($result->num_rows > 0) {
     $trips = array();
 
     while ($row = $result->fetch_assoc()) {
@@ -35,4 +41,5 @@ if ($result->num_rows > 0) {
   echo json_encode(array('message' => 'No driverID found'));
 }
 
+$stmt->close();
 $conn->close();

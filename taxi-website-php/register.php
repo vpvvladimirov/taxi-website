@@ -9,59 +9,80 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") {
   $lastName = $requestData['lastName'];
   $username = $requestData['username'];
   $email = $requestData['email'];
-  $pwd = password_hash($requestData['pwd'], PASSWORD_DEFAULT);
+  $hashedPwd = password_hash($requestData['pwd'], PASSWORD_DEFAULT);
   $dateOfBirth = $requestData['dateOfBirth'];
   $gender = $requestData['gender'];
   $profileType = $requestData['profileType'];
 
-  $insertUserQuery = "INSERT INTO users (username, pwd, profileType) VALUES ('$username', '$pwd', '$profileType')";
+  $insertUserQuery = "INSERT INTO users (username, pwd, profileType) VALUES (?, ?, ?)";
+  $stmt = $conn->prepare($insertUserQuery);
+  $stmt->bind_param("sss", $username, $hashedPwd, $profileType);
+  $stmt->execute();
 
-  if ($conn->query($insertUserQuery) === TRUE) {
-    $userID = $conn->insert_id;
+  if ($stmt->affected_rows > 0) {
+    $userID = $stmt->insert_id;
 
     if (strpos($email, '@vvtaxi.net') !== false) {
-      $characters = '0123456789';
-      $driverID = '';
-      $length = 4;
+      $driverID = generateRandomDriverID();
+      $insertDriverQuery = "INSERT INTO drivers (driverID, userID, firstName, lastName, email, dateOfBirth, gender) VALUES (?, ?, ?, ?, ?, ?, ?)";
+      $stmt = $conn->prepare($insertDriverQuery);
+      $stmt->bind_param("iisssss", $driverID, $userID, $firstName, $lastName, $email, $dateOfBirth, $gender);
+      $stmt->execute();
 
-      for ($i = 0; $i < $length; $i++) {
-        $driverID .= $characters[rand(0, strlen($characters) - 1)];
-      }
+      if ($stmt->affected_rows > 0) {
+        $insertVehicleQuery = "INSERT INTO vehicles (driverID) VALUES (?)";
+        $stmt = $conn->prepare($insertVehicleQuery);
+        $stmt->bind_param("i", $driverID);
+        $stmt->execute();
 
-      $insertDriverQuery = "INSERT INTO drivers (driverID, userID, firstName, lastName, email, dateOfBirth, gender) VALUES ($driverID, $userID, '$firstName', '$lastName', '$email', '$dateOfBirth', '$gender')";
+        if ($stmt->affected_rows > 0) {
+          $vehicleID = $stmt->insert_id;
+          $updateDriverQuery = "UPDATE drivers SET vehicleID = ? WHERE driverID = ?";
+          $stmt = $conn->prepare($updateDriverQuery);
+          $stmt->bind_param("ii", $vehicleID, $driverID);
+          $stmt->execute();
 
-      if ($conn->query($insertDriverQuery) === TRUE) {
-        $insertVehicleQuery = "INSERT INTO vehicles (driverID) VALUES ($driverID)";
-
-        if ($conn->query($insertVehicleQuery) === TRUE) {
-          $vehicleID = $conn->insert_id;
-
-          $updateDriverQuery = "UPDATE drivers SET vehicleID = $vehicleID WHERE driverID = $driverID";
-
-          if ($conn->query($updateDriverQuery) === TRUE) {
+          if ($stmt->affected_rows > 0) {
             $response = ['success' => true, 'message' => 'New driver, vehicle, and associated records created successfully'];
           } else {
-            $response = ['success' => false, 'message' => 'Error updating driver with vehicleID: ' . $conn->error];
+            $response = ['success' => false, 'message' => 'Error updating driver with vehicleID: ' . $stmt->error];
           }
         } else {
-          $response = ['success' => false, 'message' => 'Error inserting vehicle: ' . $conn->error];
+          $response = ['success' => false, 'message' => 'Error inserting vehicle: ' . $stmt->error];
         }
       } else {
-        $response = ['success' => false, 'message' => 'Error inserting driver: ' . $conn->error];
+        $response = ['success' => false, 'message' => 'Error inserting driver: ' . $stmt->error];
       }
     } else {
-      $insertClientQuery = "INSERT INTO clients (firstName, userID, lastName, email, dateOfBirth, gender) VALUES ('$firstName', $userID, '$lastName','$email', '$dateOfBirth', '$gender')";
-      if ($conn->query($insertClientQuery) === TRUE) {
+      $insertClientQuery = "INSERT INTO clients (firstName, userID, lastName, email, dateOfBirth, gender) VALUES (?, ?, ?, ?, ?, ?)";
+      $stmt = $conn->prepare($insertClientQuery);
+      $stmt->bind_param("sissis", $firstName, $userID, $lastName, $email, $dateOfBirth, $gender);
+      $stmt->execute();
+
+      if ($stmt->affected_rows > 0) {
         $response = ['success' => true, 'message' => 'New client record created successfully'];
       } else {
-        $response = ['success' => false, 'message' => 'Error inserting client: ' . $conn->error];
+        $response = ['success' => false, 'message' => 'Error inserting client: ' . $stmt->error];
       }
     }
   } else {
-    $response = ['success' => false, 'message' => 'Error inserting user: ' . $conn->error];
+    $response = ['success' => false, 'message' => 'Error inserting user: ' . $stmt->error];
   }
 
   echo json_encode($response);
 }
 
 $conn->close();
+
+function generateRandomDriverID()
+{
+  $characters = '0123456789';
+  $driverID = '';
+  $length = 4;
+
+  for ($i = 0; $i < $length; $i++) {
+    $driverID .= $characters[rand(0, strlen($characters) - 1)];
+  }
+
+  return (int)$driverID;
+}

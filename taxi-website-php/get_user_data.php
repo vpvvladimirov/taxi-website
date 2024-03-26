@@ -19,8 +19,11 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") {
     switch ($profileType) {
         case 'client':
         case 'admin':
-            $query = "SELECT * FROM clients WHERE userID = $userID";
-            $result = $conn->query($query);
+            $query = "SELECT * FROM clients WHERE userID = ?";
+            $stmt = $conn->prepare($query);
+            $stmt->bind_param("i", $userID);
+            $stmt->execute();
+            $result = $stmt->get_result();
             if ($result->num_rows > 0) {
                 $row = $result->fetch_assoc();
                 $response += [
@@ -31,10 +34,14 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") {
                     'gender' => $row['gender']
                 ];
             }
+            $stmt->close();
             break;
         case 'driver':
-            $query = "SELECT * FROM drivers WHERE userID = $userID";
-            $result = $conn->query($query);
+            $query = "SELECT * FROM drivers WHERE userID = ?";
+            $stmt = $conn->prepare($query);
+            $stmt->bind_param("i", $userID);
+            $stmt->execute();
+            $result = $stmt->get_result();
             if ($result->num_rows > 0) {
                 $row = $result->fetch_assoc();
                 $driverID = $row['driverID'];
@@ -47,8 +54,11 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") {
                     'gender' => $row['gender']
                 ];
 
-                $query = "SELECT * FROM vehicles WHERE driverID = $driverID";
-                $result = $conn->query($query);
+                $query = "SELECT * FROM vehicles WHERE driverID = ?";
+                $stmt = $conn->prepare($query);
+                $stmt->bind_param("i", $driverID);
+                $stmt->execute();
+                $result = $stmt->get_result();
                 if ($result->num_rows > 0) {
                     $row = $result->fetch_assoc();
                     $response += [
@@ -59,6 +69,7 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") {
                         'currentStatus' => $row['currentStatus']
                     ];
                 }
+                $stmt->close();
             }
             break;
         default:
