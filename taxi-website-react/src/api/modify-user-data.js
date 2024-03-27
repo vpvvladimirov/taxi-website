@@ -1,8 +1,10 @@
-import { useEffect, useState } from "react";
+import React, { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
 import axios from "axios";
+import Alert from '@mui/material/Alert';
 
 const ModifyUserData = () => {
+  const [responseMessage, setResponseMessage] = useState(null);
   const [userData, setUserData] = useState(null);
   const { userID } = useParams();
 
@@ -35,8 +37,9 @@ const ModifyUserData = () => {
     try {
       const response = await axios.post('http://localhost/taxi-website-project/taxi-website-php/modify_user.php', userData);
       if (response.data.success) {
-        console.log('User data updated successfully!');
+        setResponseMessage(<Alert severity="success">User data updated successfully</Alert>);
       } else {
+        setResponseMessage(<Alert severity="error">Error updating user data</Alert>);
         console.error(response.data.message);
       }
     } catch (error) {
@@ -44,7 +47,17 @@ const ModifyUserData = () => {
     }
   };
 
-  return { userData, handleChange, handleSubmit };
+  const cancelModify = () => {
+    window.location.href = '/all-accounts';
+  }
+
+  return {
+    userData,
+    handleChange,
+    handleSubmit,
+    cancelModify,
+    responseMessage
+  };
 };
 
 export default ModifyUserData;

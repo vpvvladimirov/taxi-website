@@ -2,11 +2,75 @@
   display: flex;
   justify-content: space-evenly;
   flex-direction: column;
-  margin-top: 130px;
   align-items: center;
   background-color: rgb(248, 248, 166);
+  padding: 0 30px;
 }
 
 #modify-user-form {
   display: flex;
+  gap: 40px;
+}
+
+#modify-user-info,
+#modify-vehicle-info {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+#modify-user-form h1 {
+  text-align: center;
+}
+
+#modify-user-list,
+#modify-vehicle-list {
+  list-style-type: none;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  padding: 0;
+}
+
+#modify-user-form input {
+  width: 60%;
+  padding: 14px;
+  border: 1px solid #ccc;
+  border-radius: 15px;
+  font-size: 26px;
+}
+
+#modify-user-form li {
+  display: flex;
+  justify-content: space-between;
+  gap: 10px;
+}
+
+#modify-user-form label {
+  display: block;
+  font-weight: bold;
+  font-size: 20px;
+  padding-left: 4px;
+  align-content: center;
+}
+
+#modify-user-button-group {
+  display: flex;
+  justify-content: flex-end;
+  gap: 20px;
+  padding: 0 0 20px 0;
+}
+
+#modify-user-button-group button {
+  padding: 12px 20px;
+  font-size: 22px;
+  color: white;
+  background-color: #130a41;
+  border: none;
+  border-radius: 20px;
+  cursor: pointer;
+}
+
+#modify-user-button-group button:hover {
+  background-color: #22136f;
 }

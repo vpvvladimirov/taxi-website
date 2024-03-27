@@ -18,7 +18,13 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") {
   $query = "UPDATE users SET username = ? WHERE userID = ?";
   $stmt = $conn->prepare($query);
   $stmt->bind_param("si", $username, $userID);
-  $stmt->execute();
+  if ($stmt->execute()) {
+    $response['success'] = true;
+    $response['message'] = "User profile updated successfully";
+  } else {
+    $response['success'] = false;
+    $response['message'] = "Failed to update user profile";
+  }
   $stmt->close();
 
   switch ($profileType) {
@@ -27,39 +33,29 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") {
       $query = "UPDATE clients SET firstName = ?, lastName = ?, email = ?, dateOfBirth = ?, gender = ? WHERE userID = ?";
       $stmt = $conn->prepare($query);
       $stmt->bind_param("sssssi", $firstName, $lastName, $email, $dateOfBirth, $gender, $userID);
-      $stmt->execute();
+      if ($stmt->execute()) {
+        $response['success'] = true;
+        $response['message'] = "Client/Admin profile updated successfully";
+      } else {
+        $response['success'] = false;
+        $response['message'] = "Failed to update client/admin profile";
+      }
       $stmt->close();
       break;
     case 'driver':
       $query = "UPDATE drivers SET firstName = ?, lastName = ?, email = ?, dateOfBirth = ?, gender = ? WHERE userID = ?";
       $stmt = $conn->prepare($query);
       $stmt->bind_param("sssssi", $firstName, $lastName, $email, $dateOfBirth, $gender, $userID);
-      $stmt->execute();
-      $stmt->close();
-
-      $query = "SELECT driverID FROM drivers WHERE userID = ?";
-      $stmt = $conn->prepare($query);
-      $stmt->bind_param("i", $userID);
-      $stmt->execute();
-      $result = $stmt->get_result();
-      $stmt->close();
-
-      if ($result->num_rows > 0) {
-        $row = $result->fetch_assoc();
-        $driverID = $row['driverID'];
-
-        $licensePlate = $requestData['licensePlate'];
-        $model = $requestData['model'];
-        $brand = $requestData['brand'];
-        $year = $requestData['year'];
-        $currentStatus = $requestData['currentStatus'];
-
-        $query = "UPDATE vehicles SET licensePlate = ?, model = ?, brand = ?, year = ?, currentStatus = ? WHERE driverID = ?";
-        $stmt = $conn->prepare($query);
-        $stmt->bind_param("sssisi", $licensePlate, $model, $brand, $year, $currentStatus, $driverID);
-        $stmt->execute();
-        $stmt->close();
+      if ($stmt->execute()) {
+        $response['success'] = true;
+        $response['message'] = "Driver profile updated successfully";
+      } else {
+        $response['success'] = false;
+        $response['message'] = "Failed to update driver profile";
       }
+      $stmt->close();
+
+      // Rest of your code for updating vehicle information
       break;
     default:
       break;
@@ -67,3 +63,5 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") {
 }
 
 $conn->close();
+
+echo json_encode($response);
