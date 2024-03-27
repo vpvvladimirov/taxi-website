@@ -22,6 +22,25 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") {
       $userID = $row['userID'];
       $profileType = $row['profileType'];
 
+      if ($profileType === 'driver') {
+        $query = 'SELECT driverID FROM drivers WHERE userID = ?';
+        $stmt = $conn->prepare($query);
+        $stmt->bind_param("i", $userID);
+        $stmt->execute();
+        $result = $stmt->get_result();
+
+        if ($result->num_rows > 0) {
+          $row = $result->fetch_assoc();
+          $driverID = $row['driverID'];
+
+          $query = "UPDATE drivers SET status = 'active' WHERE driverID = ?";
+          $stmt = $conn->prepare($query);
+          $stmt->bind_param("i", $driverID);
+          $stmt->execute();
+          $result = $stmt->get_result();
+        }
+      }
+
       $response = ['success' => true, 'message' => 'Login successful', 'userID' => $userID, 'username' => $username, 'profileType' => $profileType];
     } else {
       $response = ['success' => false, 'message' => 'Invalid password'];

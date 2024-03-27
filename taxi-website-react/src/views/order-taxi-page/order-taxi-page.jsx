@@ -36,7 +36,7 @@ const OrderTaxiPage = () => {
               <Box>
                 <CircularProgress />
               </Box>
-              <button onClick={() => cancelTrip()}>Cancel Trip</button>
+              <button id='cancel-trip-button' onClick={() => cancelTrip()}>Cancel Trip</button>
             </div>
           ) : (
             <div id='order-taxi-container'>

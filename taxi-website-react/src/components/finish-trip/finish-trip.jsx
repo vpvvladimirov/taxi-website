@@ -42,7 +42,7 @@ const FinishTrip = () => {
         </div>
         <div className="finish-trip-form-group">
           <label className='finish-trip-label' htmlFor='comment'>Leave a comment</label>
-          {reviewData.comment && ( // Render only if there is text in the textarea
+          {reviewData.comment && (
             <h4 id='remaining-chars'>{remainingChars} characters remaining</h4>
           )}
           <textarea

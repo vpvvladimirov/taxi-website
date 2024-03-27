@@ -92,7 +92,7 @@ const SignupData = () => {
       if (response.status === 200) {
         const data = response.data;
         if (data.success) {
-          setResponseMessage(<Alert severity="success">Logged in successfully</Alert>);
+          setResponseMessage(<Alert severity="success">Account created successfully</Alert>);
           window.location.href = '/login';
         } else {
           setResponseMessage(<Alert severity="error">Error creating user</Alert>);

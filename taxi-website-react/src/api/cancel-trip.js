@@ -12,9 +12,10 @@ const CancelTrip = () => {
         })
           .then(() => {
             resolve();
+            window.location.reload();
           })
           .catch(error => {
-            console.error('Error deleting user:', error);
+            console.error('Error cancelling trip:', error);
             reject(error);
           });
       } else {

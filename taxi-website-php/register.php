@@ -24,7 +24,7 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") {
 
     if (strpos($email, '@vvtaxi.net') !== false) {
       $driverID = generateRandomDriverID();
-      $insertDriverQuery = "INSERT INTO drivers (driverID, userID, firstName, lastName, email, dateOfBirth, gender) VALUES (?, ?, ?, ?, ?, ?, ?)";
+      $insertDriverQuery = "INSERT INTO drivers (driverID, userID, status, firstName, lastName, email, dateOfBirth, gender) VALUES (?, ?, 'offline', ?, ?, ?, ?, ?)";
       $stmt = $conn->prepare($insertDriverQuery);
       $stmt->bind_param("iisssss", $driverID, $userID, $firstName, $lastName, $email, $dateOfBirth, $gender);
       $stmt->execute();

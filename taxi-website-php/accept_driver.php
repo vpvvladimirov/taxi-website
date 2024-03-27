@@ -13,6 +13,12 @@ $stmt->bind_param("ii", $driverID, $tripID);
 $stmt->execute();
 $stmt->close();
 
+$query2 = "UPDATE drivers SET status = 'busy' WHERE driverID = ?";
+$stmt2 = $conn->prepare($query2);
+$stmt2->bind_param("i", $driverID);
+$stmt2->execute();
+$stmt2->close();
+
 $query1 = "DELETE FROM active_trips WHERE tripID = ?";
 $stmt1 = $conn->prepare($query1);
 $stmt1->bind_param("i", $tripID);

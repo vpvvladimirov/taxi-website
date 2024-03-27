@@ -47,6 +47,9 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") {
                 $driverID = $row['driverID'];
                 $response += [
                     'driverID' => $driverID,
+                    'tripCount' => $row['tripCount'],
+                    'averageRating' => $row['averageRating'],
+                    'status' => $row['status'],
                     'firstName' => $row['firstName'],
                     'lastName' => $row['lastName'],
                     'email' => $row['email'],

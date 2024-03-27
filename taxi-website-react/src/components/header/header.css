@@ -27,14 +27,41 @@
   justify-content: space-between;
   gap: 40px;
   font-size: 20px;
+  height: 100%;
 }
 
 .user-fields * {
+  align-content: center;
   text-decoration: none;
   color: black;
   cursor: pointer;
 }
 
-.user-fields *:hover {
-  background-color: #d7d71569;
+#fields-container {
+  height: 100%;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 80px;
+}
+
+#active-status {
+  color: green;
+}
+
+#busy-status {
+  color: red;
+}
+
+#active-status,
+#busy-status {
+  cursor: default;
+  margin: 0;
+  font-size: 25px;
+  text-decoration: underline;
+}
+
+#active-status::first-letter,
+#busy-status::first-letter {
+  text-transform: capitalize;
 }

@@ -11,3 +11,19 @@
   gap: 40px;
   margin-top: 130px;
 }
+
+#cancel-trip-button {
+  width: 15%;
+  padding: 12px 0;
+  margin: 20px 0 0 0;
+  font-size: 25px;
+  color: white;
+  background-color: #130a41;
+  border: none;
+  border-radius: 20px;
+  cursor: pointer;
+}
+
+#cancel-trip-button:hover {
+  background-color: #22136f;
+}
