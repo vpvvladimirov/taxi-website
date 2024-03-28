@@ -1,6 +1,6 @@
+import './account-info.css';
 import React from 'react';
 import UseUserData from '../../api/use-user-data';
-import './account-info.css';
 
 const AccountInfo = () => {
   const { userData } = UseUserData();

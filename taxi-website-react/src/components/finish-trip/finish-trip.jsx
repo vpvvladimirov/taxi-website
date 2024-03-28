@@ -1,5 +1,5 @@
 import './finish-trip.css';
-import React, { useState } from "react";
+import React from "react";
 import Rating from '@mui/material/Rating';
 import Stack from '@mui/material/Stack';
 import ReviewTrip from '../../api/review-trip';
@@ -9,20 +9,12 @@ const FinishTrip = () => {
     reviewData,
     rating,
     responseMessage,
-    handleChange,
+    remainingChars,
+    maxLength,
+    handleTextareaChange,
     handleRatingChange,
     handleSubmit
   } = ReviewTrip();
-
-  const maxLength = 255;
-
-  const [remainingChars, setRemainingChars] = useState(maxLength);
-
-  const handleTextareaChange = (event) => {
-    const remaining = maxLength - event.target.value.length;
-    setRemainingChars(remaining);
-    handleChange(event);
-  };
 
   return (
     <div id='finish-trip-container'>

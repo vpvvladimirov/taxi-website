@@ -4,6 +4,8 @@ import Alert from '@mui/material/Alert';
 
 const ReviewTrip = () => {
   const [responseMessage, setResponseMessage] = useState(null);
+  const [remainingChars, setRemainingChars] = useState(maxLength);
+  const maxLength = 255;
   const [reviewData, setReviewData] = useState({
     comment: '',
   });
@@ -47,13 +49,22 @@ const ReviewTrip = () => {
     }
   };
 
+  const handleTextareaChange = (event) => {
+    const remaining = maxLength - event.target.value.length;
+    setRemainingChars(remaining);
+    handleChange(event);
+  };
+
   return {
     reviewData,
     rating,
     responseMessage,
+    remainingChars,
+    maxLength,
     handleChange,
     handleRatingChange,
-    handleSubmit
+    handleSubmit,
+    handleTextareaChange
   };
 };
 

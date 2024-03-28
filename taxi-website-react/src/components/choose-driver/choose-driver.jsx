@@ -6,12 +6,8 @@ import Rating from '@mui/material/Rating';
 import Stack from '@mui/material/Stack';
 
 const ChooseDriver = () => {
-  const { acceptDriver, responseMessage } = AcceptDriver();
+  const { handleDriver, responseMessage } = AcceptDriver();
   const { activeTrips } = FetchClientTrips();
-
-  const handleDriver = (tripID, driverID) => {
-    acceptDriver(tripID, driverID);
-  };
 
   return (
     <div id='choose-driver-container'>
@@ -26,6 +22,7 @@ const ChooseDriver = () => {
               <th>Driver</th>
               <th>Trip Count</th>
               <th>Driver Rating</th>
+              <th>Waiting Time</th>
               <th>Action</th>
             </tr>
           </thead>
@@ -42,6 +39,7 @@ const ChooseDriver = () => {
                     <Rating value={parseFloat(trip.averageRating)} precision={0.5} readOnly />
                   </Stack>
                 </td>
+                <td>~ {trip.waitingTime} minutes</td>
                 <td>
                   <button id='accept-driver-button' onClick={() => handleDriver(trip.tripID, trip.driverID)}>Accept Driver</button>
                 </td>

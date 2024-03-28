@@ -22,33 +22,31 @@ const OrderTaxiPage = () => {
   const { cancelTrip } = CancelTrip();
 
   return (
-    <>
-      {authenticated ? (
-        <>
-          <Header />
-          {unratedTrips.length > 0 ? (
-            <FinishTrip />
-          ) : (activeTrips.length > 0 ? (
-            <ChooseDriver />
-          ) : (awaitingTrips.length > 0 ? (
-            <div id='awaiting-drivers-container'>
-              <h1>Waiting for drivers to accept your trip</h1>
-              <Box>
-                <CircularProgress />
-              </Box>
-              <button id='cancel-trip-button' onClick={() => cancelTrip()}>Cancel Trip</button>
-            </div>
-          ) : (
-            <div id='order-taxi-container'>
-              <MapComponent />
-              <CreateTrip />
-            </div>
-          )))}
-        </>
-      ) : (
-        <WelcomePage />
-      )}
-    </>
+    authenticated ? (
+      <>
+        <Header />
+        {unratedTrips.length > 0 ? (
+          <FinishTrip />
+        ) : (activeTrips.length > 0 ? (
+          <ChooseDriver />
+        ) : (awaitingTrips.length > 0 ? (
+          <div id='awaiting-drivers-container'>
+            <h1>Waiting for drivers to accept your trip</h1>
+            <Box>
+              <CircularProgress />
+            </Box>
+            <button id='cancel-trip-button' onClick={() => cancelTrip()}>Cancel Trip</button>
+          </div>
+        ) : (
+          <div id='order-taxi-container'>
+            <MapComponent />
+            <CreateTrip />
+          </div>
+        )))}
+      </>
+    ) : (
+      <WelcomePage />
+    )
   );
 }
 

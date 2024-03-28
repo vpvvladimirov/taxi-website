@@ -19,7 +19,11 @@ const AcceptDriver = () => {
       });
   };
 
-  return { acceptDriver, responseMessage };
+  const handleDriver = (tripID, driverID) => {
+    acceptDriver(tripID, driverID);
+  };
+
+  return { acceptDriver, responseMessage, handleDriver };
 };
 
 export default AcceptDriver;

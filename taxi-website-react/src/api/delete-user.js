@@ -1,6 +1,9 @@
 import axios from "axios";
+import GetAccounts from "./get-accounts";
 
 const DeleteUser = () => {
+  const { fetchData } = GetAccounts();
+
   const deleteUser = (userID, fetchData) => {
     return new Promise((resolve, reject) => {
       const isConfirmed = window.confirm('Are you sure you want to delete this user?');
@@ -20,7 +23,11 @@ const DeleteUser = () => {
     });
   };
 
-  return { deleteUser };
+  const handleDelete = (userID) => {
+    deleteUser(userID, fetchData);
+  };
+
+  return { deleteUser, handleDelete };
 };
 
 export default DeleteUser;

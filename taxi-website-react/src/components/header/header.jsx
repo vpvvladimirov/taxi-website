@@ -7,10 +7,7 @@ import { Link } from 'react-router-dom';
 
 const Header = () => {
   const { userData } = useUserData();
-  const logout = Logout();
-
-  const profileType = userData?.profileType;
-  const status = userData?.status;
+  const { logout } = Logout();
 
   return (
     <header className='vvt-header'>
@@ -18,11 +15,11 @@ const Header = () => {
         <img className='vvt-logo' src={vvtLogo} alt='VVTaxi' />
       </div>
       <div id='fields-container'>
-        <h2 id={status === 'active' ? 'active-status' : 'busy-status'}>{status}</h2>
+        <h2 id={userData?.status === 'active' ? 'active-status' : 'busy-status'}>{userData?.status}</h2>
         <div className='user-fields'>
           <Link to='/home'>Home</Link>
-          {profileType === 'admin' && <Link to='/all-accounts' className='admin-field'>All accounts</Link>}
-          {(profileType === 'admin' || profileType === 'driver') && <Link to='/trips' className='driver-field'>Trips</Link>}
+          {userData?.profileType === 'admin' && <Link to='/all-accounts' className='admin-field'>All accounts</Link>}
+          {userData?.profileType === 'driver' && <Link to='/trips' className='driver-field'>Trips</Link>}
           <Link to='/account-info'>Account</Link>
           <Link onClick={logout}>Logout</Link>
         </div>

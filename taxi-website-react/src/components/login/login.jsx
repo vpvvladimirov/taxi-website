@@ -51,7 +51,7 @@ const LoginForm = () => {
           <button id="login-button" type="submit" disabled={loading}>Login</button>
           {loading && <LinearProgress />}
         </form>
-        <a id='sign-up-link' href='/signup'>Don&apos;t have an account yet? Sign up</a>
+        <a id='sign-up-link' href='/signup'>Don&apos;t have an account yet? Sign up here!</a>
         <a id='forgotten-password-link' href='/forgotten-password'>Forgot your password?</a>
         {responseMessage}
       </div>

@@ -7,17 +7,13 @@ import EditIcon from '@mui/icons-material/Edit';
 import DeleteIcon from '@mui/icons-material/Delete';
 
 const AllAccounts = () => {
-  const { users, fetchData } = GetAccounts();
-  const { deleteUser } = DeleteUser();
-
-  const handleDelete = (userID) => {
-    deleteUser(userID, fetchData);
-  };
+  const { users } = GetAccounts();
+  const { handleDelete } = DeleteUser();
 
   return (
     <div id='all-accounts-container'>
       <h1 id='all-accounts-text'>All accounts</h1>
-      {users.length > 0 ? (
+      {users.length > 0 && (
         <div id='all-accounts-list'>
           <table id='all-accounts-table'>
             <thead>
@@ -45,8 +41,6 @@ const AllAccounts = () => {
             </tbody>
           </table>
         </div>
-      ) : (
-        <p>No users</p>
       )}
     </div>
   );

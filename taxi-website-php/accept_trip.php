@@ -8,11 +8,11 @@ $userID = $requestData['userID'];
 $tripID = $requestData['tripID'];
 $pickupAddress = $requestData['pickupAddress'];
 $dropoffAddress = $requestData['dropoffAddress'];
+$waitingTime = $requestData['waitingTime'];
 
-// Prepare SELECT query to get driverID
 $query = "SELECT driverID FROM drivers WHERE userID = ?";
 $stmt = $conn->prepare($query);
-$stmt->bind_param("i", $userID); // Assuming userID is an integer
+$stmt->bind_param("i", $userID);
 $stmt->execute();
 $stmt->store_result();
 
@@ -32,9 +32,9 @@ if ($stmt->num_rows > 0) {
     $stmt->fetch();
     $stmt->close();
 
-    $sql = "INSERT INTO active_trips (tripID, clientID, driverID, pickupAddress, dropoffAddress) VALUES (?, ?, ?, ?, ?)";
+    $sql = "INSERT INTO active_trips (tripID, clientID, driverID, pickupAddress, dropoffAddress, waitingTime) VALUES (?, ?, ?, ?, ?, ?)";
     $stmt = $conn->prepare($sql);
-    $stmt->bind_param("iiiss", $tripID, $clientID, $driverID, $pickupAddress, $dropoffAddress);
+    $stmt->bind_param("iiissi", $tripID, $clientID, $driverID, $pickupAddress, $dropoffAddress, $waitingTime);
     $stmt->execute();
 
     if ($stmt->affected_rows > 0) {

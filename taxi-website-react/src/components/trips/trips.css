@@ -50,3 +50,18 @@
   align-items: center;
   gap: 40px;
 }
+
+#trip-minutes-select {
+  padding: 10px;
+  border-radius: 8px;
+  border: 1px solid #ccc;
+  font-size: 18px;
+  color: #333;
+  background-color: #fff;
+  cursor: pointer;
+}
+
+#trip-minutes-select:hover,
+#trip-minutes-select:focus {
+  border-color: #666;
+}

@@ -4,14 +4,16 @@ import Alert from '@mui/material/Alert';
 
 const AcceptTrip = () => {
   const [responseMessage, setResponseMessage] = useState(null);
+  const [waitingTime, setWaitingTime] = useState(5);
   const userID = sessionStorage.getItem('userID');
 
-  const acceptTrip = (tripID, pickupAddress, dropoffAddress, fetchTrips) => {
+  const acceptTrip = (tripID, pickupAddress, dropoffAddress, waitingTime, fetchTrips) => {
     return axios.post(`http://localhost/taxi-website-project/taxi-website-php/accept_trip.php`, {
       userID,
       tripID,
       pickupAddress,
-      dropoffAddress
+      dropoffAddress,
+      waitingTime
     })
       .then(() => {
         fetchTrips();
@@ -23,7 +25,11 @@ const AcceptTrip = () => {
       });
   };
 
-  return { acceptTrip, responseMessage };
+  const handleWaitingTimeChange = (event) => {
+    setWaitingTime(event.target.value);
+  };
+
+  return { acceptTrip, responseMessage, waitingTime, handleWaitingTimeChange };
 };
 
 export default AcceptTrip;
