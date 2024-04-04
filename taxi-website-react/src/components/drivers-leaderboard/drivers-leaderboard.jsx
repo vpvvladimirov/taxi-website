@@ -10,7 +10,7 @@ const DriversLeaderBoard = () => {
   return (
     <div id='drivers-leaderboard-container'>
       <table id='drivers-leaderboard-table'>
-        <caption><strong>Top 10 Drivers</strong></caption>
+        <caption><strong>Drivers Leaderboard</strong></caption>
         <thead>
           <tr>
             <th></th>

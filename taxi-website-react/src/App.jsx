@@ -12,29 +12,29 @@ import AccountInfoPage from './views/account-info-page/account-info-page';
 import AllAccountsPage from './views/all-accounts-page/all-accounts-page';
 import TripsPage from './views/trips-page/trips-page';
 import ModifyUserPage from './views/modify-user-page/modify-user-page';
+import TripsHistoryPage from './views/trips-history-page/trips-history-page';
 
 const App = () => {
   return (
-    <>
-      <Router>
-        <Routes>
-          <Route index element={<Navigate replace to="/home" />} />
-          <Route path='/welcome' element={<WelcomePage />} />
-          <Route path='/home' element={<HomePage />} />
-          <Route path='/login' element={<LoginPage />} />
-          <Route path='/signup' element={<SignupPage />} />
-          <Route path='/forgotten-password' element={<ForgottenPasswordPage />} />
-          <Route path='/account-info' element={<AccountInfoPage />} />
-          <Route path='/order-taxi' element={<OrderTaxiPage />} />
-          <Route path='/all-accounts' element={<AllAccountsPage />} />
-          <Route path='/trips' element={<TripsPage />} />
-          <Route path='modify-user/:userID' element={<ModifyUserPage />} />
-          <Route path="/error-404" element={<Error404 />} />
-          <Route path='/*' element={<Navigate to="/error-404" replace />} />
-        </Routes>
-      </Router>
-    </>
+    <Router>
+      <Routes>
+        <Route index element={<Navigate replace to="/home" />} />
+        <Route path='/welcome' element={<WelcomePage />} />
+        <Route path='/home' element={<HomePage />} />
+        <Route path='/login' element={<LoginPage />} />
+        <Route path='/signup' element={<SignupPage />} />
+        <Route path='/forgotten-password' element={<ForgottenPasswordPage />} />
+        <Route path='/account-info' element={<AccountInfoPage />} />
+        <Route path='/order-taxi' element={<OrderTaxiPage />} />
+        <Route path='/all-accounts' element={<AllAccountsPage />} />
+        <Route path='/trips' element={<TripsPage />} />
+        <Route path='/trips-history' element={<TripsHistoryPage />} />
+        <Route path='/modify-user/:userID' element={<ModifyUserPage />} />
+        <Route path="/error-404" element={<Error404 />} />
+        <Route path='/*' element={<Navigate to="/error-404" replace />} />
+      </Routes>
+    </Router>
   );
-}
+};
 
 export default App;

@@ -3,9 +3,9 @@ import React, { useState } from "react";
 import Alert from '@mui/material/Alert';
 
 const ReviewTrip = () => {
+  const maxLength = 255;
   const [responseMessage, setResponseMessage] = useState(null);
   const [remainingChars, setRemainingChars] = useState(maxLength);
-  const maxLength = 255;
   const [reviewData, setReviewData] = useState({
     comment: '',
   });
@@ -20,9 +20,14 @@ const ReviewTrip = () => {
     });
   };
 
+  const handleTextareaChange = (e) => {
+    const remaining = maxLength - e.target.value.length;
+    setRemainingChars(remaining);
+    handleChange(e);
+  };
+
   const handleRatingChange = (e, newValue) => {
     setRating(newValue);
-    console.log("Rating value:", newValue);
   };
 
   const handleSubmit = async (e) => {
@@ -43,16 +48,9 @@ const ReviewTrip = () => {
 
       setResponseMessage(<Alert severity="success">Review sent successfully</Alert>);
       window.location.reload();
-
     } catch {
-      console.error("There was an error");
+      setResponseMessage(<Alert severity="error">Error sending the review</Alert>);
     }
-  };
-
-  const handleTextareaChange = (event) => {
-    const remaining = maxLength - event.target.value.length;
-    setRemainingChars(remaining);
-    handleChange(event);
   };
 
   return {

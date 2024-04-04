@@ -1,5 +1,5 @@
 import './all-accounts.css';
-import React from 'react';
+import React, { useState } from 'react';
 import GetAccounts from '../../api/get-accounts';
 import DeleteUser from '../../api/delete-user';
 import { Link } from 'react-router-dom';
@@ -10,10 +10,29 @@ const AllAccounts = () => {
   const { users } = GetAccounts();
   const { handleDelete } = DeleteUser();
 
+  const [searchQuery, setSearchQuery] = useState('');
+
+  const filteredUsers = users.filter(user =>
+    user.username.toLowerCase().includes(searchQuery.toLowerCase())
+  );
+
+  const handleSearchInputChange = (event) => {
+    setSearchQuery(event.target.value);
+  };
+
   return (
     <div id='all-accounts-container'>
       <h1 id='all-accounts-text'>All accounts</h1>
-      {users.length > 0 && (
+      <div id='search-bar'>
+        <input
+          type='text'
+          id='search-account-input'
+          placeholder='Search an account'
+          value={searchQuery}
+          onChange={handleSearchInputChange}
+        />
+      </div>
+      {filteredUsers.length > 0 && (
         <div id='all-accounts-list'>
           <table id='all-accounts-table'>
             <thead>
@@ -25,7 +44,7 @@ const AllAccounts = () => {
               </tr>
             </thead>
             <tbody>
-              {users.map(user => (
+              {filteredUsers.map(user => (
                 <tr key={user.userID}>
                   <td>{user.userID}</td>
                   <td>{user.username}</td>
@@ -41,6 +60,9 @@ const AllAccounts = () => {
             </tbody>
           </table>
         </div>
+      )}
+      {filteredUsers.length === 0 && (
+        <h3>No accounts found</h3>
       )}
     </div>
   );

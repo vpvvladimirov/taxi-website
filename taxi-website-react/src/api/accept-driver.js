@@ -15,6 +15,7 @@ const AcceptDriver = () => {
         window.location.reload();
       })
       .catch(error => {
+        setResponseMessage(<Alert severity="error">Error accepting driver {driverID}</Alert>);
         console.error('Error accepting trip:', error);
       });
   };

@@ -19,6 +19,12 @@ $stmt2->bind_param("i", $driverID);
 $stmt2->execute();
 $stmt2->close();
 
+$query3 = "DELETE FROM active_trips WHERE driverID = ?";
+$stmt3 = $conn->prepare($query3);
+$stmt3->bind_param("i", $driverID);
+$stmt3->execute();
+$stmt3->close();
+
 $query1 = "DELETE FROM active_trips WHERE tripID = ?";
 $stmt1 = $conn->prepare($query1);
 $stmt1->bind_param("i", $tripID);

@@ -18,10 +18,16 @@ const AcceptTrip = () => {
       .then(() => {
         fetchTrips();
         setResponseMessage(<Alert severity='success'>Trip accepted successfully</Alert>);
+        setTimeout(() => {
+          setResponseMessage(null);
+        }, 2500);
       })
       .catch(error => {
         setResponseMessage(<Alert severity='error'>Error accepting trip</Alert>);
         console.error(error);
+        setTimeout(() => {
+          setResponseMessage(null);
+        }, 2500);
       });
   };
 
@@ -29,7 +35,12 @@ const AcceptTrip = () => {
     setWaitingTime(event.target.value);
   };
 
-  return { acceptTrip, responseMessage, waitingTime, handleWaitingTimeChange };
+  return {
+    acceptTrip,
+    responseMessage,
+    waitingTime,
+    handleWaitingTimeChange
+  };
 };
 
 export default AcceptTrip;
