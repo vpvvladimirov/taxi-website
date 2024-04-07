@@ -7,8 +7,7 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") {
 
   $userID = $requestData['userID'];
 
-  // Prepare SELECT query to retrieve user information
-  $query = "SELECT profileType, username FROM users WHERE userID = ?";
+  $query = "SELECT * FROM users WHERE userID = ?";
   $stmt = $conn->prepare($query);
   $stmt->bind_param("i", $userID);
   $stmt->execute();

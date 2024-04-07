@@ -8,16 +8,14 @@ const ModifyUserPage = () => {
   const { authenticatedAdmin } = IsAdmin();
 
   return (
-    <>
-      {authenticatedAdmin ? (
-        <div>
-          <Header />
-          <ModifyUser />
-        </div>
-      ) : (
-        <Error404 />
-      )}
-    </>
+    authenticatedAdmin ? (
+      <>
+        <Header />
+        <ModifyUser />
+      </>
+    ) : (
+      <Error404 />
+    )
   )
 };
 

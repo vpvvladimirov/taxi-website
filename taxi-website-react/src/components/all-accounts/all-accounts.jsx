@@ -1,24 +1,14 @@
 import './all-accounts.css';
-import React, { useState } from 'react';
-import GetAccounts from '../../api/get-accounts';
+import React from 'react';
 import DeleteUser from '../../api/delete-user';
 import { Link } from 'react-router-dom';
 import EditIcon from '@mui/icons-material/Edit';
 import DeleteIcon from '@mui/icons-material/Delete';
+import SearchUser from '../../api/search-user';
 
 const AllAccounts = () => {
-  const { users } = GetAccounts();
-  const { handleDelete } = DeleteUser();
-
-  const [searchQuery, setSearchQuery] = useState('');
-
-  const filteredUsers = users.filter(user =>
-    user.username.toLowerCase().includes(searchQuery.toLowerCase())
-  );
-
-  const handleSearchInputChange = (event) => {
-    setSearchQuery(event.target.value);
-  };
+  const { handleDelete, responseMessage } = DeleteUser();
+  const { filteredUsers, handleSearchInputChange, searchQuery } = SearchUser();
 
   return (
     <div id='all-accounts-container'>
@@ -64,6 +54,7 @@ const AllAccounts = () => {
       {filteredUsers.length === 0 && (
         <h3>No accounts found</h3>
       )}
+      {responseMessage}
     </div>
   );
 };

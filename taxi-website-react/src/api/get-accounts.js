@@ -4,12 +4,8 @@ import axios from "axios";
 const GetAccounts = () => {
   const [users, setUsers] = useState([]);
 
-  useEffect(() => {
-    fetchData();
-  }, []);
-
   const fetchData = () => {
-    axios.get('http://localhost/taxi-website-project/taxi-website-php/all_accounts.php')
+    axios.get('http://localhost/taxi-website-project/taxi-website-php/get_all_accounts.php')
       .then(response => {
         setUsers(response.data);
       })
@@ -17,6 +13,12 @@ const GetAccounts = () => {
         console.error('Error fetching users:', error);
       });
   };
+
+  useEffect(() => {
+    fetchData();
+    const interval = setInterval(fetchData, 3000);
+    return () => clearInterval(interval);
+  }, []);
 
   return { users, fetchData };
 };

@@ -40,8 +40,7 @@ const ChangePassword = () => {
       });
 
       if (response.status === 200) {
-        const data = response.data;
-        if (data.success) {
+        if (response.data.success) {
           setResponseMessage(<Alert severity="success">Password changed successfully</Alert>);
           window.location.href = '/login';
         } else {

@@ -8,16 +8,14 @@ const AllAccountsPage = () => {
   const { authenticatedAdmin } = IsAdmin();
 
   return (
-    <>
-      {authenticatedAdmin ? (
-        <div>
-          <Header />
-          <AllAccounts />
-        </div>
-      ) : (
-        <Error404 />
-      )}
-    </>
+    authenticatedAdmin ? (
+      <>
+        <Header />
+        <AllAccounts />
+      </>
+    ) : (
+      <Error404 />
+    )
   );
 }
 

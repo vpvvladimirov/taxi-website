@@ -8,16 +8,14 @@ const TripsHistoryPage = () => {
   const { authenticatedAdmin } = IsAdmin();
 
   return (
-    <>
-      {authenticatedAdmin ? (
-        <div>
-          <Header />
-          <TripsHistory />
-        </div>
-      ) : (
-        <Error404 />
-      )}
-    </>
+    authenticatedAdmin ? (
+      <>
+        <Header />
+        <TripsHistory />
+      </>
+    ) : (
+      <Error404 />
+    )
   );
 };
 

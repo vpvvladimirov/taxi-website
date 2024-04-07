@@ -8,16 +8,14 @@ const AccountInfoPage = () => {
   const { authenticated } = IsAuthenticated();
 
   return (
-    <>
-      {authenticated ? (
-        <div>
-          <Header />
-          <AccountInfo />
-        </div>
-      ) : (
-        <WelcomePage />
-      )}
-    </>
+    authenticated ? (
+      <>
+        <Header />
+        <AccountInfo />
+      </>
+    ) : (
+      <WelcomePage />
+    )
   );
 }
 

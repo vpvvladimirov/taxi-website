@@ -8,16 +8,14 @@ const TripsPage = () => {
   const { authenticatedDriver } = IsDriver();
 
   return (
-    <>
-      {authenticatedDriver ? (
-        <div>
-          <Header />
-          <Trips />
-        </div>
-      ) : (
-        <Error404 />
-      )}
-    </>
+    authenticatedDriver ? (
+      <>
+        <Header />
+        <Trips />
+      </>
+    ) : (
+      <Error404 />
+    )
   );
 }
 

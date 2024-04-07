@@ -14,7 +14,6 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") {
   $dateOfBirth = $requestData['dateOfBirth'];
   $gender = $requestData['gender'];
 
-  // Prepare UPDATE query for users table
   $query = "UPDATE users SET username = ? WHERE userID = ?";
   $stmt = $conn->prepare($query);
   $stmt->bind_param("si", $username, $userID);
@@ -49,13 +48,31 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") {
       if ($stmt->execute()) {
         $response['success'] = true;
         $response['message'] = "Driver profile updated successfully";
+
+        $vehicleID = $requestData['vehicleID'];
+        $licensePlate = $requestData['licensePlate'];
+        $brand = $requestData['brand'];
+        $model = $requestData['model'];
+        $year = $requestData['year'];
+        $currentStatus = $requestData['currentStatus'];
+
+        $query = "UPDATE vehicles SET licensePlate = ?, brand = ?, model = ?, year = ?, currentStatus = ? WHERE vehicleID = ?";
+        $stmt = $conn->prepare($query);
+        $stmt->bind_param("sssisi", $licensePlate, $brand, $model, $year, $currentStatus, $vehicleID);
+
+        if ($stmt->execute()) {
+          $response['success'] = true;
+          $response['message'] = "Vehicle updated successfully";
+        } else {
+          $response['success'] = false;
+          $response['message'] = "Failed to update vehicle";
+        }
       } else {
         $response['success'] = false;
         $response['message'] = "Failed to update driver profile";
       }
       $stmt->close();
 
-      // Rest of your code for updating vehicle information
       break;
     default:
       break;

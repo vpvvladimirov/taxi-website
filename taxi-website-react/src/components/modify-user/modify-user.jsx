@@ -7,7 +7,6 @@ const ModifyUser = () => {
     userData,
     handleChange,
     handleSubmit,
-    cancelModify,
     responseMessage
   } = ModifyUserData();
 
@@ -20,6 +19,28 @@ const ModifyUser = () => {
               <div id="modify-user-info">
                 <h1 id="modify-user-info-text">User Information</h1>
                 <ul id="modify-user-list">
+                  {userData.profileType === 'driver' ? (
+                    <li>
+                      <label htmlFor='driver-id'>Driver ID:</label>
+                      <input
+                        type="text"
+                        id='driver-id'
+                        name="driverID"
+                        value={userData.driverID}
+                      />
+                    </li>
+                  ) : (
+                    <li>
+                      <label htmlFor='client-id'>Client ID:</label>
+                      <input
+                        type="text"
+                        id='client-id'
+                        name="clientID"
+                        value={userData.clientID}
+                        onChange={handleChange}
+                      />
+                    </li>
+                  )}
                   <li>
                     <label htmlFor='username'>Username:</label>
                     <input
@@ -144,7 +165,7 @@ const ModifyUser = () => {
           <div id='modify-user-button-group'>
             {responseMessage}
             <button type="submit">Submit</button>
-            <button type="button" onClick={cancelModify}>Cancel</button>
+            <button type="button" onClick={() => { window.location.href = '/all-accounts' }}>Cancel</button>
           </div>
         </form>
       </div>

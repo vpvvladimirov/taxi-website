@@ -2,52 +2,62 @@
 include_once 'headers.php';
 include_once 'db_connection.php';
 
-$requestData = json_decode(file_get_contents("php://input"), true);
+if ($_SERVER['REQUEST_METHOD'] === 'POST') {
+  $requestData = json_decode(file_get_contents("php://input"), true);
 
-$userID = $requestData['userID'];
-$tripID = $requestData['tripID'];
-$pickupAddress = $requestData['pickupAddress'];
-$dropoffAddress = $requestData['dropoffAddress'];
-$waitingTime = $requestData['waitingTime'];
+  if (isset($requestData['userID']) && isset($requestData['tripID']) && isset($requestData['pickupAddress']) && isset($requestData['dropoffAddress']) && isset($requestData['waitingTime'])) {
+    $userID = $requestData['userID'];
+    $tripID = $requestData['tripID'];
+    $pickupAddress = $requestData['pickupAddress'];
+    $dropoffAddress = $requestData['dropoffAddress'];
+    $waitingTime = $requestData['waitingTime'];
 
-$query = "SELECT driverID FROM drivers WHERE userID = ?";
-$stmt = $conn->prepare($query);
-$stmt->bind_param("i", $userID);
-$stmt->execute();
-$stmt->store_result();
-
-if ($stmt->num_rows > 0) {
-  $stmt->bind_result($driverID);
-  $stmt->fetch();
-  $stmt->close();
-
-  $query = "SELECT clientID FROM trips WHERE tripID = ?";
-  $stmt = $conn->prepare($query);
-  $stmt->bind_param("i", $tripID);
-  $stmt->execute();
-  $stmt->store_result();
-
-  if ($stmt->num_rows > 0) {
-    $stmt->bind_result($clientID);
-    $stmt->fetch();
-    $stmt->close();
-
-    $sql = "INSERT INTO active_trips (tripID, clientID, driverID, pickupAddress, dropoffAddress, waitingTime) VALUES (?, ?, ?, ?, ?, ?)";
-    $stmt = $conn->prepare($sql);
-    $stmt->bind_param("iiissi", $tripID, $clientID, $driverID, $pickupAddress, $dropoffAddress, $waitingTime);
+    $query = "SELECT driverID FROM drivers WHERE userID = ?";
+    $stmt = $conn->prepare($query);
+    $stmt->bind_param("i", $userID);
     $stmt->execute();
+    $stmt->store_result();
 
-    if ($stmt->affected_rows > 0) {
-      echo "Driver ID inserted successfully for trip $tripID";
+    if ($stmt->num_rows > 0) {
+      $stmt->bind_result($driverID);
+      $stmt->fetch();
+      $stmt->close();
+
+      $query = "SELECT clientID FROM trips WHERE tripID = ?";
+      $stmt = $conn->prepare($query);
+      $stmt->bind_param("i", $tripID);
+      $stmt->execute();
+      $stmt->store_result();
+
+      if ($stmt->num_rows > 0) {
+        $stmt->bind_result($clientID);
+        $stmt->fetch();
+        $stmt->close();
+
+        $query = "INSERT INTO active_trips (tripID, clientID, driverID, pickupAddress, dropoffAddress, waitingTime) VALUES (?, ?, ?, ?, ?, ?)";
+        $stmt = $conn->prepare($query);
+        $stmt->bind_param("iiissi", $tripID, $clientID, $driverID, $pickupAddress, $dropoffAddress, $waitingTime);
+        if ($stmt->execute()) {
+          if ($stmt->affected_rows > 0) {
+            echo "Driver ID inserted successfully for trip $tripID";
+          } else {
+            echo "Error inserting driver ID for trip $tripID: " . $conn->error;
+          }
+        } else {
+          echo "Error executing query: " . $stmt->error;
+        }
+        $stmt->close();
+      } else {
+        echo "Client ID not provided";
+      }
     } else {
-      echo "Error updating trip: " . $conn->error;
+      echo "Trip ID or Driver ID not provided";
     }
-    $stmt->close();
   } else {
-    echo "Client ID not provided";
+    echo "Incomplete data provided.";
   }
 } else {
-  echo "Trip ID or Driver ID not provided";
+  echo "Invalid request method.";
 }
 
 $conn->close();
