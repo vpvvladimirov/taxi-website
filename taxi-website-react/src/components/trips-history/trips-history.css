@@ -11,26 +11,37 @@
   font-size: 40px;
 }
 
+#trips-history-list {
+  display: flex;
+  justify-content: center;
+  overflow: auto;
+  max-height: calc(100vh - 250px);
+}
+
 #trips-history-table {
   font-size: 22px;
   background-color: rgb(185, 130, 28);
   border-spacing: 0;
   text-align: center;
   width: 99%;
-}
-
-#trips-history-table tbody td {
-  padding: 15px;
+  table-layout: fixed;
 }
 
 #trips-history-table thead {
   background-color: rgb(35, 35, 35);
   color: white;
+  position: sticky;
+  top: 0;
+  z-index: 1;
 }
 
 #trips-history-table thead th {
   font-size: 25px;
   padding: 10px 30px;
+}
+
+#trips-history-table tbody td {
+  padding: 15px;
 }
 
 #trip-rating-td {
@@ -41,7 +52,7 @@
 
 #trip-comment-td {
   white-space: normal;
+  word-wrap: break-word;
   overflow-wrap: break-word;
-  word-break: break-all;
   text-align: justify;
 }

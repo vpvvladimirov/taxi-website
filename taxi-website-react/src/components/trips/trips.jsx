@@ -5,6 +5,7 @@ import AcceptTrip from "../../api/accept-trip";
 import UseUserData from '../../api/use-user-data';
 import CircularProgress from '@mui/material/CircularProgress';
 import Box from '@mui/material/Box';
+import CurrentTrip from '../current-trip/current-trip';
 
 const Trips = () => {
   const { trips, fetchTrips } = FetchTrips();
@@ -14,7 +15,7 @@ const Trips = () => {
   return (
     <div id='trips-container'>
       {userData?.status === 'busy' ? (
-        <h1>Trip currently in progress...</h1>
+        <CurrentTrip />
       ) : (
         trips.length > 0 ? (
           <div id='active-trips-container'>
