@@ -33,21 +33,23 @@ const TripsHistory = () => {
                   <td>{trip.dropoffAddress}</td>
                   <td>{trip.clientID}</td>
                   <td>{trip.driverID}</td>
-                  <td id='trip-rating-td'>
-                    {trip.rating}
-                    <Stack spacing={1}>
-                      <Rating
-                        value={parseFloat(trip.rating)}
-                        precision={0.5}
-                        size='large'
-                        readOnly
-                        sx={{
-                          '& .MuiRating-iconFilled': {
-                            color: 'white',
-                          }
-                        }}
-                      />
-                    </Stack>
+                  <td>
+                    <td id='trip-rating-td'>
+                      {trip.rating}
+                      <Stack spacing={1}>
+                        <Rating
+                          value={parseFloat(trip.rating)}
+                          precision={0.5}
+                          size='large'
+                          readOnly
+                          sx={{
+                            '& .MuiRating-iconFilled': {
+                              color: 'white',
+                            }
+                          }}
+                        />
+                      </Stack>
+                    </td>
                   </td>
                   <td id='trip-comment-td'>{trip.comment}</td>
                   <td>{trip.tripDateTime}</td>

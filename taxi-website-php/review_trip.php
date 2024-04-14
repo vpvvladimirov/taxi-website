@@ -30,9 +30,9 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") {
       $driverID = $row['driverID'];
       $tripID = $row['tripID'];
 
-      $query = "INSERT INTO reviews (clientID, driverID, tripID, rating, comment) VALUES (?, ?, ?, ?, ?)";
+      $query = "INSERT INTO reviews (tripID, rating, comment) VALUES (?, ?, ?)";
       $stmt = $conn->prepare($query);
-      $stmt->bind_param("iiids", $clientID, $driverID, $tripID, $rating, $comment);
+      $stmt->bind_param("ids", $tripID, $rating, $comment);
       $stmt->execute();
 
       if ($stmt->affected_rows > 0) {

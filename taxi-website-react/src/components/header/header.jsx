@@ -22,7 +22,8 @@ const Header = () => {
             <>
               <Link to='/all-accounts' className='admin-field'>All accounts</Link>
               <Link to='/trips-history' className='admin-field'>Trips history</Link>
-            </>}
+            </>
+          }
           {userData?.profileType === 'driver' && <Link to='/trips' className='driver-field'>Trips</Link>}
           <Link to='/account-info'>Account</Link>
           <Link onClick={logout}>Logout</Link>

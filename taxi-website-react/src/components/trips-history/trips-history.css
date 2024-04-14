@@ -47,6 +47,8 @@
 #trip-rating-td {
   display: flex;
   align-items: center;
+  justify-content: center;
+  height: inherit;
   gap: 10px;
 }
 
@@ -54,5 +56,5 @@
   white-space: normal;
   word-wrap: break-word;
   overflow-wrap: break-word;
-  text-align: justify;
+  text-align: left;
 }
