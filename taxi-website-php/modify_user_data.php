@@ -32,9 +32,9 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") {
         break;
       case 'driver':
         $query = "SELECT d.*, v.licensePlate, v.model, v.brand, v.year, v.currentStatus 
-                          FROM drivers d 
-                          LEFT JOIN vehicles v ON d.driverID = v.driverID 
-                          WHERE d.userID = ?";
+                  FROM drivers d 
+                  LEFT JOIN vehicles v ON d.driverID = v.driverID 
+                  WHERE d.userID = ?";
         break;
       default:
         break;

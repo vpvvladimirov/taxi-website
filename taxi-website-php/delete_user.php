@@ -5,8 +5,6 @@ include_once 'headers.php';
 if (isset($_GET['userID'])) {
   $userID = $_GET['userID'];
 
-
-
   $query = "DELETE FROM users WHERE userID = ?";
   $stmt = $conn->prepare($query);
   $stmt->bind_param("i", $userID);

@@ -12,7 +12,7 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") {
   $stmt->bind_param("i", $userID);
 
   if ($stmt->execute() === TRUE) {
-    $response = ['success' => true, 'message' => 'Login successful', 'userID' => $userID, 'username' => $username, 'profileType' => $profileType];
+    $response = ['success' => true, 'message' => 'Logout successful'];
   }
 
   echo json_encode($response);
