@@ -39,8 +39,8 @@ const OrderTaxiPage = () => {
           </div>
         ) : (
           <div id='order-taxi-container'>
-            <MapComponent />
             <CreateTrip />
+            <MapComponent />
           </div>
         )))}
       </>

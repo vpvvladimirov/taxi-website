@@ -65,3 +65,9 @@
 #trip-minutes-select:focus {
   border-color: #666;
 }
+
+@media (max-width: 1024px) {
+  #active-trips-table td {
+    padding: 0;
+  }
+}
