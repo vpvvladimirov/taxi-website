@@ -5,7 +5,7 @@ import Alert from '@mui/material/Alert';
 const Login = () => {
   const [showPassword, setShowPassword] = useState(false);
   const [responseMessage, setResponseMessage] = useState(null);
-  const [loading, setLoading] = useState(false); // Add loading state
+  const [loading, setLoading] = useState(false);
 
   const [loginData, setLoginData] = useState({
     username: '',
@@ -24,44 +24,12 @@ const Login = () => {
     });
   };
 
-  const getLocation = () => {
-    return new Promise((resolve, reject) => {
-      if ("geolocation" in navigator) {
-        navigator.geolocation.getCurrentPosition(
-          (position) => {
-            resolve({
-              latitude: position.coords.latitude,
-              longitude: position.coords.longitude
-            });
-          },
-          (error) => {
-            reject(error);
-          }
-        );
-      } else {
-        reject(new Error('Geolocation not supported'));
-      }
-    });
-  };
-
   const handleSubmit = async (e) => {
     e.preventDefault();
     setLoading(true);
 
     try {
-      let location = null;
-
-      try {
-        location = await getLocation();
-      } catch (error) {
-        setResponseMessage(<Alert severity="warning">Please enable location permission</Alert>);
-        setLoading(false);
-        return;
-      }
-
-      const dataWithLocation = { ...loginData, location };
-
-      const response = await axios.post('http://localhost/taxi-website-project/taxi-website-php/login.php', dataWithLocation, {
+      const response = await axios.post('http://localhost/taxi-website-project/taxi-website-php/login.php', loginData, {
         headers: {
           'Content-Type': 'application/json',
         },
@@ -77,8 +45,6 @@ const Login = () => {
           sessionStorage.setItem('userID', userID);
           sessionStorage.setItem('username', username);
           sessionStorage.setItem('profileType', profileType);
-          sessionStorage.setItem('latitude', location.latitude);
-          sessionStorage.setItem('longitude', location.longitude);
 
           window.location.href = '/home';
         } else {
