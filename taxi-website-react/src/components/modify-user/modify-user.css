@@ -74,3 +74,14 @@
 #modify-user-button-group button:hover {
   background-color: #22136f;
 }
+
+@media (max-width: 450px) {
+  #modify-user-container {
+    margin-top: 500px;
+  }
+
+  #modify-user-form {
+    flex-direction: column;
+    gap: 0;
+  }
+}

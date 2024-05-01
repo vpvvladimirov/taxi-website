@@ -30,9 +30,6 @@
 #trips-history-table thead {
   background-color: rgb(35, 35, 35);
   color: white;
-  position: sticky;
-  top: 0;
-  z-index: 1;
 }
 
 #trips-history-table thead th {

@@ -77,7 +77,6 @@
   cursor: pointer;
 }
 
-
 #dob {
   width: 85%;
 }
@@ -108,4 +107,15 @@
 
 #log-in-link:hover {
   text-decoration: underline;
+}
+
+@media (max-width: 450px) {
+  #signup-container {
+    padding-top: 550px;
+  }
+
+  #signup-content-row {
+    flex-direction: column;
+    gap: 20px;
+  }
 }

@@ -117,3 +117,14 @@
     display: block;
   }
 }
+
+@media (max-width: 450px) {
+  .vvt-logo-container {
+    display: none;
+  }
+
+  .vvt-header {
+    justify-content: flex-end;
+    padding: 0 30px;
+  }
+}

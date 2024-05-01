@@ -45,3 +45,17 @@
     height: 650px;
   }
 }
+
+@media (max-width: 1024px) {
+  #order-taxi-image {
+    height: 350px;
+  }
+
+  #order-taxi-banner p {
+    display: none;
+  }
+
+  #order-taxi-banner {
+    justify-content: center;
+  }
+}

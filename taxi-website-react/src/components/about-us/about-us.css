@@ -26,3 +26,9 @@
     gap: 0;
   }
 }
+
+@media (max-width: 450px) {
+  .about-us-image {
+    display: none;
+  }
+}
