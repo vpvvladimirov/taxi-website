@@ -44,7 +44,7 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") {
         $stmt->execute();
 
         if ($stmt->affected_rows > 0) {
-          $query = "UPDATE drivers SET status = 'active', tripCount = tripCount + 1, averageRating = (averageRating * tripCount + ?) / (tripCount + 1) WHERE driverID = ?";
+          $query = "UPDATE drivers SET status = 'active', tripCount = tripCount + 1, averageRating = (averageRating + ?) / tripCount WHERE driverID = ?";
           $stmt = $conn->prepare($query);
           $stmt->bind_param("di", $rating, $driverID);
           $stmt->execute();

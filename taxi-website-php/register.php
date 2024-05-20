@@ -56,7 +56,7 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") {
     } else {
       $insertClientQuery = "INSERT INTO clients (firstName, userID, lastName, email, dateOfBirth, gender) VALUES (?, ?, ?, ?, ?, ?)";
       $stmt = $conn->prepare($insertClientQuery);
-      $stmt->bind_param("sissis", $firstName, $userID, $lastName, $email, $dateOfBirth, $gender);
+      $stmt->bind_param("sissss", $firstName, $userID, $lastName, $email, $dateOfBirth, $gender);
       $stmt->execute();
 
       if ($stmt->affected_rows > 0) {
